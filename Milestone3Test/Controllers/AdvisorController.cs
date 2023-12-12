@@ -26,18 +26,21 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("ApproveRejectCHRequest")]
-        public IActionResult ApproveRejectCHRequest()
+        public IActionResult ApproveRejectCHRequest([FromHeader] string requestID, [FromHeader] string current_sem_code)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdvisorApproveRejectCHRequest(requestID, current_sem_code);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
-        [Route("ApproveRejectCHRequest")]
+        [Route("ApproveRejectCourseRequest")]
         public IActionResult ApproveRejectCourseRequest()
         {
             // TODO code here
             return null;
         }
+
         [HttpPost]
         [Route("CreateGP")]
         public IActionResult CreateGP()
