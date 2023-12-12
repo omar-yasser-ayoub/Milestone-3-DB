@@ -4,24 +4,31 @@ const App = () => {
 
     const [instructors, setInstructors] = useState([])
 
-    useEffect(() => {
-        fetch("api/advisor/ApproveRejectCourseRequest", {
+    const handleButtonClick = () => {
+        fetch("api/advisor/AddGP", {
             method: 'POST',
             headers: {
-                'requestID': '2',
-                'current_semester_code': 'W23'
+                'Semester_code': 'W23',
+                'expected_graduation_date': '2024-01-31',
+                'sem_credit_hours': '90',
+                'advisor_id': '1',
+                'student_id': '4'
             },
         })
-            .then(response => { return response.json() })
+            .then(response => response.json())
             .then(responseJson => {
-                setInstructors(responseJson)
+                setInstructors(responseJson);
             })
-    }, [])
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    };
 
 
     return (
         <div className="container">
             <h1>Instructors</h1>
+            <button onClick={handleButtonClick}>Click me</button>
             <div className="row">
                 <div className="col-sm-12">
                     <table>

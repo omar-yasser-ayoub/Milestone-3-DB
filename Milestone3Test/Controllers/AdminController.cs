@@ -48,9 +48,9 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("AddExam")]
-        public IActionResult AddExam([FromHeader] string Type, [FromHeader] string date, [FromHeader] string courseID)
+        public IActionResult AddExam([FromHeader] string type_1, [FromHeader] string date_1, [FromHeader] string courseID_1)
         {
-            _dbContext.Procedures_AdminAddExam(Type, date, courseID);
+            _dbContext.Procedures_AdminAddExam(type_1, date_1, courseID_1);
 
             return StatusCode(StatusCodes.Status200OK);
         }
