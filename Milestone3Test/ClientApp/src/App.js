@@ -9,8 +9,8 @@ const App = () => {
             method: 'POST',
             headers: {
                 'Type': 'Second Makeup',
-                'date': '2023-02-10',
-                'coureID': 1
+                'date': '2023-12-12',
+                'courseID': '1'
             },
         })
             .then(response => { return response.json() })
@@ -37,13 +37,13 @@ const App = () => {
                         </thead>
                         <tbody>
                             {
-                                instructors.map((instructor) => (
+                                /*instructors.map((instructor) => (
                                     <tr>
                                         <td>{instructor.semester_code}</td>
                                         <td>{instructor.start_date}</td>
                                         <td>{instructor.end_date}</td>
                                     </tr>
-                                ))
+                                ))*/
                             } 
                         </tbody>
                     </table>
