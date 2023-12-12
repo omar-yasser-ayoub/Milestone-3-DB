@@ -1003,6 +1003,12 @@ namespace Milestone3Test.Models
                     new SqlParameter("@courseID", courseID));
         }
 
+        public void Procedures_AdminDeleteSlots(string current_semester)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminDeleteSlots @current_semester",
+                    new SqlParameter("@current_semester", current_semester));
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
