@@ -16,11 +16,67 @@ namespace Milestone3Test.Controllers
         }
 
         [HttpGet]
-        [Route("GetAdvisors")]
-        public IActionResult GetAdvisors()
+        [Route("AddCourseGP")]
+        public IActionResult AddCourseGP()
         {
-            List<Advisor> list = _Advising_SystemContext.Advisors.ToList();
-            return StatusCode(StatusCodes.Status200OK, list);
+            // TODO code here
+            return null;
+        }
+        [HttpGet]
+        [Route("ApproveRejectCHRequest")]
+        public IActionResult ApproveRejectCHRequest()
+        {
+            // TODO code here
+            return null;
+        }
+        [HttpGet]
+        [Route("ApproveRejectCHRequest")]
+        public IActionResult ApproveRejectCourseRequest()
+        {
+            // TODO code here
+            return null;
+        }
+        [HttpGet]
+        [Route("CreateGP")]
+        public IActionResult CreateGP()
+        {
+            // TODO code here
+            return null;
+        }
+        [HttpGet]
+        [Route("DeleteFromGP")]
+        public IActionResult DeleteFromGP()
+        {
+            // TODO code here
+            return null;
+        }
+        [HttpGet]
+        [Route("RegistrationAdvisor")]
+        public IActionResult RegistrationAdvisor()
+        {
+            // TODO code here
+            return null;
+        }
+        [HttpGet]
+        [Route("UpdateGP")]
+        public IActionResult UpdateGP()
+        {
+            // TODO code here
+            return null;
+        }
+        [HttpGet]
+        [Route("ViewAssignedStudents")]
+        public IActionResult ViewAssignedStudents()
+        {
+            // TODO code here
+            return null;
+        }
+        [HttpGet]
+        [Route("ViewPendingRequests")]
+        public IActionResult ViewPendingRequests()
+        {
+            // TODO code here
+            return null;
         }
     }
 }
