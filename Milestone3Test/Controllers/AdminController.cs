@@ -79,11 +79,13 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("DeleteSlot")]
-        public IActionResult DeleteSlot()
+        public IActionResult DeleteSlot([FromHeader] string current_semester)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdminDeleteSlots(current_semester);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("IssueInstallment")]
         public IActionResult IssueInstallment()
