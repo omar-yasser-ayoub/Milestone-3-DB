@@ -1029,6 +1029,14 @@ namespace Milestone3Test.Models
                     new SqlParameter("@payment_id", payment_id));
         }
 
+        public void Procedures_AdminLinkInstructor(string cours_id, string instructor_id, string slot_id)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminLinkInstructor @cours_id, @instructor_id, @slot_id",
+                    new SqlParameter("@cours_id", cours_id),
+                    new SqlParameter("@instructor_id", instructor_id),
+                    new SqlParameter("@slot_id", slot_id));
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

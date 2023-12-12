@@ -97,11 +97,13 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("LinkInstructor")]
-        public IActionResult LinkInstructor()
+        public IActionResult LinkInstructor([FromHeader] string cours_id, [FromHeader] string instructor_id, [FromHeader] string slot_id)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdminLinkInstructor(cours_id, instructor_id, slot_id);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("LinkStudent")]
         public IActionResult LinkStudent()
