@@ -1046,6 +1046,13 @@ namespace Milestone3Test.Models
                     new SqlParameter("@semester_code", semester_code));
         }
 
+        public void Procedures_AdminLinkStudentToAdvisor(string studentID, string advisorID)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminLinkStudentToAdvisor @studentID, @advisorID",
+                    new SqlParameter("@studentID", studentID),
+                    new SqlParameter("@advisorID", advisorID));
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

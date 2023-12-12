@@ -116,11 +116,13 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("LinkStudentToAdvisor")]
-        public IActionResult LinkStudentToAdvisor()
+        public IActionResult LinkStudentToAdvisor([FromHeader] string studentID, [FromHeader] string advisorID)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdminLinkStudentToAdvisor(studentID, advisorID);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("ListAdvisors")]
         public IActionResult ListAdvisors()
@@ -128,6 +130,7 @@ namespace Milestone3Test.Controllers
             // TODO code here
             return null;
         }
+
         [HttpPost]
         [Route("ListStudents")]
         public IActionResult ListStudents()
