@@ -971,6 +971,21 @@ namespace Milestone3Test.Models
                     new SqlParameter("@end_date", endDate),
                     new SqlParameter("@semester_code", semesterCode));
         }
+        public void Procedure_AdminUpdateStudentStatus(string student_id)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedure_AdminUpdateStudentStatus @student_id",
+                new SqlParameter("@student_id", student_id));
+        }
+
+        public void Procedures_AdminAddingCourse(string major, string semester, string credit_hours, string name, string is_offered)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminAddingCourse @major, @semester, @credit_hours, @name, @is_offered",
+                    new SqlParameter("@major", major),
+                    new SqlParameter("@semester", semester),
+                    new SqlParameter("@credit_hours", credit_hours),
+                    new SqlParameter("@name", name),
+                    new SqlParameter("@is_offered", is_offered));
+        }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
