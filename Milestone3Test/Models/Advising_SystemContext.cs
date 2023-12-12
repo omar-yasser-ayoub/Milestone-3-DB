@@ -1023,6 +1023,12 @@ namespace Milestone3Test.Models
                     new SqlParameter("@current_semester", current_semester));
         }
 
+        public void Procedures_AdminIssueInstallment(string payment_id)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminIssueInstallment @payment_id",
+                    new SqlParameter("@payment_id", payment_id));
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

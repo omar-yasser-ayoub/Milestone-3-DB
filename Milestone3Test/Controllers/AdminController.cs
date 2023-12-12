@@ -88,11 +88,13 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("IssueInstallment")]
-        public IActionResult IssueInstallment()
+        public IActionResult IssueInstallment([FromHeader] string payment_id)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdminIssueInstallment(payment_id);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("LinkInstructor")]
         public IActionResult LinkInstructor()
