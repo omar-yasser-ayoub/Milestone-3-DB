@@ -5,12 +5,11 @@ const App = () => {
     const [instructors, setInstructors] = useState([])
 
     useEffect(() => {
-        fetch("api/advisor/AddCourseGP", {
+        fetch("api/advisor/ApproveRejectCHRequest", {
             method: 'POST',
             headers: {
-                'student_id': '2',
-                'Semester_code': 'W23',
-                'course_name': 'Networks'
+                'requestID': '1',
+                'current_sem_code': 'W23'
             },
         })
             .then(response => { return response.json() })
