@@ -5,11 +5,12 @@ const App = () => {
     const [instructors, setInstructors] = useState([])
 
     useEffect(() => {
-        fetch("api/admin/LinkStudentToAdvisor", {
+        fetch("api/advisor/AddCourseGP", {
             method: 'POST',
             headers: {
-                'studentID': '5',
-                'advisorID': '2'
+                'student_id': '2',
+                'Semester_code': 'W23',
+                'course_name': 'Networks'
             },
         })
             .then(response => { return response.json() })
