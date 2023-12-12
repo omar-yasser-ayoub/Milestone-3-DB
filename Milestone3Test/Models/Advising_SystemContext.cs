@@ -965,6 +965,8 @@ namespace Milestone3Test.Models
             OnModelCreatingPartial(modelBuilder);
         }
 
+        /* ---------------------------------- [ADMIN] ---------------------------------- */
+
         public void AdminAddingSemester(string startDate, string endDate, string semesterCode)
         {
             Database.ExecuteSqlRaw("EXEC dbo.AdminAddingSemester @start_date, @end_date, @semester_code",
@@ -1051,6 +1053,16 @@ namespace Milestone3Test.Models
             Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminLinkStudentToAdvisor @studentID, @advisorID",
                     new SqlParameter("@studentID", studentID),
                     new SqlParameter("@advisorID", advisorID));
+        }
+
+        /* --------------------------------- [ADVISOR] --------------------------------- */
+
+        public void Procedures_AdvisorAddCourseGP(string student_id, string Semester_code, string course_name)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdvisorAddCourseGP @student_id, @Semester_code, @course_name",
+                    new SqlParameter("@student_id", student_id),
+                    new SqlParameter("@Semester_code", Semester_code),
+                    new SqlParameter("@course_name", course_name));
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

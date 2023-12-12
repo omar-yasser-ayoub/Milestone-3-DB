@@ -8,20 +8,22 @@ namespace Milestone3Test.Controllers
     [ApiController]
     public class AdvisorController : ControllerBase
     {
-        private readonly Advising_SystemContext _Advising_SystemContext;
+        private readonly Advising_SystemContext _dbContext;
 
         public AdvisorController(Advising_SystemContext dbContext)
         {
-            _Advising_SystemContext = dbContext;
+            _dbContext = dbContext;
         }
 
         [HttpPost]
         [Route("AddCourseGP")]
-        public IActionResult AddCourseGP()
+        public IActionResult AddCourseGP([FromHeader] string student_id, [FromHeader] string Semester_code, [FromHeader] string course_name)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdvisorAddCourseGP(student_id, Semester_code, course_name);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("ApproveRejectCHRequest")]
         public IActionResult ApproveRejectCHRequest()
