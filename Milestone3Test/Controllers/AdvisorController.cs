@@ -35,10 +35,11 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("ApproveRejectCourseRequest")]
-        public IActionResult ApproveRejectCourseRequest()
+        public IActionResult ApproveRejectCourseRequest([FromHeader] string requestID, [FromHeader] string current_semester_code)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdvisorApproveRejectCourseRequest(requestID, current_semester_code);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
 
         [HttpPost]

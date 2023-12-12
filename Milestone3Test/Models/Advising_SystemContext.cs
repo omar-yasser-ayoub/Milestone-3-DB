@@ -1072,6 +1072,13 @@ namespace Milestone3Test.Models
                     new SqlParameter("@current_sem_code", current_sem_code));
         }
 
+        public void Procedures_AdvisorApproveRejectCourseRequest(string requestID, string current_semester_code)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdvisorApproveRejectCourseRequest @requestID, @current_semester_code",
+                    new SqlParameter("@requestID", requestID),
+                    new SqlParameter("@current_semester_code", current_semester_code));
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
