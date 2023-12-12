@@ -982,7 +982,12 @@ namespace Milestone3Test.Models
         }
 
         public void Procedures_AdminAddExam(string type_1, string date_1, string courseID_1)
+        public void Procedures_AdminAddExam(string type_1, string date_1, string courseID_1)
         {
+            Database.ExecuteSqlRaw("EXEC Procedures_AdminAddExam @Type, @date, @courseID",
+                new SqlParameter("@Type", type_1),
+                new SqlParameter("@date", date_1),
+                new SqlParameter("@courseID", courseID_1));
             Database.ExecuteSqlRaw("EXEC Procedures_AdminAddExam @Type, @date, @courseID",
                 new SqlParameter("@Type", type_1),
                 new SqlParameter("@date", date_1),
@@ -1077,6 +1082,16 @@ namespace Milestone3Test.Models
             Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdvisorApproveRejectCourseRequest @requestID, @current_semester_code",
                     new SqlParameter("@requestID", requestID),
                     new SqlParameter("@current_semester_code", current_semester_code));
+        }
+
+        public void Procedures_AdvisorCreateGP(string Semester_code, string expected_graduation_date, string sem_credit_hours, string advisor_id, string student_id)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdvisorCreateGP @Semester_code, @expected_graduation_date, @sem_credit_hours, @advisor_id, @student_id",
+                    new SqlParameter("@Semester_code", Semester_code),
+                    new SqlParameter("@expected_graduation_date", expected_graduation_date),
+                    new SqlParameter("@sem_credit_hours", sem_credit_hours),
+                    new SqlParameter("@advisor_id", advisor_id),
+                    new SqlParameter("@student_id", student_id));
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

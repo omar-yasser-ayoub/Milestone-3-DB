@@ -44,11 +44,13 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("CreateGP")]
-        public IActionResult CreateGP()
+        public IActionResult CreateGP([FromHeader] string Semester_code, [FromHeader] string expected_graduation_date, [FromHeader] string sem_credit_hours, [FromHeader] string advisor_id, [FromHeader] string student_id)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdvisorCreateGP(Semester_code, expected_graduation_date, sem_credit_hours, advisor_id, student_id);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("DeleteFromGP")]
         public IActionResult DeleteFromGP()
@@ -56,6 +58,7 @@ namespace Milestone3Test.Controllers
             // TODO code here
             return null;
         }
+
         [HttpPost]
         [Route("RegistrationAdvisor")]
         public IActionResult RegistrationAdvisor()
@@ -63,6 +66,7 @@ namespace Milestone3Test.Controllers
             // TODO code here
             return null;
         }
+
         [HttpPost]
         [Route("UpdateGP")]
         public IActionResult UpdateGP()
@@ -70,6 +74,7 @@ namespace Milestone3Test.Controllers
             // TODO code here
             return null;
         }
+
         [HttpPost]
         [Route("ViewAssignedStudents")]
         public IActionResult ViewAssignedStudents()
@@ -77,6 +82,7 @@ namespace Milestone3Test.Controllers
             // TODO code here
             return null;
         }
+
         [HttpPost]
         [Route("ViewPendingRequests")]
         public IActionResult ViewPendingRequests()

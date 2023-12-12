@@ -4,37 +4,27 @@ const App = () => {
 
     const [instructors, setInstructors] = useState([])
 
-    useEffect(() => {
-        fetch("api/advisor/ApproveRejectCourseRequest", {
+    const handleButtonClick = () => {
+        fetch("api/advisor/AddGP", {
             method: 'POST',
             headers: {
-                'requestID': '2',
-                'current_semester_code': 'W23'
+                'Semester_code': 'W23',
+                'expected_graduation_date': '2024-01-31',
+                'sem_credit_hours': '90',
+                'advisor_id': '1',
+                'student_id': '4'
             },
         })
-            .then(response => { return response.json() })
+            .then(response => response.json())
             .then(responseJson => {
                 setInstructors(responseJson)
             })
-    }, [])*/
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    };
 
-        const handleButtonClick = () => {
-            fetch("api/admin/AddExam", {
-                method: 'POST',
-                headers: {
-                    'type_1': 'Second Makeup',
-                    'date_1': '2037-1-2',
-                    'courseID_1': '1'
-                },
-            })
-                .then(response => response.json())
-                .then(responseJson => {
-                    setInstructors(responseJson);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        };
+
 
     return (
         <div className="container">
