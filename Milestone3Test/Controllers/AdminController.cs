@@ -5,6 +5,7 @@ using Milestone3Test.Models;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
+using System.Xml.Linq;
 
 namespace Milestone3Test.Controllers
 {
@@ -24,7 +25,6 @@ namespace Milestone3Test.Controllers
         public IActionResult AddSemester([FromHeader] string startDate, [FromHeader] string endDate, [FromHeader] string semesterCode)
         {  
             _dbContext.AdminAddingSemester(startDate,endDate,semesterCode);
-            //List<Semester> semesters = _dbContext.Semesters.ToList();
 
             return StatusCode(StatusCodes.Status200OK);
         }
@@ -42,24 +42,24 @@ namespace Milestone3Test.Controllers
         public IActionResult UpdateStudentStatus([FromHeader] string student_id)
         {
             _dbContext.Procedure_AdminUpdateStudentStatus(student_id);
-            //List<Student> students = _dbContext.Students.ToList();
 
             return StatusCode(StatusCodes.Status200OK);
         }
 
         [HttpPost]
         [Route("AddExam")]
-        public IActionResult AddExam()
+        public IActionResult AddExam([FromHeader] string Type, [FromHeader] string date, [FromHeader] string courseID)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdminAddExam(Type, date, courseID);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("AddCourse")]
         public IActionResult AddCourse([FromHeader] string major, [FromHeader] string semester, [FromHeader] string credit_hours, [FromHeader] string name, [FromHeader] string is_offered)
         {
             _dbContext.Procedures_AdminAddingCourse(major, semester, credit_hours, name, is_offered);
-            //List<Course> courses = _dbContext.Courses.ToList();
 
             return StatusCode(StatusCodes.Status200OK);
         }
