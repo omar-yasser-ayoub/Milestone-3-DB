@@ -15,70 +15,70 @@ namespace Milestone3Test.Controllers
         {
             _dbContext = dbContext;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("ChooseInstructor")]
         public IActionResult ChooseInstructor()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("AddMobile")]
         public IActionResult AddMobile()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("RegisterFirstMakeup")]
         public IActionResult RegisterFirstMakeup()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("RegisterSecondMakeup")]
         public IActionResult RegisterSecondMakeup()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("Registration")]
         public IActionResult Registration()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("SendingCHRequest")]
         public IActionResult SendingCHRequest()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("SendingCourseRequest")]
         public IActionResult SendingCourseRequest()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("ViewMS")]
         public IActionResult ViewMS()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("ViewOptionalCourse")]
         public IActionResult ViewOptionalCourse()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("ViewRequiredCourse")]
         public IActionResult ViewRequiredCourse()
         {

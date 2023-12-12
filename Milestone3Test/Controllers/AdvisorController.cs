@@ -15,63 +15,63 @@ namespace Milestone3Test.Controllers
             _Advising_SystemContext = dbContext;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("AddCourseGP")]
         public IActionResult AddCourseGP()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("ApproveRejectCHRequest")]
         public IActionResult ApproveRejectCHRequest()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("ApproveRejectCHRequest")]
         public IActionResult ApproveRejectCourseRequest()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("CreateGP")]
         public IActionResult CreateGP()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("DeleteFromGP")]
         public IActionResult DeleteFromGP()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("RegistrationAdvisor")]
         public IActionResult RegistrationAdvisor()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("UpdateGP")]
         public IActionResult UpdateGP()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("ViewAssignedStudents")]
         public IActionResult ViewAssignedStudents()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("ViewPendingRequests")]
         public IActionResult ViewPendingRequests()
         {

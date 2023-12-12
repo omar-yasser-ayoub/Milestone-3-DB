@@ -5,7 +5,14 @@ const App = () => {
     const [instructors, setInstructors] = useState([])
 
     useEffect(() => {
-        fetch("api/instructor/GetInstructors")
+        fetch("api/admin/AddSemester", {
+            method: 'POST',
+            headers: {
+                'startDate': '2030-10-01',
+                'endDate': '2031-11-15',
+                'semesterCode': 'TEST'
+            },
+        })
             .then(response => { return response.json() })
             .then(responseJson => {
                 setInstructors(responseJson)
