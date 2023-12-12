@@ -979,14 +979,28 @@ namespace Milestone3Test.Models
                 new SqlParameter("@student_id", student_id));
         }
 
-        public void Procedures_AdminAddExam(string Type, string date, string courseID)
+        public void Procedures_AdminAddExam(string type_1, string date_1, string courseID_1)
         {
-            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminAddExam @Type, @date, @courseID",
-                new SqlParameter("@Type", Type),
-                new SqlParameter("@date", date),
-                new SqlParameter("@courseID", courseID));
+            Database.ExecuteSqlRaw("EXEC Procedures_AdminAddExam @Type, @date, @courseID",
+                new SqlParameter("@Type", type_1),
+                new SqlParameter("@date", date_1),
+                new SqlParameter("@courseID", courseID_1));
         }
-
+        public async Task Procedures_AdminAddExamAsync(string type, DateTime date, int courseID)
+        {
+            try
+            {
+                await Database.ExecuteSqlInterpolatedAsync($@"
+            EXEC dbo.Procedures_AdminAddExam
+                @Type= Second Makeup,
+                @date= 12/12/2029,
+                @courseID = 4 ");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error executing stored procedure: {ex.Message}");
+            }
+        }
         public void Procedures_AdminAddingCourse(string major, string semester, string credit_hours, string name, string is_offered)
         {
             Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminAddingCourse @major, @semester, @credit_hours, @name, @is_offered",

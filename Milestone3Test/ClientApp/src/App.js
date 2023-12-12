@@ -4,25 +4,43 @@ const App = () => {
 
     const [instructors, setInstructors] = useState([])
 
-    useEffect(() => {
+    /*useEffect(() => {
         fetch("api/admin/AddExam", {
             method: 'POST',
             headers: {
                 'Type': 'Second Makeup',
-                'date': '2023-12-12',
-                'courseID': '1'
+                'date': '2037-12-12',
+                'courseID': 1
             },
         })
             .then(response => { return response.json() })
             .then(responseJson => {
                 setInstructors(responseJson)
             })
-    }, [])
+    }, [])*/
 
+        const handleButtonClick = () => {
+            fetch("api/admin/AddExam", {
+                method: 'POST',
+                headers: {
+                    'type_1': 'Second Makeup',
+                    'date_1': '2037-1-2',
+                    'courseID_1': '1'
+                },
+            })
+                .then(response => response.json())
+                .then(responseJson => {
+                    setInstructors(responseJson);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        };
 
     return (
         <div className="container">
             <h1>Instructors</h1>
+            <button onClick={handleButtonClick}>Click me</button>
             <div className="row">
                 <div className="col-sm-12">
                     <table>
