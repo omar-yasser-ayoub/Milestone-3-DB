@@ -5,12 +5,10 @@ const App = () => {
     const [instructors, setInstructors] = useState([])
 
     useEffect(() => {
-        fetch("api/admin/AddSemester", {
+        fetch("api/admin/UpdateStudentStatus", {
             method: 'POST',
             headers: {
-                'startDate': '2030-10-01',
-                'endDate': '2031-11-15',
-                'semesterCode': 'TEST'
+                'student_id': 2
             },
         })
             .then(response => { return response.json() })

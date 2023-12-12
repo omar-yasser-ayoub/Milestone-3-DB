@@ -24,9 +24,9 @@ namespace Milestone3Test.Controllers
         public IActionResult AddSemester([FromHeader] string startDate, [FromHeader] string endDate, [FromHeader] string semesterCode)
         {  
             _dbContext.AdminAddingSemester(startDate,endDate,semesterCode);
-            List<SemsterOfferedCourse> courses = _dbContext.SemsterOfferedCourses.ToList();
+            //List<Semester> semesters = _dbContext.Semesters.ToList();
 
-            return StatusCode(StatusCodes.Status200OK, courses);
+            return StatusCode(StatusCodes.Status200OK);
         }
 
         [HttpPost]
@@ -39,10 +39,12 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("UpdateStudentStatus")]
-        public IActionResult UpdateStudentStatus()
+        public IActionResult UpdateStudentStatus([FromHeader] string student_id)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedure_AdminUpdateStudentStatus(student_id);
+            //List<Student> students = _dbContext.Students.ToList();
+
+            return StatusCode(StatusCodes.Status200OK);
         }
 
         [HttpPost]
@@ -54,10 +56,12 @@ namespace Milestone3Test.Controllers
         }
         [HttpPost]
         [Route("AddCourse")]
-        public IActionResult AddCourse()
+        public IActionResult AddCourse([FromHeader] string major, [FromHeader] string semester, [FromHeader] string credit_hours, [FromHeader] string name, [FromHeader] string is_offered)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdminAddingCourse(major, semester, credit_hours, name, is_offered);
+            //List<Course> courses = _dbContext.Courses.ToList();
+
+            return StatusCode(StatusCodes.Status200OK);
         }
         [HttpPost]
         [Route("DeleteCourse")]
