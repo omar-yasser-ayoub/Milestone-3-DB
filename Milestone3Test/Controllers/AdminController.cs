@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Milestone3Test.Models;
+using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using System.Text.Json;
 
 namespace Milestone3Test.Controllers
 {
@@ -11,20 +14,22 @@ namespace Milestone3Test.Controllers
     {
         private readonly Advising_SystemContext _dbContext;
 
-        public AdminController (Advising_SystemContext dbContext)
+        public AdminController(Advising_SystemContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("AddSemester")]
-        public IActionResult AddSemester()
-        {
-            // TODO code here
-            return null;
+        public IActionResult AddSemester([FromHeader] string startDate, [FromHeader] string endDate, [FromHeader] string semesterCode)
+        {  
+            _dbContext.AdminAddingSemester(startDate,endDate,semesterCode);
+            List<SemsterOfferedCourse> courses = _dbContext.SemsterOfferedCourses.ToList();
+
+            return StatusCode(StatusCodes.Status200OK, courses);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("ListStudentsWithAdvisors")]
         public IActionResult ListStudentsWithAdvisors()
         {
@@ -32,7 +37,7 @@ namespace Milestone3Test.Controllers
             return null;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("UpdateStudentStatus")]
         public IActionResult UpdateStudentStatus()
         {
@@ -40,70 +45,70 @@ namespace Milestone3Test.Controllers
             return null;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("AddExam")]
         public IActionResult AddExam()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("AddCourse")]
         public IActionResult AddCourse()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("DeleteCourse")]
         public IActionResult DeleteCourse()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("DeleteSlot")]
         public IActionResult DeleteSlot()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("IssueInstallment")]
         public IActionResult IssueInstallment()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("LinkInstructor")]
         public IActionResult LinkInstructor()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("LinkStudent")]
         public IActionResult LinkStudent()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("LinkStudentToAdvisor")]
         public IActionResult LinkStudentToAdvisor()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("ListAdvisors")]
         public IActionResult ListAdvisors()
         {
             // TODO code here
             return null;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("ListStudents")]
         public IActionResult ListStudents()
         {
