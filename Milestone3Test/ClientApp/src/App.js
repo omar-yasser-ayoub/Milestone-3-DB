@@ -5,10 +5,10 @@ const App = () => {
     const [instructors, setInstructors] = useState([])
 
     useEffect(() => {
-        fetch("api/admin/DeleteSlot", {
+        fetch("api/admin/IssueInstallment", {
             method: 'POST',
             headers: {
-                'current_semester': 'W23'
+                'payment_id': '2'
             },
         })
             .then(response => { return response.json() })
