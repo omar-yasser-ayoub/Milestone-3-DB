@@ -1037,6 +1037,15 @@ namespace Milestone3Test.Models
                     new SqlParameter("@slot_id", slot_id));
         }
 
+        public void Procedures_AdminLinkStudent(string cours_id, string instructor_id, string studentID, string semester_code)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminLinkStudent @cours_id, @instructor_id, @studentID, @semester_code",
+                    new SqlParameter("@cours_id", cours_id),
+                    new SqlParameter("@instructor_id", instructor_id),
+                    new SqlParameter("@studentID", studentID),
+                    new SqlParameter("@semester_code", semester_code));
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
