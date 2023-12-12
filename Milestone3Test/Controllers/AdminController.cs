@@ -67,13 +67,16 @@ namespace Milestone3Test.Controllers
 
             return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("DeleteCourse")]
-        public IActionResult DeleteCourse()
+        public IActionResult DeleteCourse([FromHeader] string courseID)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdminDeleteCourse(courseID);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("DeleteSlot")]
         public IActionResult DeleteSlot()

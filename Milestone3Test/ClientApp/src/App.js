@@ -4,13 +4,11 @@ const App = () => {
 
     const [instructors, setInstructors] = useState([])
 
-    /*useEffect(() => {
-        fetch("api/admin/AddExam", {
+    useEffect(() => {
+        fetch("api/admin/DeleteCourse", {
             method: 'POST',
             headers: {
-                'Type': 'Second Makeup',
-                'date': '2037-12-12',
-                'courseID': 1
+                'courseID': '3'
             },
         })
             .then(response => { return response.json() })

@@ -1011,6 +1011,12 @@ namespace Milestone3Test.Models
                     new SqlParameter("@is_offered", is_offered));
         }
 
+        public void Procedures_AdminDeleteCourse(string courseID)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminDeleteCourse @courseID",
+                    new SqlParameter("@courseID", courseID));
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
