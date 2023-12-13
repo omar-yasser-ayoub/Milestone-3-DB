@@ -1,8 +1,10 @@
+import { Button } from "bootstrap";
 import { useEffect, useState } from "react";
-
+import CustomButton from "./Components/CustomButton";
+import LoginForm from "./Components/LoginForm";
 const App = () => {
 
-    const [courses, setCourses] = useState([]);
+    /*const [courses, setCourses] = useState([]);
 
     const handleButtonClick = () => {
         fetch("api/student/ViewRequiredCourse", {
@@ -20,38 +22,37 @@ const App = () => {
             .catch(error => {
                 console.error('Error:', error);
             });
-    };
+    };*/
+    const [isLoggedIn, setLoggedIn] = useState(false);
+    const [isStudentLoggedIn, setStudentLoggedIn] = useState(false);
+    const [test, setTest] = useState("NOT LOGGED IN GLOBALLY");
 
+    if (!isLoggedIn) {
+        return (
 
-
-    return (
-        <div className="container">
-            <h1>Required Courses</h1>
-            <button onClick={handleButtonClick}>Click me</button>
-            <div className="row">
-                <div className="col-sm-12">
-                    <table>
-                        <thead className="table table-stripped">
-                            <tr>
-                                <th>Course ID</th>
-                                <th>Course Name</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                courses.map((c) => (
-                                    <tr>
-                                        <td>{c.courseId}</td>
-                                        <td>{c.name}</td>
-                                    </tr>
-                                ))*/
-                            } 
-                        </tbody>
-                    </table>
-                </div>
+            <div className="container">
+                <LoginForm setLoggedIn={setLoggedIn} setStudentLoggedIn={setStudentLoggedIn} />
             </div>
-        </div>
-    )
+        )
+    }
+    else {
+        if (isStudentLoggedIn) {
+            return (
+
+                <div className="container">
+                    <h1>Student Page</h1>
+                </div>
+            )
+        }
+        else {
+            return (
+
+                <div className="container">
+                    <h1>Advisor Page</h1>
+                </div>
+            )
+        }
+    }
 }
 
 export default App;

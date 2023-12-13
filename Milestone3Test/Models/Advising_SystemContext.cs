@@ -1131,9 +1131,6 @@ namespace Milestone3Test.Models
                     new SqlParameter("@studentID", studentID),
                     new SqlParameter("@advisorID", advisorID));
         }
-        public List<Advisor> Procedures_AdminListAdvisors()
-        {
-            var table = Set<Advisor>().FromSqlRaw("EXEC dbo.Procedures_AdminListAdvisors").ToList();
 
             return table;
         }
