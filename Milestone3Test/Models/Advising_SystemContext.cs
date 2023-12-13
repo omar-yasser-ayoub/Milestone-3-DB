@@ -1201,6 +1201,74 @@ namespace Milestone3Test.Models
             return table;
         }
 
+        /* -- */
+
+        public void Procedures_StudentChooseInstructor(string StudentID, string instructorID, string CourseID, string current_semester_code)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_Chooseinstructor @StudentID, @instructorID, @CourseID, @current_semester_code",
+                    new SqlParameter("@StudentID", StudentID),
+                    new SqlParameter("@instructorID", instructorID),
+                    new SqlParameter("@CourseID", CourseID),
+                    new SqlParameter("@current_semester_code", current_semester_code));
+        }
+        public void Procedures_StudentAddMobile(string StudentID, string mobile_number)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_StudentaddMobile @StudentID, @mobile_number",
+                    new SqlParameter("@StudentID", StudentID),
+                    new SqlParameter("@mobile_number", mobile_number));
+        }
+        public void Procedures_StudentRegisterFirstMakeup(string StudentID, string courseID, string studentCurr_Sem)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_StudentRegisterFirstMakeup @StudentID, @courseID, @studentCurr_sem",
+                    new SqlParameter("@StudentID", StudentID),
+                    new SqlParameter("@courseID", courseID),
+                    new SqlParameter("@studentCurr_sem", studentCurr_Sem));
+        }
+
+        public void Procedures_StudentRegisterSecondMakeup(string StudentID, string courseID, string studentCurr_Sem)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_StudentRegisterSecondMakeup @StudentID, @courseID, @studentCurr_sem",
+                    new SqlParameter("@StudentID", StudentID),
+                    new SqlParameter("@courseID", courseID),
+                    new SqlParameter("@studentCurr_sem", studentCurr_Sem));
+        }
+
+        public int Procedures_StudentRegistration(string first_name, string last_name, string password, string faculty, string email, string major, string Semester)
+        {
+            var Student_id = new SqlParameter("@Student_id", SqlDbType.Int)
+            {
+                Direction = ParameterDirection.Output
+            };
+
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_StudentRegistration @first_name, @last_name, @password, @faculty, @email, @major, @Semester, @Student_id OUTPUT",
+                    new SqlParameter("@first_name", first_name),
+                    new SqlParameter("@last_name", last_name),
+                    new SqlParameter("@password", password),
+                    new SqlParameter("@faculty", faculty),
+                    new SqlParameter("@email", email),
+                    new SqlParameter("@major", major),
+                    new SqlParameter("@Semester", Semester),
+                    Student_id);
+
+            return (int)Student_id.Value;
+        }
+        public void Procedures_StudentSendingCHRequest(string StudentID, string credit_hours, string type, string comment)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_StudentSendingCHRequest @StudentID, @credit_hours, @type, @comment",
+                    new SqlParameter("@StudentID", StudentID),
+                    new SqlParameter("@credit_hours", credit_hours),
+                    new SqlParameter("@type", type),
+                    new SqlParameter("@comment", comment));
+        }
+        public void Procedures_StudentSendingCourseRequest(string courseID, string StudentID, string type, string comment)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_StudentSendingCourseRequest @courseID, @StudentID, @type, @comment",
+                    new SqlParameter("@courseID", courseID),
+                    new SqlParameter("@StudentID", StudentID),
+                    new SqlParameter("@type", type),
+                    new SqlParameter("@comment", comment));
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
