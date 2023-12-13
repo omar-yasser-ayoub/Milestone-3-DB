@@ -62,10 +62,11 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("RegistrationAdvisor")]
-        public IActionResult RegistrationAdvisor()
+        public IActionResult RegistrationAdvisor([FromHeader] string advisor_name, [FromHeader] string password, [FromHeader] string email, [FromHeader] string office)
         {
-            // TODO code here
-            return null;
+            int Advisor_id = _dbContext.Procedures_AdvisorRegistration(advisor_name, password, email, office);
+
+            return StatusCode(StatusCodes.Status200OK, new { AdvisorId = Advisor_id });
         }
 
         [HttpPost]
