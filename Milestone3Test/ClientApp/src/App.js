@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 
 const App = () => {
 
-    const [students, setStudents] = useState([]);
+    const [advisors, setAdvisors] = useState([]);
 
     const handleButtonClick = () => {
-        fetch("api/admin/ListStudentsWithAdvisors", {
+        fetch("api/admin/ListAdvisors", {
             method: 'POST',
             headers: {
                 //'Advisor_ID': '1'
@@ -14,7 +14,7 @@ const App = () => {
             .then(response => response.json())
             .then(responseJson => {
                 console.log(responseJson);
-                setStudents(responseJson);
+                setAdvisors(responseJson);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -23,29 +23,29 @@ const App = () => {
 
     return (
         <div className="container">
-            <h1>Students With Advisors</h1>
+            <h1>Advisors</h1>
             <button onClick={handleButtonClick}>Click me</button>
             <div className="row">
                 <div className="col-sm-12">
                     <table>
                         <thead className="table table-stripped">
                             <tr>
-                                <th>Student ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
                                 <th>Advisor ID</th>
                                 <th>Advisor Name</th>
+                                <th>Email</th>
+                                <th>Office</th>
+                                <th>Password</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                students.map((student) => (
+                                advisors.map((advisor) => (
                                     <tr>
-                                        <td>{student.studentId}</td>
-                                        <td>{student.fName}</td>
-                                        <td>{student.lName}</td>
-                                        <td>{student.advisorId}</td>
-                                        <td>{student.advisorName}</td>
+                                        <td>{advisor.advisorId}</td>
+                                        <td>{advisor.advisorName}</td>
+                                        <td>{advisor.email}</td>
+                                        <td>{advisor.office}</td>
+                                        <td>{advisor.password}</td>
                                     </tr>
                                 ))
                             } 
