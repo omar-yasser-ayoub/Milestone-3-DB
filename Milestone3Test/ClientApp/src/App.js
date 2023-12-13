@@ -5,10 +5,11 @@ const App = () => {
     const [students, setStudents] = useState([]);
 
     const handleButtonClick = () => {
-        fetch("api/admin/ListStudentsWithAdvisors", {
+        fetch("api/advisor/LoginRequest", {
             method: 'POST',
             headers: {
-                //'Advisor_ID': '1'
+                'username': '1',
+                'password': 'pass123'
             },
         })
             .then(response => response.json())
@@ -23,7 +24,7 @@ const App = () => {
 
     return (
         <div className="container">
-            <h1>Students With Advisors</h1>
+            <h1>Students With Advisors {students.success}</h1>
             <button onClick={handleButtonClick}>Click me</button>
             <div className="row">
                 <div className="col-sm-12">
@@ -39,7 +40,7 @@ const App = () => {
                         </thead>
                         <tbody>
                             {
-                                students.map((student) => (
+                                /*students.map((student) => (
                                     <tr>
                                         <td>{student.studentId}</td>
                                         <td>{student.fName}</td>
@@ -47,7 +48,7 @@ const App = () => {
                                         <td>{student.advisorId}</td>
                                         <td>{student.advisorName}</td>
                                     </tr>
-                                ))
+                                ))*/
                             } 
                         </tbody>
                     </table>
