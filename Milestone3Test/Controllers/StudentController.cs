@@ -11,7 +11,7 @@ namespace Milestone3Test.Controllers
     {
         private readonly Advising_SystemContext _dbContext;
 
-        public StudentController (Advising_SystemContext dbContext)
+        public StudentController(Advising_SystemContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -98,6 +98,14 @@ namespace Milestone3Test.Controllers
             var table = _dbContext.Procedures_ViewRequiredCourses(StudentID, current_semester_code);
 
             return StatusCode(StatusCodes.Status200OK, table);
+        }
+
+        [HttpPost]
+        [Route("LoginRequest")]
+        public IActionResult LoginRequest([FromHeader] string username, [FromHeader] string password)
+        {
+            int Success = _dbContext.StudentLogin(username, password);
+            return StatusCode(StatusCodes.Status200OK, new { success = Success });
         }
     }
 }
