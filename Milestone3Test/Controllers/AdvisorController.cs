@@ -71,26 +71,29 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("UpdateGP")]
-        public IActionResult UpdateGP()
+        public IActionResult UpdateGP([FromHeader] string expected_grad_date, [FromHeader] string studentID)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdvisorUpdateGP(expected_grad_date, studentID);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
 
         [HttpPost]
         [Route("ViewAssignedStudents")]
-        public IActionResult ViewAssignedStudents()
+        public IActionResult ViewAssignedStudents([FromHeader] string AdvisorID, [FromHeader] string major)
         {
-            // TODO code here
-            return null;
+            var table = _dbContext.Procedures_AdvisorViewAssignedStudents(AdvisorID, major);
+
+            return StatusCode(StatusCodes.Status200OK, table);
         }
 
         [HttpPost]
         [Route("ViewPendingRequests")]
-        public IActionResult ViewPendingRequests()
+        public IActionResult ViewPendingRequests([FromHeader] string Advisor_ID)
         {
-            // TODO code here
-            return null;
+            var table = _dbContext.Procedures_AdvisorViewPendingRequests(Advisor_ID);
+
+            return StatusCode(StatusCodes.Status200OK, table);
         }
     }
 }
