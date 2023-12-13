@@ -1291,6 +1291,15 @@ namespace Milestone3Test.Models
 
             return table;
         }
+        
+        public List<StudentCourseFilters> Procedures_ViewRequiredCourses(string StudentID, string current_semester_code)
+        {
+            var table = Set<StudentCourseFilters>().FromSqlRaw("EXEC dbo.Procedures_ViewRequiredCourses @StudentID, @current_semester_code",
+                new SqlParameter("@StudentID", StudentID),
+                new SqlParameter("@current_semester_code", current_semester_code)).ToList();
+
+            return table;
+        }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }

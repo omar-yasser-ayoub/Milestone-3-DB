@@ -93,10 +93,11 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("ViewRequiredCourse")]
-        public IActionResult ViewRequiredCourse()
+        public IActionResult ViewRequiredCourse([FromHeader] string StudentID, [FromHeader] string current_semester_code)
         {
-            // TODO code here
-            return null;
+            var table = _dbContext.Procedures_ViewRequiredCourses(StudentID, current_semester_code);
+
+            return StatusCode(StatusCodes.Status200OK, table);
         }
     }
 }
