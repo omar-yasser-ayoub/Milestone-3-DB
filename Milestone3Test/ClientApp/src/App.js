@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 
 const App = () => {
 
-    const [requests, setRequests] = useState([]);
+    const [students, setStudents] = useState([]);
 
     const handleButtonClick = () => {
-        fetch("api/advisor/ViewPendingRequests", {
+        fetch("api/admin/ListStudentsWithAdvisors", {
             method: 'POST',
             headers: {
-                'Advisor_ID': '1'
+                //'Advisor_ID': '1'
             },
         })
             .then(response => response.json())
             .then(responseJson => {
                 console.log(responseJson);
-                setRequests(responseJson);
+                setStudents(responseJson);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -25,35 +25,29 @@ const App = () => {
 
     return (
         <div className="container">
-            <h1>Pending Requests</h1>
+            <h1>Students With Advisors</h1>
             <button onClick={handleButtonClick}>Click me</button>
             <div className="row">
                 <div className="col-sm-12">
                     <table>
                         <thead className="table table-stripped">
                             <tr>
-                                <th>Request ID</th>
-                                <th>Type</th>
-                                <th>Comment</th>
-                                <th>Status</th>
-                                <th>Credits</th>
-                                <th>Course ID</th>
                                 <th>Student ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
                                 <th>Advisor ID</th>
+                                <th>Advisor Name</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                requests.map((request) => (
+                                students.map((student) => (
                                     <tr>
-                                        <td>{request.requestId}</td>
-                                        <td>{request.type}</td>
-                                        <td>{request.comment}</td>
-                                        <td>{request.status}</td>
-                                        <td>{request.creditHours}</td>
-                                        <td>{request.courseId}</td>
-                                        <td>{request.studentId}</td>
-                                        <td>{request.advisorId}</td>
+                                        <td>{student.studentId}</td>
+                                        <td>{student.fName}</td>
+                                        <td>{student.lName}</td>
+                                        <td>{student.advisorId}</td>
+                                        <td>{student.advisorName}</td>
                                     </tr>
                                 ))
                             } 

@@ -990,7 +990,31 @@ namespace Milestone3Test.Models
                     .HasColumnName("Course_name");
             });
 
-                OnModelCreatingPartial(modelBuilder);
+            modelBuilder.Entity<StudentsWithAdvisor>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.StudentId).HasColumnName("student_id");
+
+                entity.Property(e => e.FName)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("f_name");
+
+                entity.Property(e => e.LName)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("l_name");
+
+                entity.Property(e => e.AdvisorId).HasColumnName("advisor_id");
+
+                entity.Property(e => e.AdvisorName)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("advisor_name");
+            });
+
+            OnModelCreatingPartial(modelBuilder);
         }
 
         /* ---------------------------------- [ADMIN] ---------------------------------- */
