@@ -1145,6 +1145,13 @@ namespace Milestone3Test.Models
             return table;
         }
 
+        public List<Advisor> Procedures_AdminListAdvisors()
+        {
+            var table = Set<Advisor>().FromSqlRaw("EXEC dbo.Procedures_AdminListAdvisors").ToList();
+            
+            return table;
+        }
+
         /* --------------------------------- [ADVISOR] --------------------------------- */
 
         public void Procedures_AdvisorAddCourseGP(string student_id, string Semester_code, string course_name)
@@ -1226,7 +1233,7 @@ namespace Milestone3Test.Models
             return table;
         }
 
-        /* -- */
+        /* --------------------------------- [STUDENT] --------------------------------- */
 
         public void Procedures_StudentChooseInstructor(string StudentID, string instructorID, string CourseID, string current_semester_code)
         {
