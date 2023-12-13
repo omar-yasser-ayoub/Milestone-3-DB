@@ -89,10 +89,11 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("ViewPendingRequests")]
-        public IActionResult ViewPendingRequests()
+        public IActionResult ViewPendingRequests([FromHeader] string Advisor_ID)
         {
-            // TODO code here
-            return null;
+            var table = _dbContext.Procedures_AdvisorViewPendingRequests(Advisor_ID);
+
+            return StatusCode(StatusCodes.Status200OK, table);
         }
     }
 }
