@@ -5,14 +5,12 @@ const App = () => {
     const [instructors, setInstructors] = useState([])
 
     const handleButtonClick = () => {
-        fetch("api/advisor/AddGP", {
+        fetch("api/advisor/DeleteFromGP", {
             method: 'POST',
             headers: {
-                'Semester_code': 'W23',
-                'expected_graduation_date': '2024-01-31',
-                'sem_credit_hours': '90',
-                'advisor_id': '1',
-                'student_id': '4'
+                'studentID': '2',
+                'sem_code': 'W23',
+                'courseID': '1'
             },
         })
             .then(response => response.json())
