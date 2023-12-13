@@ -1170,6 +1170,13 @@ namespace Milestone3Test.Models
             return table;
         }
 
+        public List<AllPendingRequest> Procedures_AdvisorViewPendingRequests(string Advisor_ID)
+        {
+            var table = Set<AllPendingRequest>().FromSqlRaw("EXEC dbo.Procedures_AdvisorViewPendingRequests @Advisor_ID",
+                                    new SqlParameter("@Advisor_ID", Advisor_ID)).ToList();
+            return table;
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

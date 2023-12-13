@@ -2,20 +2,19 @@ import { useEffect, useState } from "react";
 
 const App = () => {
 
-    const [students, setStudents] = useState([]);
+    const [requests, setRequests] = useState([]);
 
     const handleButtonClick = () => {
-        fetch("api/advisor/ViewAssignedStudents", {
+        fetch("api/advisor/ViewPendingRequests", {
             method: 'POST',
             headers: {
-                'AdvisorID': '1',
-                'major': 'CS'
+                'Advisor_ID': '1'
             },
         })
             .then(response => response.json())
             .then(responseJson => {
                 console.log(responseJson);
-                setStudents(responseJson);
+                setRequests(responseJson);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -26,27 +25,35 @@ const App = () => {
 
     return (
         <div className="container">
-            <h1>Assigned Students</h1>
+            <h1>Pending Requests</h1>
             <button onClick={handleButtonClick}>Click me</button>
             <div className="row">
                 <div className="col-sm-12">
                     <table>
                         <thead className="table table-stripped">
                             <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Major</th>
-                                <th>Course Name</th>
+                                <th>Request ID</th>
+                                <th>Type</th>
+                                <th>Comment</th>
+                                <th>Status</th>
+                                <th>Credits</th>
+                                <th>Course ID</th>
+                                <th>Student ID</th>
+                                <th>Advisor ID</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                students.map((student) => (
+                                requests.map((request) => (
                                     <tr>
-                                        <td>{student.student_id}</td>
-                                        <td>{student.student_name}</td>
-                                        <td>{student.major}</td>
-                                        <td>{student.course_name}</td>
+                                        <td>{request.requestId}</td>
+                                        <td>{request.type}</td>
+                                        <td>{request.comment}</td>
+                                        <td>{request.status}</td>
+                                        <td>{request.creditHours}</td>
+                                        <td>{request.courseId}</td>
+                                        <td>{request.studentId}</td>
+                                        <td>{request.advisorId}</td>
                                     </tr>
                                 ))
                             } 
