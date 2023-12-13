@@ -51,10 +51,7 @@ namespace Milestone3Test.Controllers
         [Route("AddExam")]
         public IActionResult AddExam([FromHeader] string type_1, [FromHeader] string date_1, [FromHeader] string courseID_1)
         {
-
-            // Ensure proper quoting for string and date values
             _dbContext.Procedures_AdminAddExam(type_1, date_1, courseID_1);
-            /*_dbContext.Database.ExecuteSqlRaw($"INSERT INTO MakeUp_Exam VALUES('{date_1}', '{type_1}', {courseID_1})");*/
 
             return StatusCode(StatusCodes.Status200OK);
         }
@@ -67,48 +64,62 @@ namespace Milestone3Test.Controllers
 
             return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("DeleteCourse")]
-        public IActionResult DeleteCourse()
+        public IActionResult DeleteCourse([FromHeader] string courseID)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdminDeleteCourse(courseID);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("DeleteSlot")]
-        public IActionResult DeleteSlot()
+        public IActionResult DeleteSlot([FromHeader] string current_semester)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdminDeleteSlots(current_semester);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("IssueInstallment")]
-        public IActionResult IssueInstallment()
+        public IActionResult IssueInstallment([FromHeader] string payment_id)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdminIssueInstallment(payment_id);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("LinkInstructor")]
-        public IActionResult LinkInstructor()
+        public IActionResult LinkInstructor([FromHeader] string cours_id, [FromHeader] string instructor_id, [FromHeader] string slot_id)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdminLinkInstructor(cours_id, instructor_id, slot_id);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("LinkStudent")]
-        public IActionResult LinkStudent()
+        public IActionResult LinkStudent([FromHeader] string cours_id, [FromHeader] string instructor_id, [FromHeader] string studentID, [FromHeader] string semester_code)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdminLinkStudent(cours_id, instructor_id, studentID, semester_code);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
+
+
         [HttpPost]
         [Route("LinkStudentToAdvisor")]
-        public IActionResult LinkStudentToAdvisor()
+        public IActionResult LinkStudentToAdvisor([FromHeader] string studentID, [FromHeader] string advisorID)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdminLinkStudentToAdvisor(studentID, advisorID);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("ListAdvisors")]
         public IActionResult ListAdvisors()
@@ -116,6 +127,7 @@ namespace Milestone3Test.Controllers
             // TODO code here
             return null;
         }
+
         [HttpPost]
         [Route("ListStudents")]
         public IActionResult ListStudents()

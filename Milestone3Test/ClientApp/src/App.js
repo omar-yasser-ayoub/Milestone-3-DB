@@ -2,43 +2,36 @@ import { useEffect, useState } from "react";
 
 const App = () => {
 
-    const [instructors, setInstructors] = useState([])
+    const [instructors, setInstructors] = useState([]);
+    const [advisorId, setAdvisorId] = useState(null);
 
-    /*useEffect(() => {
-        fetch("api/admin/AddExam", {
+    const handleButtonClick = () => {
+        fetch("api/advisor/RegistrationAdvisor", {
             method: 'POST',
             headers: {
-                'Type': 'Second Makeup',
-                'date': '2037-12-12',
-                'courseID': 1
+                'advisor_name': 'Dr. Carter',
+                'password': 'password3',
+                'email': 'carter@example.com',
+                'office': 'Office C'
             },
         })
-            .then(response => { return response.json() })
+            .then(response => response.json())
             .then(responseJson => {
-                setInstructors(responseJson)
+                //setInstructors(responseJson);
+                console.log(responseJson);
+                setAdvisorId(responseJson.advisorId);
             })
-    }, [])*/
-
-        const handleButtonClick = () => {
-            fetch("api/admin/AddExam", {
-                method: 'POST',
-                headers: {
-                    'type_1': 'Second Makeup',
-                    'date_1': '2037-1-2',
-                    'courseID_1': '1'
-                },
-            })
-                .then(response => response.json())
-                .then(responseJson => {
-                    setInstructors(responseJson);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        };
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    };
 
     return (
         <div className="container">
+            <div>
+                <h1>Advisor ID: {advisorId}</h1>
+            </div>
+
             <h1>Instructors</h1>
             <button onClick={handleButtonClick}>Click me</button>
             <div className="row">

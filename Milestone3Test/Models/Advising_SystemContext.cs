@@ -4,6 +4,9 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
+using System.Data;
+using System.Data.SqlClient;
+
 namespace Milestone3Test.Models
 {
     public partial class Advising_SystemContext : DbContext
@@ -965,6 +968,8 @@ namespace Milestone3Test.Models
             OnModelCreatingPartial(modelBuilder);
         }
 
+        /* ---------------------------------- [ADMIN] ---------------------------------- */
+
         public void AdminAddingSemester(string startDate, string endDate, string semesterCode)
         {
             Database.ExecuteSqlRaw("EXEC dbo.AdminAddingSemester @start_date, @end_date, @semester_code",
@@ -986,21 +991,6 @@ namespace Milestone3Test.Models
                 new SqlParameter("@date", date_1),
                 new SqlParameter("@courseID", courseID_1));
         }
-        public async Task Procedures_AdminAddExamAsync(string type, DateTime date, int courseID)
-        {
-            try
-            {
-                await Database.ExecuteSqlInterpolatedAsync($@"
-            EXEC dbo.Procedures_AdminAddExam
-                @Type= Second Makeup,
-                @date= 12/12/2029,
-                @courseID = 4 ");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error executing stored procedure: {ex.Message}");
-            }
-        }
         public void Procedures_AdminAddingCourse(string major, string semester, string credit_hours, string name, string is_offered)
         {
             Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminAddingCourse @major, @semester, @credit_hours, @name, @is_offered",
@@ -1009,6 +999,107 @@ namespace Milestone3Test.Models
                     new SqlParameter("@credit_hours", credit_hours),
                     new SqlParameter("@name", name),
                     new SqlParameter("@is_offered", is_offered));
+        }
+
+        public void Procedures_AdminDeleteCourse(string courseID)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminDeleteCourse @courseID",
+                    new SqlParameter("@courseID", courseID));
+        }
+
+        public void Procedures_AdminDeleteSlots(string current_semester)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminDeleteSlots @current_semester",
+                    new SqlParameter("@current_semester", current_semester));
+        }
+
+        public void Procedures_AdminIssueInstallment(string payment_id)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminIssueInstallment @payment_id",
+                    new SqlParameter("@payment_id", payment_id));
+        }
+
+        public void Procedures_AdminLinkInstructor(string cours_id, string instructor_id, string slot_id)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminLinkInstructor @cours_id, @instructor_id, @slot_id",
+                    new SqlParameter("@cours_id", cours_id),
+                    new SqlParameter("@instructor_id", instructor_id),
+                    new SqlParameter("@slot_id", slot_id));
+        }
+
+        public void Procedures_AdminLinkStudent(string cours_id, string instructor_id, string studentID, string semester_code)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminLinkStudent @cours_id, @instructor_id, @studentID, @semester_code",
+                    new SqlParameter("@cours_id", cours_id),
+                    new SqlParameter("@instructor_id", instructor_id),
+                    new SqlParameter("@studentID", studentID),
+                    new SqlParameter("@semester_code", semester_code));
+        }
+
+        public void Procedures_AdminLinkStudentToAdvisor(string studentID, string advisorID)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminLinkStudentToAdvisor @studentID, @advisorID",
+                    new SqlParameter("@studentID", studentID),
+                    new SqlParameter("@advisorID", advisorID));
+        }
+
+        /* --------------------------------- [ADVISOR] --------------------------------- */
+
+        public void Procedures_AdvisorAddCourseGP(string student_id, string Semester_code, string course_name)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdvisorAddCourseGP @student_id, @Semester_code, @course_name",
+                    new SqlParameter("@student_id", student_id),
+                    new SqlParameter("@Semester_code", Semester_code),
+                    new SqlParameter("@course_name", course_name));
+        }
+        
+        public void Procedures_AdvisorApproveRejectCHRequest(string requestID, string current_sem_code)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdvisorApproveRejectCHRequest @requestID, @current_sem_code",
+                    new SqlParameter("@requestID", requestID),
+                    new SqlParameter("@current_sem_code", current_sem_code));
+        }
+
+        public void Procedures_AdvisorApproveRejectCourseRequest(string requestID, string current_semester_code)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdvisorApproveRejectCourseRequest @requestID, @current_semester_code",
+                    new SqlParameter("@requestID", requestID),
+                    new SqlParameter("@current_semester_code", current_semester_code));
+        }
+
+        public void Procedures_AdvisorCreateGP(string Semester_code, string expected_graduation_date, string sem_credit_hours, string advisor_id, string student_id)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdvisorCreateGP @Semester_code, @expected_graduation_date, @sem_credit_hours, @advisor_id, @student_id",
+                    new SqlParameter("@Semester_code", Semester_code),
+                    new SqlParameter("@expected_graduation_date", expected_graduation_date),
+                    new SqlParameter("@sem_credit_hours", sem_credit_hours),
+                    new SqlParameter("@advisor_id", advisor_id),
+                    new SqlParameter("@student_id", student_id));
+        }
+
+        public void Procedures_AdvisorDeleteFromGP(string studentID, string sem_code, string courseID)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdvisorDeleteFromGP @studentID, @sem_code, @courseID",
+                    new SqlParameter("@studentID", studentID),
+                    new SqlParameter("@sem_code", sem_code),
+                    new SqlParameter("@courseID", courseID));
+        }
+
+        public int Procedures_AdvisorRegistration(string advisor_name, string password, string email, string office)
+        {
+            var Advisor_id = new SqlParameter("@Advisor_id", SqlDbType.Int)
+            {
+                Direction = ParameterDirection.Output
+            };
+
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdvisorRegistration @advisor_name, @password, @email, @office, @Advisor_id OUTPUT",
+                    new SqlParameter("@advisor_name", advisor_name),
+                    new SqlParameter("@password", password),
+                    new SqlParameter("@email", email),
+                    new SqlParameter("@office", office),
+                    Advisor_id);
+
+            return (int)Advisor_id.Value;
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
