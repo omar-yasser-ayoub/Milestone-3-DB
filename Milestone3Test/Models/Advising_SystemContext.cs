@@ -46,7 +46,7 @@ namespace Milestone3Test.Models
         public virtual DbSet<ViewStudent> ViewStudents { get; set; } = null!;
         public virtual DbSet<AdvisorAssignedStudent> AdvisorAssignedStudents { get; set; } = null!;
         public virtual DbSet<StudentsWithAdvisor> StudentsWithAdvisors { get; set; } = null!;
-        public virtual DbSet<StudentViewMS> StudentViewMSs { get; set; } = null!;
+        public virtual DbSet<StudentCourseFilters> StudentViewMSs { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1014,7 +1014,7 @@ namespace Milestone3Test.Models
                     .HasColumnName("advisor_name");
             });
 
-            modelBuilder.Entity<StudentViewMS>(entity =>
+            modelBuilder.Entity<StudentCourseFilters>(entity =>
             {
                 entity.HasNoKey();
 
@@ -1275,10 +1275,19 @@ namespace Milestone3Test.Models
                     new SqlParameter("@comment", comment));
         }
 
-        public List<StudentViewMS> Procedures_ViewMS(string StudentID)
+        public List<StudentCourseFilters> Procedures_ViewMS(string StudentID)
         {
-            var table = Set<StudentViewMS>().FromSqlRaw("EXEC dbo.Procedures_ViewMS @StudentID",
+            var table = Set<StudentCourseFilters>().FromSqlRaw("EXEC dbo.Procedures_ViewMS @StudentID",
                 new SqlParameter("@StudentID", StudentID)).ToList();
+
+            return table;
+        }
+
+        public List<StudentCourseFilters> Procedures_ViewOptionalCourse(string StudentID, string current_semester_code)
+        {
+            var table = Set<StudentCourseFilters>().FromSqlRaw("EXEC dbo.Procedures_ViewOptionalCourse @StudentID, @current_semester_code",
+                new SqlParameter("@StudentID", StudentID),
+                new SqlParameter("@current_semester_code", current_semester_code)).ToList();
 
             return table;
         }

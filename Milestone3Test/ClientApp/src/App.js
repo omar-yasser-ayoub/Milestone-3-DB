@@ -5,10 +5,11 @@ const App = () => {
     const [courses, setCourses] = useState([]);
 
     const handleButtonClick = () => {
-        fetch("api/student/ViewMS", {
+        fetch("api/student/ViewOptionalCourse", {
             method: 'POST',
             headers: {
-                'StudentID': '2'
+                'StudentID': '2',
+                'current_semester_code': 'W23'
             },
         })
             .then(response => response.json())
@@ -23,7 +24,7 @@ const App = () => {
 
     return (
         <div className="container">
-            <h1>Missing Courses</h1>
+            <h1>Optional Courses</h1>
             <button onClick={handleButtonClick}>Click me</button>
             <div className="row">
                 <div className="col-sm-12">
