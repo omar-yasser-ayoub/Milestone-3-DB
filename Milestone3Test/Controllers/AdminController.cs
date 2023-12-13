@@ -133,8 +133,9 @@ namespace Milestone3Test.Controllers
         [Route("ListStudents")]
         public IActionResult ListStudents()
         {
-            // TODO code here
-            return null;
+            var table = _dbContext.Procedures_AdminListStudents();
+
+            return StatusCode(StatusCodes.Status200OK, table);
         }
     }
 }
