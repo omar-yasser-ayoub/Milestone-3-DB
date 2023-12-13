@@ -38,6 +38,7 @@ const LoginForm = (props) => {
 						setTest("Welcome to the System");
 						props.setLoggedIn(true)
 						props.setStudentLoggedIn(true)
+						props.setId(id);
 					}
 					else {
 						setTest("Incorrect Password");
@@ -62,6 +63,7 @@ const LoginForm = (props) => {
 						setTest("Welcome to the System");
 						props.setLoggedIn(true)
 						props.setStudentLoggedIn(false)
+						props.setId(id);
 					}
 					else {
 						setTest("Incorrect Password");
