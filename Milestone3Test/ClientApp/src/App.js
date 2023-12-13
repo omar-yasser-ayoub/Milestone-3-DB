@@ -1,46 +1,43 @@
 import { Button } from "bootstrap";
 import { useEffect, useState } from "react";
 import CustomButton from "./Components/CustomButton";
+import Navbar from "./Components/Navbar";
 import LoginForm from "./Components/LoginForm";
+import StudentRequest from "./Components/StudentRequest";
+import StudentCourses from "./Components/StudentCourses";
+import { Routes, Route, Link , BrowserRouter} from 'react-router-dom';
 const App = () => {
 
-    /*const [courses, setCourses] = useState([]);
-
-    const handleButtonClick = () => {
-        fetch("api/student/ViewRequiredCourse", {
-            method: 'POST',
-            headers: {
-                'StudentID': '4',
-                'current_semester_code': 'W23'
-            },
-        })
-            .then(response => response.json())
-            .then(responseJson => {
-                console.log(responseJson);
-                setCourses(responseJson);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    };*/
+    const [courses, setCourses] = useState([]);
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isStudentLoggedIn, setStudentLoggedIn] = useState(false);
-    const [test, setTest] = useState("NOT LOGGED IN GLOBALLY");
+    const [id, setId] = useState("");
+
 
     if (!isLoggedIn) {
         return (
 
             <div className="container">
-                <LoginForm setLoggedIn={setLoggedIn} setStudentLoggedIn={setStudentLoggedIn} />
+                <LoginForm setLoggedIn={setLoggedIn} setStudentLoggedIn={setStudentLoggedIn} setId={setId} />
             </div>
         )
     }
     else {
         if (isStudentLoggedIn) {
             return (
-
-                <div className="container">
-                    <h1>Student Page</h1>
+                <div>
+                    <BrowserRouter>
+                        <div className="App">
+                        <nav className="nav">
+                            <Link to="/Courses" className="nav-item">Courses</Link>
+                            <Link to="/Request" className="nav-item">Requests</Link>
+                        </nav>
+                        <Routes>
+                            <Route path="/Courses" element={<StudentCourses />} />
+                            <Route path="/Request" element={<StudentRequest />} />
+                        </Routes>
+                    </div>
+                    </BrowserRouter>
                 </div>
             )
         }
@@ -49,6 +46,7 @@ const App = () => {
 
                 <div className="container">
                     <h1>Advisor Page</h1>
+                    <h1>{id}</h1>
                 </div>
             )
         }
