@@ -44,6 +44,7 @@ namespace Milestone3Test.Models
         public virtual DbSet<StudentsCoursesTranscript> StudentsCoursesTranscripts { get; set; } = null!;
         public virtual DbSet<ViewCoursePrerequisite> ViewCoursePrerequisites { get; set; } = null!;
         public virtual DbSet<ViewStudent> ViewStudents { get; set; } = null!;
+        public virtual DbSet<AdvisorAssignedStudent> AdvisorAssignedStudents { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -965,7 +966,29 @@ namespace Milestone3Test.Models
                     .HasColumnName("student_id");
             });
 
-            OnModelCreatingPartial(modelBuilder);
+            modelBuilder.Entity<AdvisorAssignedStudent>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.student_id).HasColumnName("student_id");
+
+                entity.Property(e => e.Student_name)
+                    .HasMaxLength(80)
+                    .IsUnicode(false)
+                    .HasColumnName("Student_name");
+
+                entity.Property(e => e.major)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("major");
+
+                entity.Property(e => e.Course_name)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("Course_name");
+            });
+
+                OnModelCreatingPartial(modelBuilder);
         }
 
         /* ---------------------------------- [ADMIN] ---------------------------------- */
@@ -1101,6 +1124,21 @@ namespace Milestone3Test.Models
                     Advisor_id);
 
             return (int)Advisor_id.Value;
+        }
+
+        public void Procedures_AdvisorUpdateGP(string expected_grad_date, string studentID)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdvisorUpdateGP @expected_grad_date, @studentID",
+                    new SqlParameter("@expected_grad_date", expected_grad_date),
+                    new SqlParameter("@studentID", studentID));
+        }
+
+        public List<AdvisorAssignedStudent> Procedures_AdvisorViewAssignedStudents(string AdvisorID, string major)
+        {
+            var table = Set<AdvisorAssignedStudent>().FromSqlRaw("EXEC dbo.Procedures_AdvisorViewAssignedStudents @AdvisorID, @major",
+                                    new SqlParameter("@AdvisorID", AdvisorID),
+                                    new SqlParameter("@major", major)).ToList();
+            return table;
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
