@@ -95,5 +95,12 @@ namespace Milestone3Test.Controllers
 
             return StatusCode(StatusCodes.Status200OK, table);
         }
+        [HttpPost]
+        [Route("LoginRequest")]
+        public IActionResult LoginRequest([FromHeader] string username, [FromHeader] string password)
+        {
+            int Success = _dbContext.AdvisorLogin(username, password);
+            return StatusCode(StatusCodes.Status200OK, new { success = Success });
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace Milestone3Test.Models
             : base(options)
         {
         }
-
+        
         public virtual DbSet<Advisor> Advisors { get; set; } = null!;
         public virtual DbSet<AdvisorsGraduationPlan> AdvisorsGraduationPlans { get; set; } = null!;
         public virtual DbSet<AllPendingRequest> AllPendingRequests { get; set; } = null!;
@@ -47,6 +47,7 @@ namespace Milestone3Test.Models
         public virtual DbSet<AdvisorAssignedStudent> AdvisorAssignedStudents { get; set; } = null!;
         public virtual DbSet<AdvisorAssignedStudent> AdvisorAssignedStudents { get; set; } = null!;
         public virtual DbSet<StudentsWithAdvisor> StudentsWithAdvisors { get; set; } = null!;
+        public virtual DbSet<StudentCourseFilters> StudentViewMSs { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1013,6 +1014,17 @@ namespace Milestone3Test.Models
                     .IsUnicode(false)
                     .HasColumnName("advisor_name");
             });
+            modelBuilder.Entity<StudentCourseFilters>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.CourseId).HasColumnName("course_id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("name");
+            });
 
             OnModelCreatingPartial(modelBuilder);
         }
@@ -1118,6 +1130,19 @@ namespace Milestone3Test.Models
             Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminLinkStudentToAdvisor @studentID, @advisorID",
                     new SqlParameter("@studentID", studentID),
                     new SqlParameter("@advisorID", advisorID));
+        }
+        public List<Advisor> Procedures_AdminListAdvisors()
+        {
+            var table = Set<Advisor>().FromSqlRaw("EXEC dbo.Procedures_AdminListAdvisors").ToList();
+
+            return table;
+        }
+
+        public List<Student> Procedures_AdminListStudents()
+        {
+            var table = Set<Student>().FromSqlRaw("EXEC dbo.Procedures_AdminListStudents").ToList();
+
+            return table;
         }
 
         /* --------------------------------- [ADVISOR] --------------------------------- */
@@ -1268,6 +1293,123 @@ namespace Milestone3Test.Models
                     new SqlParameter("@type", type),
                     new SqlParameter("@comment", comment));
         }
+        public List<StudentCourseFilters> Procedures_ViewMS(string StudentID)
+        {
+            var table = Set<StudentCourseFilters>().FromSqlRaw("EXEC dbo.Procedures_ViewMS @StudentID",
+                new SqlParameter("@StudentID", StudentID)).ToList();
+
+            return table;
+        }
+
+        public List<StudentCourseFilters> Procedures_ViewOptionalCourse(string StudentID, string current_semester_code)
+        {
+            var table = Set<StudentCourseFilters>().FromSqlRaw("EXEC dbo.Procedures_ViewOptionalCourse @StudentID, @current_semester_code",
+                new SqlParameter("@StudentID", StudentID),
+                new SqlParameter("@current_semester_code", current_semester_code)).ToList();
+
+            return table;
+        }
+
+        public List<StudentCourseFilters> Procedures_ViewRequiredCourses(string StudentID, string current_semester_code)
+        {
+            var table = Set<StudentCourseFilters>().FromSqlRaw("EXEC dbo.Procedures_ViewRequiredCourses @StudentID, @current_semester_code",
+                new SqlParameter("@StudentID", StudentID),
+                new SqlParameter("@current_semester_code", current_semester_code)).ToList();
+
+            return table;
+        }
+
+
+
+        /*--Views--*/
+
+        public List<AdvisorsGraduationPlan> Views_Advisors_Gradtuation_Plan()
+        {
+            var table = Set<AdvisorsGraduationPlan>().FromSqlRaw("SELECT * FROM dbo.Advisors_Graduation_Plan")
+                                    .ToList();
+            return table;
+        }
+
+        public List<AllPendingRequest> Views_all_Pending_Requests()
+        {
+            var table = Set<AllPendingRequest>().FromSqlRaw("SELECT * FROM dbo.all_Pending_Requests")
+                                    .ToList();
+            return table;
+        }
+
+        public List<CoursesMakeupExam> Views_Courses_MakeupExams()
+        {
+            var table = Set<CoursesMakeupExam>().FromSqlRaw("SELECT * FROM dbo.Courses_MakeupExams")
+                                    .ToList();
+            return table;
+        }
+        public List<InstructorsAssignedCourse> Views_Instructors_AssignedCourses()
+        {
+            var table = Set<InstructorsAssignedCourse>().FromSqlRaw("SELECT * FROM dbo.Instructors_AssignedCourses")
+                                    .ToList();
+            return table;
+        }
+        public List<SemsterOfferedCourse> Views_Semster_offered_Courses()
+        {
+            var table = Set<SemsterOfferedCourse>().FromSqlRaw("SELECT * FROM dbo.Semster_offered_Courses")
+                                    .ToList();
+            return table;
+        }
+        public List<StudentPayment> Views_Student_Payment()
+        {
+            var table = Set<StudentPayment>().FromSqlRaw("SELECT * FROM dbo.Student_Payment")
+                                    .ToList();
+            return table;
+        }
+        public List<StudentsCoursesTranscript> Views_Students_Courses_transcript()
+        {
+            var table = Set<StudentsCoursesTranscript>().FromSqlRaw("SELECT * FROM dbo.Students_Courses_transcript")
+                                    .ToList();
+            return table;
+        }
+        public List<ViewCoursePrerequisite> Views_view_Course_prerequisites()
+        {
+            var table = Set<ViewCoursePrerequisite>().FromSqlRaw("SELECT * FROM dbo.view_Course_prerequisites")
+                                    .ToList();
+            return table;
+        }
+        public List<ViewStudent> Views_view_Students()
+        {
+            var table = Set<ViewStudent>().FromSqlRaw("SELECT * FROM dbo.view_Students")
+                                    .ToList();
+            return table;
+        }
+        /*--Functions--*/
+        public int StudentLogin(string username, string password)
+        {
+            var success = new SqlParameter("@success", SqlDbType.Int)
+            {
+                Direction = ParameterDirection.Output
+            };
+
+            Database.ExecuteSqlRaw("EXEC @success = dbo.FN_StudentLogin @Student_id, @password",
+                    new SqlParameter("@Student_id", username),
+                    new SqlParameter("@password", password),
+                    success);
+
+            return (int)success.Value;
+        }
+        public int AdvisorLogin(string username, string password)
+        {
+            var success = new SqlParameter("@success", SqlDbType.Int)
+            {
+                Direction = ParameterDirection.Output
+            };
+
+            Database.ExecuteSqlRaw("EXEC @success = dbo.FN_AdvisorLogin @Student_id, @password",
+                    new SqlParameter("@Student_id", username),
+                    new SqlParameter("@password", password),
+                    success);
+
+            return (int)success.Value;
+        }
+
+
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }

@@ -67,24 +67,36 @@ namespace Milestone3Test.Controllers
         }
         [HttpPost]
         [Route("ViewMS")]
-        public IActionResult ViewMS()
+        public IActionResult ViewMS([FromHeader] string StudentID)
         {
-            // TODO code here
-            return null;
+            var table = _dbContext.Procedures_ViewMS(StudentID);
+
+            return StatusCode(StatusCodes.Status200OK, table);
         }
+
         [HttpPost]
         [Route("ViewOptionalCourse")]
-        public IActionResult ViewOptionalCourse()
+        public IActionResult ViewOptionalCourse([FromHeader] string StudentID, [FromHeader] string current_semester_code)
         {
-            // TODO code here
-            return null;
+            var table = _dbContext.Procedures_ViewOptionalCourse(StudentID, current_semester_code);
+
+            return StatusCode(StatusCodes.Status200OK, table);
         }
+
         [HttpPost]
         [Route("ViewRequiredCourse")]
-        public IActionResult ViewRequiredCourse()
+        public IActionResult ViewRequiredCourse([FromHeader] string StudentID, [FromHeader] string current_semester_code)
         {
-            // TODO code here
-            return null;
+            var table = _dbContext.Procedures_ViewRequiredCourses(StudentID, current_semester_code);
+
+            return StatusCode(StatusCodes.Status200OK, table);
+        }
+        [HttpPost]
+        [Route("LoginRequest")]
+        public IActionResult LoginRequest([FromHeader] string username, [FromHeader] string password) 
+        {
+            int Success = _dbContext.StudentLogin(username, password);
+            return StatusCode(StatusCodes.Status200OK, new {success = Success});
         }
     }
 }
