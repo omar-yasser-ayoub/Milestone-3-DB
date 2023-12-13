@@ -67,10 +67,11 @@ namespace Milestone3Test.Controllers
         }
         [HttpPost]
         [Route("ViewMS")]
-        public IActionResult ViewMS()
+        public IActionResult ViewMS([FromHeader] string StudentID)
         {
-            // TODO code here
-            return null;
+            var table = _dbContext.Procedures_ViewMS(StudentID);
+
+            return StatusCode(StatusCodes.Status200OK, table);
         }
         [HttpPost]
         [Route("ViewOptionalCourse")]

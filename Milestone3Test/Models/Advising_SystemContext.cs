@@ -46,6 +46,7 @@ namespace Milestone3Test.Models
         public virtual DbSet<ViewStudent> ViewStudents { get; set; } = null!;
         public virtual DbSet<AdvisorAssignedStudent> AdvisorAssignedStudents { get; set; } = null!;
         public virtual DbSet<StudentsWithAdvisor> StudentsWithAdvisors { get; set; } = null!;
+        public virtual DbSet<StudentViewMS> StudentViewMSs { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1013,6 +1014,18 @@ namespace Milestone3Test.Models
                     .HasColumnName("advisor_name");
             });
 
+            modelBuilder.Entity<StudentViewMS>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.CourseId).HasColumnName("course_id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("name");
+            });
+
             OnModelCreatingPartial(modelBuilder);
         }
 
@@ -1260,6 +1273,14 @@ namespace Milestone3Test.Models
                     new SqlParameter("@StudentID", StudentID),
                     new SqlParameter("@type", type),
                     new SqlParameter("@comment", comment));
+        }
+
+        public List<StudentViewMS> Procedures_ViewMS(string StudentID)
+        {
+            var table = Set<StudentViewMS>().FromSqlRaw("EXEC dbo.Procedures_ViewMS @StudentID",
+                new SqlParameter("@StudentID", StudentID)).ToList();
+
+            return table;
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

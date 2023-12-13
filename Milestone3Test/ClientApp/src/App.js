@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 
 const App = () => {
 
-    const [students, setStudents] = useState([]);
+    const [courses, setCourses] = useState([]);
 
     const handleButtonClick = () => {
-        fetch("api/admin/ListStudents", {
+        fetch("api/student/ViewMS", {
             method: 'POST',
             headers: {
-                //'Advisor_ID': '1'
+                'StudentID': '2'
             },
         })
             .then(response => response.json())
             .then(responseJson => {
                 console.log(responseJson);
-                setStudents(responseJson);
+                setCourses(responseJson);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -23,45 +23,23 @@ const App = () => {
 
     return (
         <div className="container">
-            <h1>Students</h1>
+            <h1>Missing Courses</h1>
             <button onClick={handleButtonClick}>Click me</button>
             <div className="row">
                 <div className="col-sm-12">
                     <table>
                         <thead className="table table-stripped">
                             <tr>
-                                <th>Student ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Password</th>
-                                <th>GPA</th>
-                                <th>Faculty</th>
-                                <th>Email</th>
-                                <th>Major</th>
-                                <th>Financial Status</th>
-                                <th>Semester</th>
-                                <th>Acquired Hours</th>
-                                <th>Assigned Hours</th>
-                                <th>Advisor ID</th>
+                                <th>Course ID</th>
+                                <th>Course Name</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                students.map((s) => (
+                                courses.map((c) => (
                                     <tr>
-                                        <td>{s.studentId}</td>
-                                        <td>{s.fName}</td>
-                                        <td>{s.lName}</td>
-                                        <td>{s.password}</td>
-                                        <td>{s.gpa}</td>
-                                        <td>{s.faculty}</td>
-                                        <td>{s.email}</td>
-                                        <td>{s.major}</td>
-                                        <td>{s.financialStatus}</td>
-                                        <td>{s.emester}</td>
-                                        <td>{s.acquiredHours}</td>
-                                        <td>{s.assignedHours}</td>
-                                        <td>{s.advisorId}</td>
+                                        <td>{c.courseId}</td>
+                                        <td>{c.name}</td>
                                     </tr>
                                 ))
                             } 
