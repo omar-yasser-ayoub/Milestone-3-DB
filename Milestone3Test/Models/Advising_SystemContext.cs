@@ -1094,6 +1094,14 @@ namespace Milestone3Test.Models
                     new SqlParameter("@student_id", student_id));
         }
 
+        public void Procedures_AdvisorDeleteFromGP(string studentID, string sem_code, string courseID)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdvisorDeleteFromGP @studentID, @sem_code, @courseID",
+                    new SqlParameter("@studentID", studentID),
+                    new SqlParameter("@sem_code", sem_code),
+                    new SqlParameter("@courseID", courseID));
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

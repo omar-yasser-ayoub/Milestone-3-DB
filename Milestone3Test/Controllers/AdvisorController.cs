@@ -53,10 +53,11 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("DeleteFromGP")]
-        public IActionResult DeleteFromGP()
+        public IActionResult DeleteFromGP([FromHeader] string studentID, [FromHeader] string sem_code, [FromHeader] string courseID)
         {
-            // TODO code here
-            return null;
+            _dbContext.Procedures_AdvisorDeleteFromGP(studentID, sem_code, courseID);
+
+            return StatusCode(StatusCodes.Status200OK);
         }
 
         [HttpPost]
