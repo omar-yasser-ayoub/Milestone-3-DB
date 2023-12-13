@@ -2,28 +2,19 @@ import { useEffect, useState } from "react";
 
 const App = () => {
 
-    const [instructors, setInstructors] = useState([]);
-    const [advisorId, setAdvisorId] = useState(null);
+    const [students, setStudents] = useState([]);
 
     const handleButtonClick = () => {
-        fetch("api/student/Registration", {
+        fetch("api/admin/ListStudentsWithAdvisors", {
             method: 'POST',
             headers: {
-                'first_name': 'Farah',
-                'last_name': 'Omar',
-                'password': 'Farahandomar',
-                'faculty': 'Chemistry',
-                'email': 'farahomar',
-                'major': 'Engineering Chemistry',
-                'Semester': '4'
-
+                //'Advisor_ID': '1'
             },
         })
             .then(response => response.json())
             .then(responseJson => {
-                //setInstructors(responseJson);
                 console.log(responseJson);
-                setAdvisorId(responseJson.studentId);
+                setStudents(responseJson);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -32,33 +23,31 @@ const App = () => {
 
     return (
         <div className="container">
-            <div>
-                <h1>Advisor ID: {advisorId}</h1>
-            </div>
-
-            <h1>Instructors</h1>
+            <h1>Students With Advisors</h1>
             <button onClick={handleButtonClick}>Click me</button>
             <div className="row">
                 <div className="col-sm-12">
                     <table>
                         <thead className="table table-stripped">
                             <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Office</th>
-                                <th>Password</th>
+                                <th>Student ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Advisor ID</th>
+                                <th>Advisor Name</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                /*instructors.map((instructor) => (
+                                students.map((student) => (
                                     <tr>
-                                        <td>{instructor.semester_code}</td>
-                                        <td>{instructor.start_date}</td>
-                                        <td>{instructor.end_date}</td>
+                                        <td>{student.studentId}</td>
+                                        <td>{student.fName}</td>
+                                        <td>{student.lName}</td>
+                                        <td>{student.advisorId}</td>
+                                        <td>{student.advisorName}</td>
                                     </tr>
-                                ))*/
+                                ))
                             } 
                         </tbody>
                     </table>
