@@ -95,6 +95,7 @@ namespace Milestone3Test.Controllers
 
             return StatusCode(StatusCodes.Status200OK, table);
         }
+
         [HttpPost]
         [Route("LoginRequest")]
         public IActionResult LoginRequest([FromHeader] string username, [FromHeader] string password)

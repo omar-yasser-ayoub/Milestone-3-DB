@@ -19,7 +19,7 @@ namespace Milestone3Test.Models
             : base(options)
         {
         }
-        
+
         public virtual DbSet<Advisor> Advisors { get; set; } = null!;
         public virtual DbSet<AdvisorsGraduationPlan> AdvisorsGraduationPlans { get; set; } = null!;
         public virtual DbSet<AllPendingRequest> AllPendingRequests { get; set; } = null!;
@@ -1017,6 +1017,10 @@ namespace Milestone3Test.Models
             {
                 entity.HasNoKey();
 
+            modelBuilder.Entity<StudentCourseFilters>(entity =>
+            {
+                entity.HasNoKey();
+
                 entity.Property(e => e.CourseId).HasColumnName("course_id");
 
                 entity.Property(e => e.Name)
@@ -1041,7 +1045,7 @@ namespace Milestone3Test.Models
         public List<StudentsWithAdvisor> AdminListStudentsWithAdvisors()
         {
             var table = Set<StudentsWithAdvisor>().FromSqlRaw("EXEC dbo.AdminListStudentsWithAdvisors").ToList();
-            
+
             return table;
         }
 
@@ -1114,6 +1118,10 @@ namespace Milestone3Test.Models
         {
             var table = Set<Advisor>().FromSqlRaw("EXEC dbo.Procedures_AdminListAdvisors").ToList();
 
+        public List<Advisor> Procedures_AdminListAdvisors()
+        {
+            var table = Set<Advisor>().FromSqlRaw("EXEC dbo.Procedures_AdminListAdvisors").ToList();
+
             return table;
         }
 
@@ -1133,7 +1141,7 @@ namespace Milestone3Test.Models
                     new SqlParameter("@Semester_code", Semester_code),
                     new SqlParameter("@course_name", course_name));
         }
-        
+
         public void Procedures_AdvisorApproveRejectCHRequest(string requestID, string current_sem_code)
         {
             Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdvisorApproveRejectCHRequest @requestID, @current_sem_code",
@@ -1272,6 +1280,7 @@ namespace Milestone3Test.Models
                     new SqlParameter("@type", type),
                     new SqlParameter("@comment", comment));
         }
+
         public List<StudentCourseFilters> Procedures_ViewMS(string StudentID)
         {
             var table = Set<StudentCourseFilters>().FromSqlRaw("EXEC dbo.Procedures_ViewMS @StudentID",

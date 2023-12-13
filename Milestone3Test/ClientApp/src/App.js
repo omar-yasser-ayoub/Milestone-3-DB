@@ -2,20 +2,20 @@ import { useEffect, useState } from "react";
 
 const App = () => {
 
-    const [students, setStudents] = useState([]);
+    const [courses, setCourses] = useState([]);
 
     const handleButtonClick = () => {
-        fetch("api/advisor/LoginRequest", {
+        fetch("api/student/ViewRequiredCourse", {
             method: 'POST',
             headers: {
-                'username': '1',
-                'password': 'pass123'
+                'StudentID': '4',
+                'current_semester_code': 'W23'
             },
         })
             .then(response => response.json())
             .then(responseJson => {
                 console.log(responseJson);
-                setStudents(responseJson);
+                setCourses(responseJson);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -24,29 +24,23 @@ const App = () => {
 
     return (
         <div className="container">
-            <h1>Students With Advisors {students.success}</h1>
+            <h1>Required Courses</h1>
             <button onClick={handleButtonClick}>Click me</button>
             <div className="row">
                 <div className="col-sm-12">
                     <table>
                         <thead className="table table-stripped">
                             <tr>
-                                <th>Student ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Advisor ID</th>
-                                <th>Advisor Name</th>
+                                <th>Course ID</th>
+                                <th>Course Name</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                /*students.map((student) => (
+                                courses.map((c) => (
                                     <tr>
-                                        <td>{student.studentId}</td>
-                                        <td>{student.fName}</td>
-                                        <td>{student.lName}</td>
-                                        <td>{student.advisorId}</td>
-                                        <td>{student.advisorName}</td>
+                                        <td>{c.courseId}</td>
+                                        <td>{c.name}</td>
                                     </tr>
                                 ))*/
                             } 
