@@ -11,10 +11,11 @@ namespace Milestone3Test.Controllers
     {
         private readonly Advising_SystemContext _dbContext;
 
-        public StudentController (Advising_SystemContext dbContext)
+        public StudentController(Advising_SystemContext dbContext)
         {
             _dbContext = dbContext;
         }
+
         [HttpPost]
         [Route("ChooseInstructor")]
         public IActionResult ChooseInstructor([FromHeader] string StudentID, [FromHeader] string instructorID, [FromHeader] string CourseID, [FromHeader] string current_semester_code)
@@ -23,6 +24,7 @@ namespace Milestone3Test.Controllers
 
             return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("AddMobile")]
         public IActionResult AddMobile([FromHeader] string StudentID, [FromHeader] string mobile_number)
@@ -30,6 +32,7 @@ namespace Milestone3Test.Controllers
             _dbContext.Procedures_StudentAddMobile(StudentID, mobile_number);
             return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("RegisterFirstMakeup")]
         public IActionResult RegisterFirstMakeup([FromHeader] string StudentID, [FromHeader] string courseID, [FromHeader] string studentCurr_sem)
@@ -37,6 +40,7 @@ namespace Milestone3Test.Controllers
             _dbContext.Procedures_StudentRegisterFirstMakeup(StudentID, courseID, studentCurr_sem);
             return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("RegisterSecondMakeup")]
         public IActionResult RegisterSecondMakeup([FromHeader] string StudentID, [FromHeader] string courseID, [FromHeader] string studentCurr_sem)
@@ -44,6 +48,7 @@ namespace Milestone3Test.Controllers
             _dbContext.Procedures_StudentRegisterSecondMakeup(StudentID, courseID, studentCurr_sem);
             return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("Registration")]
         public IActionResult Registration([FromHeader] string first_name, [FromHeader] string last_name, [FromHeader] string password, [FromHeader] string faculty, [FromHeader] string email, [FromHeader] string major, [FromHeader] string Semester)
@@ -51,6 +56,7 @@ namespace Milestone3Test.Controllers
             int Student_id = _dbContext.Procedures_StudentRegistration(first_name, last_name, password, faculty, email, major, Semester);
             return StatusCode(StatusCodes.Status200OK, new { StudentId = Student_id });
         }
+
         [HttpPost]
         [Route("SendingCHRequest")]
         public IActionResult SendingCHRequest([FromHeader] string StudentID, [FromHeader] string credit_hours, [FromHeader] string type, [FromHeader] string comment)
@@ -58,6 +64,7 @@ namespace Milestone3Test.Controllers
             _dbContext.Procedures_StudentSendingCHRequest(StudentID, credit_hours, type, comment);
             return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("SendingCourseRequest")]
         public IActionResult SendingCourseRequest([FromHeader] string courseID, [FromHeader] string StudentID, [FromHeader] string type, [FromHeader] string comment)
@@ -65,6 +72,7 @@ namespace Milestone3Test.Controllers
             _dbContext.Procedures_StudentSendingCourseRequest(courseID, StudentID, type, comment);
             return StatusCode(StatusCodes.Status200OK);
         }
+
         [HttpPost]
         [Route("ViewMS")]
         public IActionResult ViewMS([FromHeader] string StudentID)
@@ -86,17 +94,19 @@ namespace Milestone3Test.Controllers
         [HttpPost]
         [Route("ViewRequiredCourse")]
         public IActionResult ViewRequiredCourse([FromHeader] string StudentID, [FromHeader] string current_semester_code)
+        public IActionResult ViewRequiredCourse([FromHeader] string StudentID, [FromHeader] string current_semester_code)
         {
             var table = _dbContext.Procedures_ViewRequiredCourses(StudentID, current_semester_code);
 
             return StatusCode(StatusCodes.Status200OK, table);
         }
+
         [HttpPost]
         [Route("LoginRequest")]
-        public IActionResult LoginRequest([FromHeader] string username, [FromHeader] string password) 
+        public IActionResult LoginRequest([FromHeader] string username, [FromHeader] string password)
         {
             int Success = _dbContext.StudentLogin(username, password);
-            return StatusCode(StatusCodes.Status200OK, new {success = Success});
+            return StatusCode(StatusCodes.Status200OK, new { success = Success });
         }
     }
 }

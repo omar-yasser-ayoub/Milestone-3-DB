@@ -29,6 +29,7 @@ namespace Milestone3Test.Controllers
 
             return StatusCode(StatusCodes.Status200OK, table);
         }
+
         [HttpPost]
         [Route("AllPendingRequest")]
         public IActionResult AllPendingRequest()
@@ -37,6 +38,7 @@ namespace Milestone3Test.Controllers
 
             return StatusCode(StatusCodes.Status200OK, table);
         }
+
         [HttpPost]
         [Route("CoursesMakeupExam")]
         public IActionResult CoursesMakeupExam()
@@ -45,6 +47,7 @@ namespace Milestone3Test.Controllers
 
             return StatusCode(StatusCodes.Status200OK, table);
         }
+
         [HttpPost]
         [Route("InstructorAssignedCourses")]
         public IActionResult InstructorAssignedCourses()
@@ -53,6 +56,7 @@ namespace Milestone3Test.Controllers
 
             return StatusCode(StatusCodes.Status200OK, table);
         }
+
         [HttpPost]
         [Route("SemesterOfferedCourses")]
         public IActionResult SemesterOfferedCourses()
@@ -61,6 +65,7 @@ namespace Milestone3Test.Controllers
 
             return StatusCode(StatusCodes.Status200OK, table);
         }
+
         [HttpPost]
         [Route("StudentPayment")]
         public IActionResult StudentPayment()
@@ -69,6 +74,7 @@ namespace Milestone3Test.Controllers
 
             return StatusCode(StatusCodes.Status200OK, table);
         }
+
         [HttpPost]
         [Route("StudentCoursesTranscript")]
         public IActionResult StudentCoursesTranscript()
@@ -77,6 +83,7 @@ namespace Milestone3Test.Controllers
 
             return StatusCode(StatusCodes.Status200OK, table);
         }
+
         [HttpPost]
         [Route("ViewCoursePrerequisites")]
         public IActionResult ViewCoursePrerequisites()
@@ -85,6 +92,7 @@ namespace Milestone3Test.Controllers
 
             return StatusCode(StatusCodes.Status200OK, table);
         }
+
         [HttpPost]
         [Route("ViewStudents")]
         public IActionResult ViewStudents()
