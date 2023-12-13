@@ -6,20 +6,24 @@ const App = () => {
     const [advisorId, setAdvisorId] = useState(null);
 
     const handleButtonClick = () => {
-        fetch("api/advisor/RegistrationAdvisor", {
+        fetch("api/student/Registration", {
             method: 'POST',
             headers: {
-                'advisor_name': 'Dr. Carter',
-                'password': 'password3',
-                'email': 'carter@example.com',
-                'office': 'Office C'
+                'first_name': 'Farah',
+                'last_name': 'Omar',
+                'password': 'Farahandomar',
+                'faculty': 'Chemistry',
+                'email': 'farahomar',
+                'major': 'Engineering Chemistry',
+                'Semester': '4'
+
             },
         })
             .then(response => response.json())
             .then(responseJson => {
                 //setInstructors(responseJson);
                 console.log(responseJson);
-                setAdvisorId(responseJson.advisorId);
+                setAdvisorId(responseJson.studentId);
             })
             .catch(error => {
                 console.error('Error:', error);
