@@ -4,6 +4,9 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
+using System.Data;
+using System.Data.SqlClient;
+
 namespace Milestone3Test.Models
 {
     public partial class Advising_SystemContext : DbContext
@@ -1100,6 +1103,23 @@ namespace Milestone3Test.Models
                     new SqlParameter("@studentID", studentID),
                     new SqlParameter("@sem_code", sem_code),
                     new SqlParameter("@courseID", courseID));
+        }
+
+        public int Procedures_AdvisorRegistration(string advisor_name, string password, string email, string office)
+        {
+            var Advisor_id = new SqlParameter("@Advisor_id", SqlDbType.Int)
+            {
+                Direction = ParameterDirection.Output
+            };
+
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdvisorRegistration @advisor_name, @password, @email, @office, @Advisor_id OUTPUT",
+                    new SqlParameter("@advisor_name", advisor_name),
+                    new SqlParameter("@password", password),
+                    new SqlParameter("@email", email),
+                    new SqlParameter("@office", office),
+                    Advisor_id);
+
+            return (int)Advisor_id.Value;
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

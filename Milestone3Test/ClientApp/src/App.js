@@ -2,20 +2,25 @@ import { useEffect, useState } from "react";
 
 const App = () => {
 
-    const [instructors, setInstructors] = useState([])
+    const [instructors, setInstructors] = useState([]);
+    const [advisorId, setAdvisorId] = useState(null);
 
     const handleButtonClick = () => {
-        fetch("api/advisor/DeleteFromGP", {
+        fetch("api/advisor/RegistrationAdvisor", {
             method: 'POST',
             headers: {
-                'studentID': '2',
-                'sem_code': 'W23',
-                'courseID': '1'
+                'advisor_name': 'Dr. Carter',
+                'password': 'password3',
+                'email': 'carter@example.com',
+                'office': 'Office C'
             },
         })
             .then(response => response.json())
             .then(responseJson => {
                 setInstructors(responseJson)
+                //setInstructors(responseJson);
+                console.log(responseJson);
+                setAdvisorId(responseJson.advisorId);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -26,6 +31,10 @@ const App = () => {
 
     return (
         <div className="container">
+            <div>
+                <h1>Advisor ID: {advisorId}</h1>
+            </div>
+
             <h1>Instructors</h1>
             <button onClick={handleButtonClick}>Click me</button>
             <div className="row">
