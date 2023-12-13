@@ -19,7 +19,6 @@ namespace Milestone3Test.Models
             : base(options)
         {
         }
-
         public virtual DbSet<Advisor> Advisors { get; set; } = null!;
         public virtual DbSet<AdvisorsGraduationPlan> AdvisorsGraduationPlans { get; set; } = null!;
         public virtual DbSet<AllPendingRequest> AllPendingRequests { get; set; } = null!;
@@ -1013,9 +1012,6 @@ namespace Milestone3Test.Models
                     .IsUnicode(false)
                     .HasColumnName("advisor_name");
             });
-            modelBuilder.Entity<StudentCourseFilters>(entity =>
-            {
-                entity.HasNoKey();
 
             modelBuilder.Entity<StudentCourseFilters>(entity =>
             {
@@ -1114,9 +1110,6 @@ namespace Milestone3Test.Models
                     new SqlParameter("@studentID", studentID),
                     new SqlParameter("@advisorID", advisorID));
         }
-        public List<Advisor> Procedures_AdminListAdvisors()
-        {
-            var table = Set<Advisor>().FromSqlRaw("EXEC dbo.Procedures_AdminListAdvisors").ToList();
 
         public List<Advisor> Procedures_AdminListAdvisors()
         {
