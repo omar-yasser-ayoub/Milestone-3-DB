@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 using System.Data;
 using System.Data.SqlClient;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Milestone3Test.Models
 {
@@ -45,6 +44,8 @@ namespace Milestone3Test.Models
         public virtual DbSet<StudentsCoursesTranscript> StudentsCoursesTranscripts { get; set; } = null!;
         public virtual DbSet<ViewCoursePrerequisite> ViewCoursePrerequisites { get; set; } = null!;
         public virtual DbSet<ViewStudent> ViewStudents { get; set; } = null!;
+        public virtual DbSet<AdvisorAssignedStudent> AdvisorAssignedStudents { get; set; } = null!;
+        public virtual DbSet<StudentsWithAdvisor> StudentsWithAdvisors { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -966,6 +967,52 @@ namespace Milestone3Test.Models
                     .HasColumnName("student_id");
             });
 
+            modelBuilder.Entity<AdvisorAssignedStudent>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.student_id).HasColumnName("student_id");
+
+                entity.Property(e => e.Student_name)
+                    .HasMaxLength(80)
+                    .IsUnicode(false)
+                    .HasColumnName("Student_name");
+
+                entity.Property(e => e.major)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("major");
+
+                entity.Property(e => e.Course_name)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("Course_name");
+            });
+
+            modelBuilder.Entity<StudentsWithAdvisor>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.StudentId).HasColumnName("student_id");
+
+                entity.Property(e => e.FName)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("f_name");
+
+                entity.Property(e => e.LName)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("l_name");
+
+                entity.Property(e => e.AdvisorId).HasColumnName("advisor_id");
+
+                entity.Property(e => e.AdvisorName)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("advisor_name");
+            });
+
             OnModelCreatingPartial(modelBuilder);
         }
 
@@ -977,6 +1024,13 @@ namespace Milestone3Test.Models
                     new SqlParameter("@start_date", startDate),
                     new SqlParameter("@end_date", endDate),
                     new SqlParameter("@semester_code", semesterCode));
+        }
+
+        public List<StudentsWithAdvisor> AdminListStudentsWithAdvisors()
+        {
+            var table = Set<StudentsWithAdvisor>().FromSqlRaw("EXEC dbo.AdminListStudentsWithAdvisors").ToList();
+            
+            return table;
         }
 
         public void Procedure_AdminUpdateStudentStatus(string student_id)
@@ -1012,6 +1066,7 @@ namespace Milestone3Test.Models
                 Console.WriteLine($"Error executing stored procedure: {ex.Message}");
             }
         }
+
         public void Procedures_AdminAddingCourse(string major, string semester, string credit_hours, string name, string is_offered)
         {
             Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdminAddingCourse @major, @semester, @credit_hours, @name, @is_offered",
@@ -1123,6 +1178,30 @@ namespace Milestone3Test.Models
             return (int)Advisor_id.Value;
         }
 
+        public void Procedures_AdvisorUpdateGP(string expected_grad_date, string studentID)
+        {
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_AdvisorUpdateGP @expected_grad_date, @studentID",
+                    new SqlParameter("@expected_grad_date", expected_grad_date),
+                    new SqlParameter("@studentID", studentID));
+        }
+
+        public List<AdvisorAssignedStudent> Procedures_AdvisorViewAssignedStudents(string AdvisorID, string major)
+        {
+            var table = Set<AdvisorAssignedStudent>().FromSqlRaw("EXEC dbo.Procedures_AdvisorViewAssignedStudents @AdvisorID, @major",
+                                    new SqlParameter("@AdvisorID", AdvisorID),
+                                    new SqlParameter("@major", major)).ToList();
+            return table;
+        }
+
+        public List<AllPendingRequest> Procedures_AdvisorViewPendingRequests(string Advisor_ID)
+        {
+            var table = Set<AllPendingRequest>().FromSqlRaw("EXEC dbo.Procedures_AdvisorViewPendingRequests @Advisor_ID",
+                                    new SqlParameter("@Advisor_ID", Advisor_ID)).ToList();
+            return table;
+        }
+
+        /* -- */
+
         public void Procedures_StudentChooseInstructor(string StudentID, string instructorID, string CourseID, string current_semester_code)
         {
             Database.ExecuteSqlRaw("EXEC dbo.Procedures_Chooseinstructor @StudentID, @instructorID, @CourseID, @current_semester_code",
@@ -1152,6 +1231,7 @@ namespace Milestone3Test.Models
                     new SqlParameter("@courseID", courseID),
                     new SqlParameter("@studentCurr_sem", studentCurr_Sem));
         }
+
         public int Procedures_StudentRegistration(string first_name, string last_name, string password, string faculty, string email, string major, string Semester)
         {
             var Student_id = new SqlParameter("@Student_id", SqlDbType.Int)
@@ -1187,6 +1267,7 @@ namespace Milestone3Test.Models
                     new SqlParameter("@type", type),
                     new SqlParameter("@comment", comment));
         }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
