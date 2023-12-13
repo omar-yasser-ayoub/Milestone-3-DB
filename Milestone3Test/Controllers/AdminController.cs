@@ -33,8 +33,9 @@ namespace Milestone3Test.Controllers
         [Route("ListStudentsWithAdvisors")]
         public IActionResult ListStudentsWithAdvisors()
         {
-            // TODO code here
-            return null;
+            var table = _dbContext.AdminListStudentsWithAdvisors();
+
+            return StatusCode(StatusCodes.Status200OK, table);
         }
 
         [HttpPost]

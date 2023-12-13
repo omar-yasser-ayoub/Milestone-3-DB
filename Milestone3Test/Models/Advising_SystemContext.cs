@@ -45,6 +45,7 @@ namespace Milestone3Test.Models
         public virtual DbSet<ViewCoursePrerequisite> ViewCoursePrerequisites { get; set; } = null!;
         public virtual DbSet<ViewStudent> ViewStudents { get; set; } = null!;
         public virtual DbSet<AdvisorAssignedStudent> AdvisorAssignedStudents { get; set; } = null!;
+        public virtual DbSet<StudentsWithAdvisor> StudentsWithAdvisors { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -988,7 +989,31 @@ namespace Milestone3Test.Models
                     .HasColumnName("Course_name");
             });
 
-                OnModelCreatingPartial(modelBuilder);
+            modelBuilder.Entity<StudentsWithAdvisor>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.StudentId).HasColumnName("student_id");
+
+                entity.Property(e => e.FName)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("f_name");
+
+                entity.Property(e => e.LName)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("l_name");
+
+                entity.Property(e => e.AdvisorId).HasColumnName("advisor_id");
+
+                entity.Property(e => e.AdvisorName)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("advisor_name");
+            });
+
+            OnModelCreatingPartial(modelBuilder);
         }
 
         /* ---------------------------------- [ADMIN] ---------------------------------- */
@@ -999,6 +1024,13 @@ namespace Milestone3Test.Models
                     new SqlParameter("@start_date", startDate),
                     new SqlParameter("@end_date", endDate),
                     new SqlParameter("@semester_code", semesterCode));
+        }
+
+        public List<StudentsWithAdvisor> AdminListStudentsWithAdvisors()
+        {
+            var table = Set<StudentsWithAdvisor>().FromSqlRaw("EXEC dbo.AdminListStudentsWithAdvisors").ToList();
+            
+            return table;
         }
 
         public void Procedure_AdminUpdateStudentStatus(string student_id)
