@@ -1360,6 +1360,12 @@ namespace Milestone3Test.Models
                                     .ToList();
             return table;
         }
+        public List<CoursesSlotsInstructor> Views_Courses_Slots_Instructor()
+        {
+            var table = Set<CoursesSlotsInstructor>().FromSqlRaw("SELECT * FROM dbo.Courses_Slots_Instructor")
+                                    .ToList();
+            return table;
+        }
         /*--Functions--*/
         public int StudentLogin(string username, string password)
         {
@@ -1389,9 +1395,6 @@ namespace Milestone3Test.Models
 
             return (int)success.Value;
         }
-
-
-
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

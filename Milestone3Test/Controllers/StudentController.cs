@@ -107,5 +107,6 @@ namespace Milestone3Test.Controllers
             int Success = _dbContext.StudentLogin(username, password);
             return StatusCode(StatusCodes.Status200OK, new { success = Success });
         }
+        
     }
 }

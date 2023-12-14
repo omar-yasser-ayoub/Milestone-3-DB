@@ -33,7 +33,7 @@ const StudentCourses = (props) => {
                         <option value="api/student/ViewRequiredCourse">View Required Courses</option>
                         <option value="api/student/ViewMS">View Missing Courses</option>
                         <option value="api/view/viewCoursePrerequisites">View Course Prerequisites</option>
-                        <option value="slots">View Slots</option>
+                        <option value="api/view/CoursesSlotsInstructor">View All Courses</option>
                         {/* Add more options as needed */}
                     </select>
                     <select id="semester" name="semester" value={semester} onChange={handleSemesterChange}>
