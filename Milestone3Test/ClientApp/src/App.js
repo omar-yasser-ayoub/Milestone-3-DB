@@ -5,6 +5,7 @@ import Navbar from "./Components/Navbar";
 import LoginForm from "./Components/LoginForm";
 import StudentRequest from "./Components/StudentRequest";
 import StudentCourses from "./Components/StudentCourses";
+import AdvisorHome from "./Components/AdvisorHome";
 import { Routes, Route, Link , BrowserRouter} from 'react-router-dom';
 const App = () => {
 
@@ -29,12 +30,12 @@ const App = () => {
                     <BrowserRouter>
                         <div className="App">
                         <nav className="nav">
-                            <Link to="/Courses" className="nav-item">Courses</Link>
-                            <Link to="/Request" className="nav-item">Requests</Link>
+                            <Link to="/student/courses" className="nav-item">Courses</Link>
+                            <Link to="/student/request" className="nav-item">Requests</Link>
                         </nav>
                         <Routes>
-                            <Route path="/Courses" element={<StudentCourses />} />
-                            <Route path="/Request" element={<StudentRequest />} />
+                            <Route path="/student/courses" element={<StudentCourses />} />
+                            <Route path="/student/request" element={<StudentRequest />} />
                         </Routes>
                     </div>
                     </BrowserRouter>
@@ -47,6 +48,7 @@ const App = () => {
                 <div className="container">
                     <h1>Advisor Page</h1>
                     <h1>{id}</h1>
+                    <AdvisorHome />
                 </div>
             )
         }

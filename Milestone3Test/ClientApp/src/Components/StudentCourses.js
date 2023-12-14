@@ -1,4 +1,3 @@
-
 import 'bootstrap/dist/css/bootstrap.css';
 import ReactDOM from 'react-dom'
 import { React, useState } from 'react';
@@ -24,7 +23,7 @@ const StudentCourses = (props) => {
             <div>
                 <div>
                     <label htmlFor="courses">Select a course:</label>
-                    <select id="courses" name="courses" value={selectedValue} onChange={handleChange}>
+                    {/*<select id="courses" name="courses" value={selectedValue} onChange={handleChange}>
                         <option value="">Select...</option>
                         <option value="ViewOptionalCourses">View Optional Courses</option>
                         <option value="available">View Available Courses</option>
@@ -32,8 +31,8 @@ const StudentCourses = (props) => {
                         <option value="missing">View Missing Courses</option>
                         <option value="course">View Course Prerequisites</option>
                         <option value="slots">View Slots</option>
-                        {/* Add more options as needed */}
-                    </select>
+                        */}{/* Add more options as needed */}{/*
+                    </select>*/}
 
                     {/* Display the selected value */}
                     <p>You selected: {selectedValue}</p>
@@ -46,5 +45,3 @@ const StudentCourses = (props) => {
 };
 
 export default StudentCourses;
-
-
