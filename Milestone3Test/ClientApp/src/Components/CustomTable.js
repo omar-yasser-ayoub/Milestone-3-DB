@@ -22,7 +22,7 @@ const CustomTable = (props) => {
             .catch(error => {
                 console.error('Error:', error);
             });
-    }, []);
+    }, [props.apistring, props.semester]);
 
     return (
         <div>

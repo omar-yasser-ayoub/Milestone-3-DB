@@ -5,7 +5,7 @@ import CustomTable from "./CustomTable"
 
 const StudentCourses = (props) => {
     // State to manage the selected value
-    const [selectedValue, setSelectedValue] = useState('api/student/ViewOptionalCourse');
+    const [selectedValue, setSelectedValue] = useState('api/student/ViewMS');
     const [semester, setSemester] = useState('W23');
 
     // Handler function to update the selected value
