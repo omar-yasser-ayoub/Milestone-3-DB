@@ -1461,6 +1461,20 @@ namespace Milestone3Test.Models
             return table;
         }
 
+        public DateTime FN_StudentUpcoming_installment(string student_ID)
+        {
+            var installdeadline = new SqlParameter("@installdeadline", SqlDbType.Date)
+            {
+                Direction = ParameterDirection.Output
+            };
+
+            Database.ExecuteSqlRaw("SET @installdeadline = dbo.FN_StudentUpcoming_installment(@student_ID)",
+                    new SqlParameter("@student_ID", student_ID),
+                    installdeadline);
+
+            return (DateTime)installdeadline.Value;
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

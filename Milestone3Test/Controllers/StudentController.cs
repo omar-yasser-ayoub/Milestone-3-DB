@@ -124,5 +124,13 @@ namespace Milestone3Test.Controllers
             var table = _dbContext.FN_StudentUnattendedCourses(StudentID, current_semester_code, student_semester);
             return StatusCode(StatusCodes.Status200OK, table);
         }
+
+        [HttpPost]
+        [Route("ViewUpcomingInstallment")]
+        public IActionResult ViewUpcomingInstallment([FromHeader] string student_ID)
+        {
+            DateTime installdate = _dbContext.FN_StudentUpcoming_installment(student_ID);
+            return StatusCode(StatusCodes.Status200OK, installdate);
+        }
     }
 }
