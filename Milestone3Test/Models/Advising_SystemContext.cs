@@ -1520,6 +1520,15 @@ namespace Milestone3Test.Models
             return table;
         }
 
+        public List<CoursesSlotsInstructor> FN_StudentViewSlot(string CourseID, string InstructorID)
+        {
+            var table = Set<CoursesSlotsInstructor>().FromSqlRaw("SELECT * FROM dbo.FN_StudentViewSlot(@CourseID, @InstructorID)",
+                                new SqlParameter("@CourseID", CourseID),
+                                new SqlParameter("@InstructorID", InstructorID)).ToList();
+
+            return table;
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

@@ -26,10 +26,11 @@ const App = () => {
     };
 
     useEffect(() => {
-        fetch("api/student/ViewGP", {
+        fetch("api/student/ViewSlot", {
             method: 'POST',
             headers: {
-                'student_ID': '2'
+                'CourseID': '2',
+                'InstructorID': '1'
             },
         })
             .then(response => response.json())
