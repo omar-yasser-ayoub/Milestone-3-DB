@@ -16,7 +16,7 @@ const App = () => {
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isStudentLoggedIn, setStudentLoggedIn] = useState(false);
     const [id, setId] = useState("");
-    const [test, setTest] = useState([]);
+    const [test, setTest] = useState("");
 
     const navItemStyle = {
         marginRight: '15px',
@@ -26,12 +26,10 @@ const App = () => {
     };
 
     useEffect(() => {
-        fetch("api/student/ViewUnattendedCourses", {
+        fetch("api/student/ViewUpcomingInstallment", {
             method: 'POST',
             headers: {
-                'StudentID': '2',
-                'current_semester_code': 'W23',
-                'student_semester': '9'
+                'student_ID': '4'
             },
         })
             .then(response => response.json())
@@ -49,6 +47,7 @@ const App = () => {
 
             <div className="container">
                 <LoginForm setLoggedIn={setLoggedIn} setStudentLoggedIn={setStudentLoggedIn} setId={setId} />
+                <h1>{test}</h1>
             </div>
         )
     }
