@@ -59,17 +59,17 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("SendingCHRequest")]
-        public IActionResult SendingCHRequest([FromHeader] string StudentID, [FromHeader] string credit_hours, [FromHeader] string type, [FromHeader] string comment)
+        public IActionResult SendingCHRequest([FromHeader] string StudentID, [FromHeader] string creditCourse, [FromHeader] string type, [FromHeader] string comment)
         {
-            _dbContext.Procedures_StudentSendingCHRequest(StudentID, credit_hours, type, comment);
+            _dbContext.Procedures_StudentSendingCHRequest(StudentID, creditCourse, type, comment);
             return StatusCode(StatusCodes.Status200OK);
         }
 
         [HttpPost]
         [Route("SendingCourseRequest")]
-        public IActionResult SendingCourseRequest([FromHeader] string courseID, [FromHeader] string StudentID, [FromHeader] string type, [FromHeader] string comment)
+        public IActionResult SendingCourseRequest([FromHeader] string StudentID, [FromHeader] string creditCourse, [FromHeader] string type, [FromHeader] string comment)
         {
-            _dbContext.Procedures_StudentSendingCourseRequest(courseID, StudentID, type, comment);
+            _dbContext.Procedures_StudentSendingCourseRequest(creditCourse, StudentID, type, comment);
             return StatusCode(StatusCodes.Status200OK);
         }
 
