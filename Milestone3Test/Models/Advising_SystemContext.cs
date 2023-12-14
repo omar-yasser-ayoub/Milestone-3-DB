@@ -47,6 +47,7 @@ namespace Milestone3Test.Models
         public virtual DbSet<AdvisorAssignedStudent> AdvisorAssignedStudents { get; set; } = null!;
         public virtual DbSet<StudentsWithAdvisor> StudentsWithAdvisors { get; set; } = null!;
         public virtual DbSet<StudentCourseFilters> StudentViewMSs { get; set; } = null!;
+        public virtual DbSet<CourseId> CourseIds { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1026,6 +1027,13 @@ namespace Milestone3Test.Models
                     .HasColumnName("name");
             });
 
+            modelBuilder.Entity<CourseId>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.courseId).HasColumnName("course_id");
+            });
+
             OnModelCreatingPartial(modelBuilder);
         }
 
@@ -1439,6 +1447,16 @@ namespace Milestone3Test.Models
         {
             var table = Set<Request>().FromSqlRaw("SELECT * FROM dbo.FN_Advisors_Requests(@advisor_id)",
                                 new SqlParameter("@advisor_id", advisor_id)).ToList();
+
+            return table;
+        }
+
+        public List<CourseId> FN_StudentUnattendedCourses(string StudentID, string current_semester_code, string student_semester)
+        {
+            var table = Set<CourseId>().FromSqlRaw("SELECT * FROM dbo.FN_StudentUnattendedCourses(@StudentID, @current_semester_code, @student_semester)",
+                                new SqlParameter("@StudentID", StudentID),
+                                new SqlParameter("@current_semester_code", current_semester_code),
+                                new SqlParameter("@student_semester", student_semester)).ToList();
 
             return table;
         }

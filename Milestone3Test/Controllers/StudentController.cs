@@ -116,5 +116,13 @@ namespace Milestone3Test.Controllers
             var table = _dbContext.FN_SemesterAvailableCourses(semstercode);
             return StatusCode(StatusCodes.Status200OK, table);
         }
+
+        [HttpPost]
+        [Route("ViewUnattendedCourses")]
+        public IActionResult ViewUnattendedCourses([FromHeader] string StudentID, [FromHeader] string current_semester_code, [FromHeader] string student_semester)
+        {
+            var table = _dbContext.FN_StudentUnattendedCourses(StudentID, current_semester_code, student_semester);
+            return StatusCode(StatusCodes.Status200OK, table);
+        }
     }
 }
