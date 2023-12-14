@@ -1206,7 +1206,7 @@ namespace Milestone3Test.Models
             return table;
         }
 
-        /* -- */
+        /* --------------------------------- [STUDENT] --------------------------------- */
 
         public void Procedures_StudentChooseInstructor(string StudentID, string instructorID, string CourseID, string current_semester_code)
         {
@@ -1300,9 +1300,7 @@ namespace Milestone3Test.Models
             return table;
         }
 
-
-
-        /*--Views--*/
+        /* --------------------------------- [VIEWS] --------------------------------- */
 
         public List<AdvisorsGraduationPlan> Views_Advisors_Gradtuation_Plan()
         {
@@ -1366,7 +1364,9 @@ namespace Milestone3Test.Models
                                     .ToList();
             return table;
         }
-        /*--Functions--*/
+
+        /* --------------------------------- [FUNCTIONS] --------------------------------- */
+
         public int StudentLogin(string username, string password)
         {
             var success = new SqlParameter("@success", SqlDbType.Int)
@@ -1395,6 +1395,15 @@ namespace Milestone3Test.Models
 
             return (int)success.Value;
         }
+
+        public List<StudentCourseFilters> FN_SemesterAvailableCourses(string semstercode)
+        {
+            var table = Set<StudentCourseFilters>().FromSqlRaw("SELECT * FROM dbo.FN_SemsterAvailableCourses(@semstercode)",
+                                new SqlParameter("@semstercode", semstercode)).ToList();
+
+            return table;
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
