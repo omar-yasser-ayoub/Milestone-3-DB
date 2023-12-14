@@ -1435,6 +1435,14 @@ namespace Milestone3Test.Models
             return table;
         }
 
+        public List<Request> FN_Advisors_Requests(string advisor_id)
+        {
+            var table = Set<Request>().FromSqlRaw("SELECT * FROM dbo.FN_Advisors_Requests(@advisor_id)",
+                                new SqlParameter("@advisor_id", advisor_id)).ToList();
+
+            return table;
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

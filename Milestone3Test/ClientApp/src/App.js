@@ -16,6 +16,7 @@ const App = () => {
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isStudentLoggedIn, setStudentLoggedIn] = useState(false);
     const [id, setId] = useState("");
+    const [test, setTest] = useState([]);
 
     const navItemStyle = {
         marginRight: '15px',
@@ -23,6 +24,23 @@ const App = () => {
         color: '#fff',
         fontWeight: 'bold',
     };
+
+    useEffect(() => {
+        fetch("api/advisor/ViewAllRequests", {
+            method: 'POST',
+            headers: {
+                'advisor_id': '1'
+            },
+        })
+            .then(response => response.json())
+            .then(responseJson => {
+                console.log(responseJson);
+                setTest(responseJson);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }, []);
 
     if (!isLoggedIn) {
         return (

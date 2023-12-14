@@ -103,5 +103,14 @@ namespace Milestone3Test.Controllers
             int Success = _dbContext.AdvisorLogin(username, password);
             return StatusCode(StatusCodes.Status200OK, new { success = Success });
         }
+
+        [HttpPost]
+        [Route("ViewAllRequests")]
+        public IActionResult ViewAllRequests([FromHeader] string advisor_id)
+        {
+            var table = _dbContext.FN_Advisors_Requests(advisor_id);
+
+            return StatusCode(StatusCodes.Status200OK, table);
+        }
     }
 }
