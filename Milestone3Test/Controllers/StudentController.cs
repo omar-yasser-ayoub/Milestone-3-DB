@@ -132,5 +132,13 @@ namespace Milestone3Test.Controllers
             DateTime installdate = _dbContext.FN_StudentUpcoming_installment(student_ID);
             return StatusCode(StatusCodes.Status200OK, installdate);
         }
+
+        [HttpPost]
+        [Route("ViewGP")]
+        public IActionResult ViewGP([FromHeader] string student_ID)
+        {
+            var table = _dbContext.FN_StudentViewGP(student_ID);
+            return StatusCode(StatusCodes.Status200OK, table);
+        }
     }
 }

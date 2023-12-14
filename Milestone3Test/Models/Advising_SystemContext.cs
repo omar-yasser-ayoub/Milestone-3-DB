@@ -48,6 +48,7 @@ namespace Milestone3Test.Models
         public virtual DbSet<StudentsWithAdvisor> StudentsWithAdvisors { get; set; } = null!;
         public virtual DbSet<StudentCourseFilters> StudentViewMSs { get; set; } = null!;
         public virtual DbSet<CourseId> CourseIds { get; set; } = null!;
+        public virtual DbSet<StudentViewGradPlan> StudentViewGradPlans { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1034,6 +1035,42 @@ namespace Milestone3Test.Models
                 entity.Property(e => e.courseId).HasColumnName("course_id");
             });
 
+            modelBuilder.Entity<StudentViewGradPlan>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(80)
+                    .IsUnicode(false)
+                    .HasColumnName("Student_name");
+
+                entity.Property(e => e.PlanId)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("plan_id");
+
+                entity.Property(e => e.SemesterCode)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("semester_code");
+
+                entity.Property(e => e.SemesterCreditHours).HasColumnName("semester_credit_hours");
+
+                entity.Property(e => e.ExpectedGradDate)
+                    .HasColumnType("date")
+                    .HasColumnName("expected_grad_date");
+
+                entity.Property(e => e.AdvisorId).HasColumnName("advisor_id");
+
+                entity.Property(e => e.StudentId).HasColumnName("student_id");
+
+                entity.Property(e => e.CourseId).HasColumnName("course_id");
+
+                entity.Property(e => e.CourseName)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("name");
+            });
+
             OnModelCreatingPartial(modelBuilder);
         }
 
@@ -1473,6 +1510,14 @@ namespace Milestone3Test.Models
                     installdeadline);
 
             return (DateTime)installdeadline.Value;
+        }
+
+        public List<StudentViewGradPlan> FN_StudentViewGP(string student_ID)
+        {
+            var table = Set<StudentViewGradPlan>().FromSqlRaw("SELECT * FROM dbo.FN_StudentViewGP(@student_ID)",
+                                new SqlParameter("@student_ID", student_ID)).ToList();
+
+            return table;
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
