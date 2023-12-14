@@ -47,6 +47,14 @@ namespace Milestone3Test.Controllers
 
             return StatusCode(StatusCodes.Status200OK, table);
         }
+        [HttpPost]
+        [Route("CoursesSlotsInstructor")]
+        public IActionResult CoursesSlotsInstructor()
+        {
+            var table = _dbContext.Views_Courses_Slots_Instructor();
+
+            return StatusCode(StatusCodes.Status200OK, table);
+        }
 
         [HttpPost]
         [Route("InstructorAssignedCourses")]
