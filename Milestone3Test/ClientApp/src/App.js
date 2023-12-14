@@ -26,10 +26,12 @@ const App = () => {
     };
 
     useEffect(() => {
-        fetch("api/advisor/ViewAllRequests", {
+        fetch("api/student/ViewUnattendedCourses", {
             method: 'POST',
             headers: {
-                'advisor_id': '1'
+                'StudentID': '2',
+                'current_semester_code': 'W23',
+                'student_semester': '9'
             },
         })
             .then(response => response.json())
