@@ -108,6 +108,13 @@ namespace Milestone3Test.Controllers
             int Success = _dbContext.StudentLogin(username, password);
             return StatusCode(StatusCodes.Status200OK, new { success = Success });
         }
-        
+
+        [HttpPost]
+        [Route("ViewAvailableCourses")]
+        public IActionResult ViewAvailableCourses([FromHeader] string semstercode)
+        {
+            var table = _dbContext.FN_SemesterAvailableCourses(semstercode);
+            return StatusCode(StatusCodes.Status200OK, table);
+        }
     }
 }
