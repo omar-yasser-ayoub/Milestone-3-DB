@@ -33,8 +33,8 @@ const App = () => {
                             <Link to="/student/courses" className="nav-item">Courses</Link>
                             <Link to="/student/request" className="nav-item">Requests</Link>
                         </nav>
-                        <Routes>
-                            <Route path="/student/courses" element={<StudentCourses />} />
+                            <Routes>
+                                <Route path="/student/courses" element={<StudentCourses id={id} />} />
                             <Route path="/student/request" element={<StudentRequest />} />
                         </Routes>
                     </div>
