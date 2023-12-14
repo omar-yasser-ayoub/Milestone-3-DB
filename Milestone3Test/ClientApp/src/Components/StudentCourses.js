@@ -1,17 +1,20 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import ReactDOM from 'react-dom'
 import { React, useState } from 'react';
-import Select from 'react-select';
+import CustomTable from "./CustomTable"
 
 const StudentCourses = (props) => {
     // State to manage the selected value
-    const [selectedValue, setSelectedValue] = useState('');
+    const [selectedValue, setSelectedValue] = useState('api/student/ViewOptionalCourse');
+    const [semester, setSemester] = useState('W23');
 
     // Handler function to update the selected value
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
     };
-
+    const handleSemesterChange = (event) => {
+        setSemester(event.target.value);
+    };
     return (
         <div>
             <div className="container" style={{
@@ -23,19 +26,27 @@ const StudentCourses = (props) => {
             <div>
                 <div>
                     <label htmlFor="courses">Select a course:</label>
-                    {/*<select id="courses" name="courses" value={selectedValue} onChange={handleChange}>
+                    <select id="courses" name="courses" value={selectedValue} onChange={handleChange}>
                         <option value="">Select...</option>
-                        <option value="ViewOptionalCourses">View Optional Courses</option>
+                        <option value="api/student/ViewOptionalCourse">View Optional Courses</option>
                         <option value="available">View Available Courses</option>
-                        <option value="required">View Required Courses</option>
-                        <option value="missing">View Missing Courses</option>
-                        <option value="course">View Course Prerequisites</option>
+                        <option value="api/student/ViewRequiredCourse">View Required Courses</option>
+                        <option value="api/student/ViewMS">View Missing Courses</option>
+                        <option value="api/view/viewCoursePrerequisites">View Course Prerequisites</option>
                         <option value="slots">View Slots</option>
-                        */}{/* Add more options as needed */}{/*
-                    </select>*/}
-
-                    {/* Display the selected value */}
+                        {/* Add more options as needed */}
+                    </select>
+                    <select id="semester" name="semester" value={semester} onChange={handleSemesterChange}>
+                        <option value="">Select...</option>
+                        <option value="W23">Winter 2023</option>
+                        <option value="W24">View Available Courses</option>
+                        {/* Add more options as needed */}
+                    </select>
                     <p>You selected: {selectedValue}</p>
+                    <p>You selected: {semester}</p>
+                    <CustomTable apistring={selectedValue} id={props.id} semester={semester} />
+                    {/* Display the selected value */}
+                    
                 </div>
             </div>
 
