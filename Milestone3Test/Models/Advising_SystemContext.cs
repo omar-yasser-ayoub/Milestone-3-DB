@@ -1286,9 +1286,9 @@ namespace Milestone3Test.Models
 
         public void Procedures_StudentChooseInstructor(string StudentID, string instructorID, string CourseID, string current_semester_code)
         {
-            Database.ExecuteSqlRaw("EXEC dbo.Procedures_Chooseinstructor @StudentID, @instructorID, @CourseID, @current_semester_code",
+            Database.ExecuteSqlRaw("EXEC dbo.Procedures_Chooseinstructor @StudentID, @instrucorID, @CourseID, @current_semester_code",
                     new SqlParameter("@StudentID", StudentID),
-                    new SqlParameter("@instructorID", instructorID),
+                    new SqlParameter("@instrucorID", instructorID),
                     new SqlParameter("@CourseID", CourseID),
                     new SqlParameter("@current_semester_code", current_semester_code));
         }

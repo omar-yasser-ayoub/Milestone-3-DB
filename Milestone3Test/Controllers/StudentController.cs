@@ -111,9 +111,9 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("ViewAvailableCourses")]
-        public IActionResult ViewAvailableCourses([FromHeader] string semstercode)
+        public IActionResult ViewAvailableCourses([FromHeader] string current_semester_code)
         {
-            var table = _dbContext.FN_SemesterAvailableCourses(semstercode);
+            var table = _dbContext.FN_SemesterAvailableCourses(current_semester_code);
             return StatusCode(StatusCodes.Status200OK, table);
         }
 
