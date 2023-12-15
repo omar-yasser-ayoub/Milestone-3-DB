@@ -5,10 +5,10 @@ import React, { useState } from 'react';
 import CustomButton from './CustomButton'
 import CustomTable from './CustomTable'
 const StudentExam = (props) => {
-    const [selectedValue, setValue] = useState("api/student/SendingCourseRequest")
+    const [selectedValue, setValue] = useState("api/student/RegisterFirstMakeup")
     const [course, setCourse] = useState("")
     const [semester, setSemester] = useState("")
-    const [formTitle, setFormTitle] = useState("Course")
+    const [formTitle, setFormTitle] = useState("First Makeup")
 
     const handleChange = (e) => {
         setValue(e.target.value);
@@ -72,9 +72,7 @@ const StudentExam = (props) => {
                 <h3>{semester}</h3>
                 <h3>{props.id}</h3>
             </form>
-
             <CustomTable apistring="api/view/CoursesMakeupExam" id={props.id} semester={semester} />
-
         </div>
     );
 };

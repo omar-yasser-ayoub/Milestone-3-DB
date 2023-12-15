@@ -9,16 +9,19 @@ import StudentPayment from "./Components/StudentPayment";
 import StudentGradPlan from "./Components/StudentGradPlan";
 import StudentExam from "./Components/StudentExam";
 import StudentHome from "./Components/StudentHome";
+import StudentInstructor from "./Components/StudentInstructor";
 import AdvisorHome from "./Components/AdvisorHome";
 import AdvisorStudents from "./Components/AdvisorStudents";
 import AdvisorRequests from "./Components/AdvisorRequests";
 import AdvisorGradPlans from "./Components/AdvisorGradPlans";
+import SignUpForm from "./Components/SignUpForm"
 import { Routes, Route, Link , BrowserRouter} from 'react-router-dom';
 const App = () => {
 
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isStudentLoggedIn, setStudentLoggedIn] = useState(false);
     const [id, setId] = useState("");
+    const [logIn, setLogIn] = useState(true);
 
     const navItemStyle = {
         marginRight: '15px',
@@ -26,12 +29,18 @@ const App = () => {
         color: '#fff',
         fontWeight: 'bold',
     };
+    const handleLogInChange = (e) => {
+        setLogIn(!logIn);
+    }
 
     if (!isLoggedIn) {
         return (
 
             <div className="container">
-                <LoginForm setLoggedIn={setLoggedIn} setStudentLoggedIn={setStudentLoggedIn} setId={setId} />
+                {logIn && <LoginForm setLoggedIn={setLoggedIn} setStudentLoggedIn={setStudentLoggedIn} setId={setId} />}
+                {logIn && <CustomButton label="Sign Up" onClick={handleLogInChange} />}
+                {!logIn && <SignUpForm setId={setId} />}
+                {!logIn && <CustomButton label="Log In" onClick={handleLogInChange} />}
             </div>
         )
     }
@@ -48,6 +57,7 @@ const App = () => {
                                 <Link to="/student/gradplan" style={navItemStyle}>Graduation Plan</Link>
                                 <Link to="/student/payment" style={navItemStyle}>Payments</Link>
                                 <Link to="/student/exam" style={navItemStyle}>Exam</Link>
+                                <Link to="/student/instructor" style={navItemStyle}>Instructor</Link>
                             </nav>
                             <Routes>
                                 <Route path="" element={<StudentHome id={id} />} />
@@ -56,6 +66,7 @@ const App = () => {
                                 <Route path="/student/gradplan" element={<StudentGradPlan id={id} />} />
                                 <Route path="/student/payment" element={<StudentPayment id={id} />} />
                                 <Route path="/student/exam" element={<StudentExam id={id} />} />
+                                <Route path="/student/instructor" element={<StudentInstructor id={id} />} />
                         </Routes>
                     </div>
                     </BrowserRouter>
