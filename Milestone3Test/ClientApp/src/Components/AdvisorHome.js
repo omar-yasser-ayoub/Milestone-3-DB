@@ -15,7 +15,7 @@ const divStyle = {
 const HomeNav = (props) => {
     return (
         <div>
-            
+            <h1>Welcome, Advisor with ID {props.id}</h1>
         </div>
     );
 };
