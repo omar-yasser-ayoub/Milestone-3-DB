@@ -53,9 +53,9 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("DeleteFromGP")]
-        public IActionResult DeleteFromGP([FromHeader] string studentID, [FromHeader] string sem_code, [FromHeader] string courseID)
+        public IActionResult DeleteFromGP([FromHeader] string studentID, [FromHeader] string Semester_code, [FromHeader] string courseID)
         {
-            _dbContext.Procedures_AdvisorDeleteFromGP(studentID, sem_code, courseID);
+            _dbContext.Procedures_AdvisorDeleteFromGP(studentID, Semester_code, courseID);
 
             return StatusCode(StatusCodes.Status200OK);
         }
@@ -83,6 +83,14 @@ namespace Milestone3Test.Controllers
         public IActionResult ViewAssignedStudents([FromHeader] string AdvisorID, [FromHeader] string major)
         {
             var table = _dbContext.Procedures_AdvisorViewAssignedStudents(AdvisorID, major);
+
+            return StatusCode(StatusCodes.Status200OK, table);
+        }
+        [HttpPost]
+        [Route("ViewAllAssignedStudents")]
+        public IActionResult ViewAllAssignedStudents([FromHeader] string AdvisorID)
+        {
+            var table = _dbContext.Procedures_AdvisorViewAllAssignedStudents(AdvisorID);
 
             return StatusCode(StatusCodes.Status200OK, table);
         }
