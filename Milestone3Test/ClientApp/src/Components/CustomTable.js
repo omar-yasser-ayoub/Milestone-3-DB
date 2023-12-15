@@ -15,7 +15,8 @@ const CustomTable = (props) => {
                 'current_semester_code': props.semester,
                 'CourseID': props.courseid,
                 'InstructorID': props.instructorid,
-                'major': props.major
+                'major': props.major,
+                'advisor_id': props.advisorid
             },
         })
             .then(response => response.json())
