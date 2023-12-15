@@ -14,12 +14,14 @@ import AdvisorStudents from "./Components/AdvisorStudents";
 import AdvisorRequests from "./Components/AdvisorRequests";
 import AdvisorGradPlans from "./Components/AdvisorGradPlans";
 import { Routes, Route, Link , BrowserRouter} from 'react-router-dom';
+import SignUpForm from "./Components/SignUpForm";
 const App = () => {
 
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isStudentLoggedIn, setStudentLoggedIn] = useState(false);
     const [id, setId] = useState("");
     const [test, setTest] = useState([]);
+    const [logIn, setLogIn] = useState(true);
 
     const navItemStyle = {
         marginRight: '15px',
@@ -46,11 +48,18 @@ const App = () => {
             });
     }, []);
 
+    const handleLogInChange = (e) => {
+        setLogIn(!logIn);
+    }
+
     if (!isLoggedIn) {
         return (
 
             <div className="container">
-                <LoginForm setLoggedIn={setLoggedIn} setStudentLoggedIn={setStudentLoggedIn} setId={setId} />
+                {logIn && <LoginForm setLoggedIn={setLoggedIn} setStudentLoggedIn={setStudentLoggedIn} setId={setId} />}
+                {logIn && <CustomButton label="Sign Up" onClick={handleLogInChange} />}
+                {!logIn && <SignUpForm setId={setId} />}
+                {!logIn && <CustomButton label="Log In" onClick={handleLogInChange} />}
             </div>
         )
     }
