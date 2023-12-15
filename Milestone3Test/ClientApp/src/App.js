@@ -21,6 +21,7 @@ const App = () => {
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [isStudentLoggedIn, setStudentLoggedIn] = useState(false);
     const [id, setId] = useState("");
+    const [test, setTest] = useState([]);
     const [logIn, setLogIn] = useState(true);
 
     const navItemStyle = {
@@ -32,6 +33,24 @@ const App = () => {
     const handleLogInChange = (e) => {
         setLogIn(!logIn);
     }
+
+    useEffect(() => {
+        fetch("api/student/ViewSlot", {
+            method: 'POST',
+            headers: {
+                'CourseID': '2',
+                'InstructorID': '1'
+            },
+        })
+            .then(response => response.json())
+            .then(responseJson => {
+                console.log(responseJson);
+                setTest(responseJson);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }, []);
 
     if (!isLoggedIn) {
         return (
