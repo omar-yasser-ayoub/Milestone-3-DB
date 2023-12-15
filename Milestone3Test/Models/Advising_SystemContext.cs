@@ -46,6 +46,8 @@ namespace Milestone3Test.Models
         public virtual DbSet<AdvisorAssignedStudent> AdvisorAssignedStudents { get; set; } = null!;
         public virtual DbSet<StudentsWithAdvisor> StudentsWithAdvisors { get; set; } = null!;
         public virtual DbSet<StudentCourseFilters> StudentViewMSs { get; set; } = null!;
+        public virtual DbSet<CourseId> CourseIds { get; set; } = null!;
+        public virtual DbSet<StudentViewGradPlan> StudentViewGradPlans { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1025,6 +1027,49 @@ namespace Milestone3Test.Models
                     .HasColumnName("name");
             });
 
+            modelBuilder.Entity<CourseId>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.courseId).HasColumnName("course_id");
+            });
+
+            modelBuilder.Entity<StudentViewGradPlan>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(80)
+                    .IsUnicode(false)
+                    .HasColumnName("Student_name");
+
+                entity.Property(e => e.PlanId)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("plan_id");
+
+                entity.Property(e => e.SemesterCode)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("semester_code");
+
+                entity.Property(e => e.SemesterCreditHours).HasColumnName("semester_credit_hours");
+
+                entity.Property(e => e.ExpectedGradDate)
+                    .HasColumnType("date")
+                    .HasColumnName("expected_grad_date");
+
+                entity.Property(e => e.AdvisorId).HasColumnName("advisor_id");
+
+                entity.Property(e => e.StudentId).HasColumnName("student_id");
+
+                entity.Property(e => e.CourseId).HasColumnName("course_id");
+
+                entity.Property(e => e.CourseName)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("name");
+            });
+
             OnModelCreatingPartial(modelBuilder);
         }
 
@@ -1206,7 +1251,7 @@ namespace Milestone3Test.Models
             return table;
         }
 
-        /* -- */
+        /* --------------------------------- [STUDENT] --------------------------------- */
 
         public void Procedures_StudentChooseInstructor(string StudentID, string instructorID, string CourseID, string current_semester_code)
         {
@@ -1300,9 +1345,7 @@ namespace Milestone3Test.Models
             return table;
         }
 
-
-
-        /*--Views--*/
+        /* --------------------------------- [VIEWS] --------------------------------- */
 
         public List<AdvisorsGraduationPlan> Views_Advisors_Gradtuation_Plan()
         {
@@ -1366,7 +1409,9 @@ namespace Milestone3Test.Models
                                     .ToList();
             return table;
         }
-        /*--Functions--*/
+
+        /* --------------------------------- [FUNCTIONS] --------------------------------- */
+
         public int StudentLogin(string username, string password)
         {
             var success = new SqlParameter("@success", SqlDbType.Int)
@@ -1395,6 +1440,64 @@ namespace Milestone3Test.Models
 
             return (int)success.Value;
         }
+
+        public List<StudentCourseFilters> FN_SemesterAvailableCourses(string semstercode)
+        {
+            var table = Set<StudentCourseFilters>().FromSqlRaw("SELECT * FROM dbo.FN_SemsterAvailableCourses(@semstercode)",
+                                new SqlParameter("@semstercode", semstercode)).ToList();
+
+            return table;
+        }
+
+        public List<Request> FN_Advisors_Requests(string advisor_id)
+        {
+            var table = Set<Request>().FromSqlRaw("SELECT * FROM dbo.FN_Advisors_Requests(@advisor_id)",
+                                new SqlParameter("@advisor_id", advisor_id)).ToList();
+
+            return table;
+        }
+
+        public List<CourseId> FN_StudentUnattendedCourses(string StudentID, string current_semester_code, string student_semester)
+        {
+            var table = Set<CourseId>().FromSqlRaw("SELECT * FROM dbo.FN_StudentUnattendedCourses(@StudentID, @current_semester_code, @student_semester)",
+                                new SqlParameter("@StudentID", StudentID),
+                                new SqlParameter("@current_semester_code", current_semester_code),
+                                new SqlParameter("@student_semester", student_semester)).ToList();
+
+            return table;
+        }
+
+        public DateTime FN_StudentUpcoming_installment(string student_ID)
+        {
+            var installdeadline = new SqlParameter("@installdeadline", SqlDbType.Date)
+            {
+                Direction = ParameterDirection.Output
+            };
+
+            Database.ExecuteSqlRaw("SET @installdeadline = dbo.FN_StudentUpcoming_installment(@student_ID)",
+                    new SqlParameter("@student_ID", student_ID),
+                    installdeadline);
+
+            return (DateTime)installdeadline.Value;
+        }
+
+        public List<StudentViewGradPlan> FN_StudentViewGP(string student_ID)
+        {
+            var table = Set<StudentViewGradPlan>().FromSqlRaw("SELECT * FROM dbo.FN_StudentViewGP(@student_ID)",
+                                new SqlParameter("@student_ID", student_ID)).ToList();
+
+            return table;
+        }
+
+        public List<CoursesSlotsInstructor> FN_StudentViewSlot(string CourseID, string InstructorID)
+        {
+            var table = Set<CoursesSlotsInstructor>().FromSqlRaw("SELECT * FROM dbo.FN_StudentViewSlot(@CourseID, @InstructorID)",
+                                new SqlParameter("@CourseID", CourseID),
+                                new SqlParameter("@InstructorID", InstructorID)).ToList();
+
+            return table;
+        }
+
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

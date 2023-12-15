@@ -107,6 +107,45 @@ namespace Milestone3Test.Controllers
             int Success = _dbContext.StudentLogin(username, password);
             return StatusCode(StatusCodes.Status200OK, new { success = Success });
         }
-        
+
+        [HttpPost]
+        [Route("ViewAvailableCourses")]
+        public IActionResult ViewAvailableCourses([FromHeader] string semstercode)
+        {
+            var table = _dbContext.FN_SemesterAvailableCourses(semstercode);
+            return StatusCode(StatusCodes.Status200OK, table);
+        }
+
+        [HttpPost]
+        [Route("ViewUnattendedCourses")]
+        public IActionResult ViewUnattendedCourses([FromHeader] string StudentID, [FromHeader] string current_semester_code, [FromHeader] string student_semester)
+        {
+            var table = _dbContext.FN_StudentUnattendedCourses(StudentID, current_semester_code, student_semester);
+            return StatusCode(StatusCodes.Status200OK, table);
+        }
+
+        [HttpPost]
+        [Route("ViewUpcomingInstallment")]
+        public IActionResult ViewUpcomingInstallment([FromHeader] string StudentID)
+        {
+            DateTime installdate = _dbContext.FN_StudentUpcoming_installment(StudentID);
+            return StatusCode(StatusCodes.Status200OK, installdate);
+        }
+
+        [HttpPost]
+        [Route("ViewGP")]
+        public IActionResult ViewGP([FromHeader] string StudentID)
+        {
+            var table = _dbContext.FN_StudentViewGP(StudentID);
+            return StatusCode(StatusCodes.Status200OK, table);
+        }
+
+        [HttpPost]
+        [Route("ViewSlot")]
+        public IActionResult ViewSlot([FromHeader] string CourseID, [FromHeader] string InstructorID)
+        {
+            var table = _dbContext.FN_StudentViewSlot(CourseID, InstructorID);
+            return StatusCode(StatusCodes.Status200OK, table);
+        }
     }
 }
