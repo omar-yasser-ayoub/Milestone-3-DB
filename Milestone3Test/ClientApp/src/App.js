@@ -15,8 +15,8 @@ import AdvisorStudents from "./Components/AdvisorStudents";
 import AdvisorRequests from "./Components/AdvisorRequests";
 import AdvisorGradPlans from "./Components/AdvisorGradPlans";
 import SignUpForm from "./Components/SignUpForm"
-import { Routes, Route, Link , BrowserRouter} from 'react-router-dom';
-import SignUpForm from "./Components/SignUpForm";
+import { Routes, Route, Link, BrowserRouter } from 'react-router-dom';
+
 const App = () => {
 
     const [isLoggedIn, setLoggedIn] = useState(false);
@@ -31,9 +31,6 @@ const App = () => {
         color: '#fff',
         fontWeight: 'bold',
     };
-    const handleLogInChange = (e) => {
-        setLogIn(!logIn);
-    }
 
     useEffect(() => {
         fetch("api/student/ViewSlot", {
