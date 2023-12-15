@@ -7,7 +7,8 @@ import CustomTable from './CustomTable'
 const AdminStudents = (props) => {
     return (
         <div>
-            <h1>AdminStudents</h1> 
+            <h1>All Students</h1>
+            <CustomTable apistring="api/admin/ListStudents" />
         </div>
     );
 };
