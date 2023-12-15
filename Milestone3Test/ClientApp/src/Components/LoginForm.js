@@ -20,9 +20,12 @@ const LoginForm = (props) => {
 	}
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setId("");
-		setPass("");
-		// check for Admin login
+		
+		if (id === "admin" && pass === "admin") {
+			props.setAdminLoggedIn(true)
+			props.setLoggedIn(true)
+			return
+		}
 		if (isStudent) {
 			fetch("api/student/LoginRequest", {
 				method: 'POST',
@@ -73,6 +76,8 @@ const LoginForm = (props) => {
 					console.error('Error:', error);
 				});
 		}
+		setId("");
+		setPass("");
 	}
 	const handleTypeChange = (e) => {
 		e.preventDefault();
