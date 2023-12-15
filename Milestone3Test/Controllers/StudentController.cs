@@ -127,17 +127,17 @@ namespace Milestone3Test.Controllers
 
         [HttpPost]
         [Route("ViewUpcomingInstallment")]
-        public IActionResult ViewUpcomingInstallment([FromHeader] string student_ID)
+        public IActionResult ViewUpcomingInstallment([FromHeader] string StudentID)
         {
-            DateTime installdate = _dbContext.FN_StudentUpcoming_installment(student_ID);
+            DateTime installdate = _dbContext.FN_StudentUpcoming_installment(StudentID);
             return StatusCode(StatusCodes.Status200OK, installdate);
         }
 
         [HttpPost]
         [Route("ViewGP")]
-        public IActionResult ViewGP([FromHeader] string student_ID)
+        public IActionResult ViewGP([FromHeader] string StudentID)
         {
-            var table = _dbContext.FN_StudentViewGP(student_ID);
+            var table = _dbContext.FN_StudentViewGP(StudentID);
             return StatusCode(StatusCodes.Status200OK, table);
         }
 
