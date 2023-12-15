@@ -1285,6 +1285,13 @@ namespace Milestone3Test.Models
                                     new SqlParameter("@major", major)).ToList();
             return table;
         }
+        public List<AdvisorAssignedStudent> Procedures_AdvisorViewAllAssignedStudents(string AdvisorID)
+        {
+            var table = Set<AdvisorAssignedStudent>().FromSqlRaw("EXEC dbo.Procedures_AdvisorViewAllAssignedStudents @AdvisorID",
+                                    new SqlParameter("@AdvisorID", AdvisorID)
+                                    ).ToList();
+            return table;
+        }
 
         public List<AllPendingRequest> Procedures_AdvisorViewPendingRequests(string Advisor_ID)
         {

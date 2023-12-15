@@ -11,9 +11,11 @@ const CustomTable = (props) => {
             method: 'POST',
             headers: {
                 'StudentID': props.id,
+                'AdvisorID': props.advisorid,
                 'current_semester_code': props.semester,
                 'CourseID': props.courseid,
-                'InstructorID': props.instructorid
+                'InstructorID': props.instructorid,
+                'major': props.major
             },
         })
             .then(response => response.json())
@@ -24,7 +26,7 @@ const CustomTable = (props) => {
             .catch(error => {
                 console.error('Error:', error);
             });
-    }, [props.apistring, props.semester, props.courseid, props.instructorid]);
+    }, [props.apistring, props.semester, props.courseid, props.instructorid, props.major]);
 
     return (
         <div className="tableDiv">
