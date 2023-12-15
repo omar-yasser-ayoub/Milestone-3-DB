@@ -28,7 +28,6 @@ const AdvisorGradPlans = (props) => {
                 'sem_credit_hours': two,
                 'advisor_id': props.id,
                 'student_id': one,
-                
             },
         })
         setOne("");
