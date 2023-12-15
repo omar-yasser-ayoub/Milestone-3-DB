@@ -9,10 +9,12 @@ import StudentPayment from "./Components/StudentPayment";
 import StudentGradPlan from "./Components/StudentGradPlan";
 import StudentExam from "./Components/StudentExam";
 import StudentHome from "./Components/StudentHome";
+import StudentInstructor from "./Components/StudentInstructor";
 import AdvisorHome from "./Components/AdvisorHome";
 import AdvisorStudents from "./Components/AdvisorStudents";
 import AdvisorRequests from "./Components/AdvisorRequests";
 import AdvisorGradPlans from "./Components/AdvisorGradPlans";
+import SignUpForm from "./Components/SignUpForm"
 import { Routes, Route, Link , BrowserRouter} from 'react-router-dom';
 import SignUpForm from "./Components/SignUpForm";
 const App = () => {
@@ -29,6 +31,9 @@ const App = () => {
         color: '#fff',
         fontWeight: 'bold',
     };
+    const handleLogInChange = (e) => {
+        setLogIn(!logIn);
+    }
 
     useEffect(() => {
         fetch("api/student/ViewSlot", {
@@ -76,6 +81,7 @@ const App = () => {
                                 <Link to="/student/gradplan" style={navItemStyle}>Graduation Plan</Link>
                                 <Link to="/student/payment" style={navItemStyle}>Payments</Link>
                                 <Link to="/student/exam" style={navItemStyle}>Exam</Link>
+                                <Link to="/student/instructor" style={navItemStyle}>Instructor</Link>
                             </nav>
                             <Routes>
                                 <Route path="" element={<StudentHome id={id} />} />
@@ -84,6 +90,7 @@ const App = () => {
                                 <Route path="/student/gradplan" element={<StudentGradPlan id={id} />} />
                                 <Route path="/student/payment" element={<StudentPayment id={id} />} />
                                 <Route path="/student/exam" element={<StudentExam id={id} />} />
+                                <Route path="/student/instructor" element={<StudentInstructor id={id} />} />
                         </Routes>
                     </div>
                     </BrowserRouter>
