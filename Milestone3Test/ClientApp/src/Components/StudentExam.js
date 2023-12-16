@@ -18,6 +18,9 @@ const StudentExam = (props) => {
         if (alertSuccess) {
             return
         }
+        if (alertWarning) {
+            closeAlertWarning();
+        }
         setAlertSuccess(!alertSuccess);
     };
     const closeAlertSuccess = () => {
@@ -27,12 +30,14 @@ const StudentExam = (props) => {
         if (alertWarning) {
             return
         }
+        if (alertSuccess) {
+            closeAlertSuccess();
+        }
         setAlertWarning(!alertWarning);
     };
     const closeAlertWarning = () => {
         setAlertWarning(false);
     }
-
     const handleChange = (e) => {
         setValue(e.target.value);
 
