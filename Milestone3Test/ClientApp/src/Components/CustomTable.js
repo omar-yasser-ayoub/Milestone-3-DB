@@ -53,9 +53,6 @@ const CustomTable = (props) => {
                     ))}
                 </tbody>
             </table>
-            <h1>{props.apistring}</h1>
-            <h1>{props.id}</h1>
-            <h1>{props.semester}</h1>
         </div>
     );
 };

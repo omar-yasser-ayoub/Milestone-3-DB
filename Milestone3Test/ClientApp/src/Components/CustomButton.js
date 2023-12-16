@@ -5,16 +5,13 @@ import React from 'react';
 
 const Button = (props) => {
     return (
-        <div className="container">
+        <div className="btnContainer">
             <button
                 type={props.type}
                 disabled={props.disabled}
-                className="btn"
+                className="customBtn"
                 onClick={props.onClick}
-                style={{
-                    background: `linear-gradient(90deg, #4F4381, #8D81C7)`,
-                    color: '#fff',
-                }}
+                
             >
                 {props.label}
             </button>
