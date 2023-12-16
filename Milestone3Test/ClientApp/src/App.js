@@ -5,7 +5,6 @@ import Navbar from "./Components/Navbar";
 import LoginForm from "./Components/LoginForm";
 import StudentRequest from "./Components/StudentRequest";
 import StudentCourses from "./Components/StudentCourses";
-import StudentPayment from "./Components/StudentPayment";
 import StudentGradPlan from "./Components/StudentGradPlan";
 import StudentExam from "./Components/StudentExam";
 import StudentHome from "./Components/StudentHome";
@@ -22,7 +21,8 @@ import AdminInstructors from "./Components/AdminInstructors"
 import AdminRequests from "./Components/AdminRequests"
 import AdminAdvisors from "./Components/AdminAdvisors"
 import AdminHome from "./Components/AdminHome"
-import { Routes, Route, Link, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, Link, NavLink, BrowserRouter } from 'react-router-dom';
+import './index.css';
 
 const App = () => {
 
@@ -42,6 +42,13 @@ const App = () => {
     const handleLogInChange = (e) => {
         setLogIn(!logIn);
     }
+
+    const activeNavStyle = {
+        color: '#fff',
+        display: 'flex',
+        padding: '10px',
+        textdecoration: 'underline'
+    };
 
     if (!isLoggedIn) {
         return (
@@ -94,7 +101,6 @@ const App = () => {
                                     <Link to="/student/courses" style={navItemStyle}>Courses</Link>
                                     <Link to="/student/request" style={navItemStyle}>Requests</Link>
                                     <Link to="/student/gradplan" style={navItemStyle}>Graduation Plan</Link>
-                                    <Link to="/student/payment" style={navItemStyle}>Payments</Link>
                                     <Link to="/student/exam" style={navItemStyle}>Exam</Link>
                                     <Link to="/student/instructor" style={navItemStyle}>Instructor</Link>
                                 </nav>
@@ -103,7 +109,6 @@ const App = () => {
                                     <Route path="/student/courses" element={<StudentCourses id={id} />} />
                                     <Route path="/student/request" element={<StudentRequest id={id} />} />
                                     <Route path="/student/gradplan" element={<StudentGradPlan id={id} />} />
-                                    <Route path="/student/payment" element={<StudentPayment id={id} />} />
                                     <Route path="/student/exam" element={<StudentExam id={id} />} />
                                     <Route path="/student/instructor" element={<StudentInstructor id={id} />} />
                                 </Routes>

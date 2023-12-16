@@ -30,10 +30,10 @@ const CustomTable = (props) => {
     }, [props.apistring, props.semester, props.courseid, props.instructorid, props.major]);
 
     return (
-        <div>
-            <table className="table table-striped">
+        <div className="tableDiv">
+            <table className="table table-striped table-light">
                 <thead>
-                    <tr>
+                    <tr className="table-active">
                         {tabledata.length > 0 &&
                             Object.keys(tabledata[0]).map((key, index) => (
                                 <th key={index} scope="col">
