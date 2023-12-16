@@ -88,16 +88,7 @@ const LoginForm = (props) => {
 
 	return (
 
-		<div style={{
-			width: '440px',
-			height: '447px',
-			flexShrink: 0,
-			backgroundColor: 'red',
-			marginLeft: 'auto',
-			marginRight: 'auto',
-			justifyContent: 'center', // Horizontally center
-			alignItems: 'center'
-		}}>
+		<div className="box">
 			<CustomButton label="Student" disabled={isStudent} onClick={handleTypeChange} />
 			<CustomButton label="Advisor" disabled={!isStudent} onClick={handleTypeChange} />
 			<form onSubmit={handleSubmit}>
