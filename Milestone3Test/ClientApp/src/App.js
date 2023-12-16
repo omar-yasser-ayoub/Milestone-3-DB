@@ -1,5 +1,5 @@
 import { Button } from "bootstrap";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import CustomButton from "./Components/CustomButton";
 import Navbar from "./Components/Navbar";
 import LoginForm from "./Components/LoginForm";
@@ -38,6 +38,9 @@ const App = () => {
         fontWeight: 'bold',
     };
 
+    const LogOut = () => {
+        setLoggedIn(false)
+    }
     const handleLogInChange = (e) => {
         setLogIn(!logIn);
     }
@@ -69,6 +72,7 @@ const App = () => {
                                 <Link to="/admin/semesters" style={navItemStyle}>Semesters</Link>
                                 <Link to="/admin/courses" style={navItemStyle}>Courses</Link>
                                 <Link to="/admin/instructors" style={navItemStyle}>Instructors</Link>
+                                <Fragment><button onClick={LogOut}>Log Out</button></Fragment>
                             </nav>
                             <Routes>
                                 <Route path="/admin/advisors" element={<AdminAdvisors id={id} />} />
@@ -96,6 +100,7 @@ const App = () => {
                                     <Link to="/student/gradplan" style={navItemStyle}>Graduation Plan</Link>
                                     <Link to="/student/exam" style={navItemStyle}>Exam</Link>
                                     <Link to="/student/instructor" style={navItemStyle}>Instructor</Link>
+                                    <Fragment><button onClick={LogOut}>Log Out</button></Fragment>
                                 </nav>
                                 <Routes>
                                     <Route path="" element={<StudentHome id={id} />} />
@@ -118,6 +123,7 @@ const App = () => {
                                 <Link to="/advisor/students" style={navItemStyle}>Students</Link>
                                 <Link to="/advisor/gradplans" style={navItemStyle}>Graduation Plans</Link>
                                 <Link to="/advisor/request" style={navItemStyle}>Requests</Link>
+                                <Fragment><button onClick={LogOut}>Log Out</button></Fragment>
                             </nav>
                             <Routes>
                                 <Route path="/advisor/students" element={<AdvisorStudents id={id} />} />
