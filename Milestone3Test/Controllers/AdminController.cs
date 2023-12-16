@@ -25,9 +25,17 @@ namespace Milestone3Test.Controllers
         [Route("AddSemester")]
         public IActionResult AddSemester([FromHeader] string startDate, [FromHeader] string endDate, [FromHeader] string semesterCode)
         {  
-            _dbContext.AdminAddingSemester(startDate,endDate,semesterCode);
+            try
+            {
+                _dbContext.AdminAddingSemester(startDate, endDate, semesterCode);
 
-            return StatusCode(StatusCodes.Status200OK);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]
@@ -64,9 +72,16 @@ namespace Milestone3Test.Controllers
         [Route("AddCourse")]
         public IActionResult AddCourse([FromHeader] string major, [FromHeader] string semester, [FromHeader] string credit_hours, [FromHeader] string name, [FromHeader] string is_offered)
         {
-            _dbContext.Procedures_AdminAddingCourse(major, semester, credit_hours, name, is_offered);
+            try
+            {
+                _dbContext.Procedures_AdminAddingCourse(major, semester, credit_hours, name, is_offered);
 
-            return StatusCode(StatusCodes.Status200OK);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]
@@ -109,9 +124,16 @@ namespace Milestone3Test.Controllers
         [Route("LinkStudent")]
         public IActionResult LinkStudent([FromHeader] string cours_id, [FromHeader] string instructor_id, [FromHeader] string studentID, [FromHeader] string semester_code)
         {
-            _dbContext.Procedures_AdminLinkStudent(cours_id, instructor_id, studentID, semester_code);
+            try
+            {
+                _dbContext.Procedures_AdminLinkStudent(cours_id, instructor_id, studentID, semester_code);
 
-            return StatusCode(StatusCodes.Status200OK);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
 
@@ -119,9 +141,16 @@ namespace Milestone3Test.Controllers
         [Route("LinkStudentToAdvisor")]
         public IActionResult LinkStudentToAdvisor([FromHeader] string studentID, [FromHeader] string advisorID)
         {
-            _dbContext.Procedures_AdminLinkStudentToAdvisor(studentID, advisorID);
+            try
+            {
+                _dbContext.Procedures_AdminLinkStudentToAdvisor(studentID, advisorID);
 
-            return StatusCode(StatusCodes.Status200OK);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]
