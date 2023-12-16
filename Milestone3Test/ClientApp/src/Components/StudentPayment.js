@@ -6,7 +6,7 @@ import CustomTable from './CustomTable';
 
 const StudentPayment = (props) => {
 
-    const [upcomingInsallment, setUpcomingInstallment] = useState("123")
+    const [upcomingInsallment, setUpcomingInstallment] = useState("")
 
     useEffect(() => {
         fetch("api/student/ViewUpcomingInstallment", {
@@ -29,7 +29,7 @@ const StudentPayment = (props) => {
 
     return (
         <div>
-            <h1>Your Upcoming Installment is Due at: {upcomingInsallment}</h1>
+            <h5 id="nextInstallment">Your upcoming installment is due on {upcomingInsallment}</h5>
         </div>
     );
 };

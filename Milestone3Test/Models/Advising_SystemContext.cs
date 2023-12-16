@@ -49,6 +49,7 @@ namespace Milestone3Test.Models
         public virtual DbSet<StudentCourseFilters> StudentViewMSs { get; set; } = null!;
         public virtual DbSet<CourseId> CourseIds { get; set; } = null!;
         public virtual DbSet<StudentViewGradPlan> StudentViewGradPlans { get; set; } = null!;
+        public virtual DbSet<Name> Names { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1071,6 +1072,16 @@ namespace Milestone3Test.Models
                     .HasColumnName("name");
             });
 
+            modelBuilder.Entity<Name>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.name)
+                     .HasMaxLength(40)
+                     .IsUnicode(false)
+                     .HasColumnName("name");
+            });
+
             OnModelCreatingPartial(modelBuilder);
         }
 
@@ -1375,6 +1386,15 @@ namespace Milestone3Test.Models
 
             return table;
         }
+
+        /*public string GetStudentName(string studentID)
+        {
+            var result = Set<Name>().FromSqlRaw("SELECT f_name AS name FROM Student WHERE student_id = @StudentID",
+                new SqlParameter("@StudentID", studentID))
+                .FirstOrDefault();
+
+            return result+"";
+        }*/
 
         /* --------------------------------- [VIEWS] --------------------------------- */
 

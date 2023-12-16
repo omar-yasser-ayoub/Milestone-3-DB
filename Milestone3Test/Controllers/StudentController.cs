@@ -148,5 +148,13 @@ namespace Milestone3Test.Controllers
             var table = _dbContext.FN_StudentViewSlot(CourseID, InstructorID);
             return StatusCode(StatusCodes.Status200OK, table);
         }
+
+        /*[HttpPost]
+        [Route("GetName")]
+        public IActionResult GetName([FromHeader] string StudentID)
+        {
+            string name = _dbContext.GetStudentName(StudentID);
+            return StatusCode(StatusCodes.Status200OK, name);
+        }*/
     }
 }

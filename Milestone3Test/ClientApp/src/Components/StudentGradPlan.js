@@ -7,6 +7,7 @@ import CustomTable from './CustomTable'
 const StudentGradPlan = (props) => {
     return (
         <div>
+            <h3 className="tableTitle">Your Graduation Plan</h3>
             <CustomTable apistring="api/student/ViewGP" id={props.id} />
         </div>
     );

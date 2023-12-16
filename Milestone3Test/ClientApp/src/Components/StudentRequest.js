@@ -1,4 +1,3 @@
-
 import 'bootstrap/dist/css/bootstrap.css';
 import ReactDOM from 'react-dom'
 import React, { useState } from 'react';
@@ -53,26 +52,23 @@ const StudentRequest = (props) => {
 
     return (
         <div>
-            <div className="container" style={{
-                background: `linear-gradient(90deg, #4F4381, #8D81C7)`,
-                color: '#fff',
-            }}>
-            <h1>Request</h1>
+            <div className="selection">
+                <label htmlFor="courses">Select Request Type</label>
+                <select id="courses" name="courses" value={selectedValue} onChange={handleChange} className="labelledSelect">
+                    <option value="api/student/SendingCourseRequest">Course Request</option>
+                    <option value="api/student/SendingCHRequest">Credit Hour Request</option>
+                </select>
             </div>
-            <label htmlFor="courses">Select Request Type</label>
-            <select id="courses" name="courses" value={selectedValue} onChange={handleChange}>
-                <option value="api/student/SendingCourseRequest">Course Request</option>
-                <option value="api/student/SendingCHRequest">Credit Hour Request</option>
-            </select>
-            <form onSubmit={handleSubmit}>
-                <h1> {formTitle} Request Form</h1>
-                <h5>{formPart}  </h5>
-                <input value={courseORch} onChange={handleCHChange} type="text" />
-                <h5>Comment</h5>
-                <input value={comment} onChange={handlecommentChange} type="text" />
-                <CustomButton disabled={!courseORch || !comment} type="submit" label="Submit" />
-            </form>
-
+            <div className="box">
+                <form onSubmit={handleSubmit}>
+                    <h3> {formTitle} Request Form</h3>
+                    <h6>{formPart}</h6>
+                    <input value={courseORch} onChange={handleCHChange} type="text" class="form-control" placeholder="Type here..." />
+                    <h6>Comment</h6>
+                    <input value={comment} onChange={handlecommentChange} type="text" class="form-control" placeholder="Type here.." />
+                    <CustomButton disabled={!courseORch || !comment} type="submit" label="Submit" />
+                </form>
+            </div>
         </div>
     );
 };

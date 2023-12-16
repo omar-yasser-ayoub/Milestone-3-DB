@@ -5,7 +5,6 @@ import Navbar from "./Components/Navbar";
 import LoginForm from "./Components/LoginForm";
 import StudentRequest from "./Components/StudentRequest";
 import StudentCourses from "./Components/StudentCourses";
-import StudentPayment from "./Components/StudentPayment";
 import StudentGradPlan from "./Components/StudentGradPlan";
 import StudentExam from "./Components/StudentExam";
 import StudentHome from "./Components/StudentHome";
@@ -15,7 +14,8 @@ import AdvisorStudents from "./Components/AdvisorStudents";
 import AdvisorRequests from "./Components/AdvisorRequests";
 import AdvisorGradPlans from "./Components/AdvisorGradPlans";
 import SignUpForm from "./Components/SignUpForm"
-import { Routes, Route, Link, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, Link, NavLink, BrowserRouter } from 'react-router-dom';
+import './index.css';
 
 const App = () => {
 
@@ -32,24 +32,16 @@ const App = () => {
         fontWeight: 'bold',
     };
 
-    useEffect(() => {
-        fetch("api/student/ViewSlot", {
-            method: 'POST',
-            headers: {
-                'CourseID': '2',
-                'InstructorID': '1'
-            },
-        })
-            .then(response => response.json())
-            .then(responseJson => {
-                console.log(responseJson);
-                setTest(responseJson);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }, []);
+    const handleLogInChange = (e) => {
+        setLogIn(!logIn);
+    }
 
+    const activeNavStyle = {
+        color: '#fff',
+        display: 'flex',
+        padding: '10px',
+        textdecoration: 'underline'
+    };
 
     if (!isLoggedIn) {
         return (
@@ -68,21 +60,19 @@ const App = () => {
                 <div>
                     <BrowserRouter>
                         <div className="App">
-                            <nav style={{ display: 'flex', backgroundColor: '#3498db', padding: '10px' }}>
-                                <Link to="" style={navItemStyle}>Home</Link>
-                                <Link to="/student/courses" style={navItemStyle}>Courses</Link>
-                                <Link to="/student/request" style={navItemStyle}>Requests</Link>
-                                <Link to="/student/gradplan" style={navItemStyle}>Graduation Plan</Link>
-                                <Link to="/student/payment" style={navItemStyle}>Payments</Link>
-                                <Link to="/student/exam" style={navItemStyle}>Exam</Link>
-                                <Link to="/student/instructor" style={navItemStyle}>Instructor</Link>
+                            <nav>
+                                <NavLink to="" style={navItemStyle}>Home</NavLink>
+                                <NavLink to="/student/courses" style={navItemStyle}>Courses</NavLink>
+                                <NavLink to="/student/request" style={navItemStyle}>Requests</NavLink>
+                                <NavLink to="/student/gradplan" style={navItemStyle}>Graduation Plan</NavLink>
+                                <NavLink to="/student/exam" style={navItemStyle}>Exam</NavLink>
+                                <NavLink to="/student/instructor" style={navItemStyle}>Instructor</NavLink>
                             </nav>
                             <Routes>
                                 <Route path="" element={<StudentHome id={id} />} />
                                 <Route path="/student/courses" element={<StudentCourses id={id} />} />
                                 <Route path="/student/request" element={<StudentRequest id={id} />} />
                                 <Route path="/student/gradplan" element={<StudentGradPlan id={id} />} />
-                                <Route path="/student/payment" element={<StudentPayment id={id} />} />
                                 <Route path="/student/exam" element={<StudentExam id={id} />} />
                                 <Route path="/student/instructor" element={<StudentInstructor id={id} />} />
                         </Routes>

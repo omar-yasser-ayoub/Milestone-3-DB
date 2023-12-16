@@ -1,0 +1,128 @@
+﻿@font-face{
+    font-family: Montserrat;
+    src: url('montserrat/Montserrat-Regular.ttf');
+}
+
+*{
+    font-family: Montserrat;
+}
+
+body {
+    background-color: #DDDDDD;
+    background-image: url('StudentBG.png');
+}
+
+.landing {
+    width: 1920px;
+    height: 924px;
+    background-image: url('LandingBG.png');
+}
+
+nav{
+    background: linear-gradient(90deg, #4F4381, #8D81C7);
+    color: #ffffff;
+    display: flex;
+    padding: 10px;
+}
+
+.box {
+    height: auto;
+    width: 500px;
+    border-radius: 15px;
+    padding: 25px;
+    background: #EEEEEE;
+    margin: 20px auto 40px auto;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+#chooseInstructor {
+    margin-bottom: 0;
+}
+
+.customBtn {
+    background: linear-gradient(90deg, #4F4381, #8D81C7);
+    color: #EEEEEE;
+    padding: 7px 16px;
+    text-align: center;
+    border-radius: 15px;
+    border: none;
+    margin-top: 15px;
+    display: inline-block; 
+}
+.btnContainer {
+    text-align: center;
+}
+
+.customBtn:disabled {
+    background: linear-gradient(90deg, #8f8aa6, #cbc8d5);
+    border: none;
+}
+
+.welcome {
+    text-align: center;
+    margin: 50px;
+}
+
+.table {
+    width: 1200px;
+    margin: 20px auto 20px auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+select {
+    padding: 5px;
+    width: 300px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 2px #4F4381 solid;
+    outline: none;
+}
+
+.labelledSelect {
+    margin: 5px 0 5px 0;
+}
+
+.selection {
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+}
+
+tr {
+    text-align: center;
+}
+
+.tableTitle {
+    text-align: center;
+    padding-top: 30px;
+}
+
+#nextInstallment {
+    text-align: center;
+}
+
+h6 {
+    padding-top: 15px;
+}
+
+#phoneInput {
+    margin-top: 25px;
+}
+
+.form-control:focus {
+    border-color: #4F4381;
+    box-shadow: 0 0 0 3px rgba(79, 67, 129, 0.3);
+    outline: 0 none;
+}
+
+label {
+    display: block;
+}
+
+.inlineDiv {
+    width: 50%;
+    float: left;
+    padding: 20px;
+}

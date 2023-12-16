@@ -57,42 +57,35 @@ const StudentPayment = (props) => {
     return (
         <div>
             <div>
-                <div className="container" style={{
-                    background: `linear-gradient(90deg, #4F4381, #8D81C7)`,
-                    color: '#fff',
-                }}>
-                    <h1>Request</h1>
+                <div className="box" id="chooseInstructor">
+                    <form onSubmit={handleSubmit}>
+                        <h3>Choose Instructor</h3>
+                        <h6>Instructor ID</h6>
+                        <input value={instructorForm} onChange={handleInstructorForm} type="text" class="form-control" placeholder="Type here..." />
+                        <h6>Course ID</h6>
+                        <input value={courseForm} onChange={handleCourseForm} type="text" class="form-control" placeholder="Type here..." />
+                        <h6>Current Semester Code</h6>
+                        <input value={semester} onChange={handleSemesterForm} type="text" class="form-control" placeholder="Type here..." />
+                        <CustomButton disabled={!instructorForm || !courseForm || !semester} type="submit" label="Submit" />
+                    </form>
                 </div>
-                
-                <form onSubmit={handleSubmit}>
-                    <h1>Choose Instructor</h1>
-                    <h5>Instructor ID</h5>
-                    <input value={instructorForm} onChange={handleInstructorForm} type="text" />
-                    <h5>Course ID</h5>
-                    <input value={courseForm} onChange={handleCourseForm} type="text" />
-                    <h5>Current Semester Code</h5>
-                    <input value={semester} onChange={handleSemesterForm} type="text" />
-                    <CustomButton disabled={!instructorForm || !courseForm || !semester} type="submit" label="Submit" />
-                </form>
 
-                <label htmlFor="courses">Select Instructor</label>
-                <select id="instructors" name="courses" value={instructorTable} onChange={handleInstructorChange}>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                </select>
-
-                <label htmlFor="courses">Select Course</label>
-                <select id="courses" name="courses" value={courseTable} onChange={handleCourseChange}>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                </select>
-                <h1> {instructorForm} </h1>
-                <h1> {courseForm} </h1>
-                <h1> {semester} </h1>
-
-                <h1> {instructorTable} </h1>
-                <h1> {courseTable} </h1>
-
+                <div className="selection">
+                    <div className="inlineDiv">
+                        <label htmlFor="courses">Select Instructor</label>
+                        <select id="instructors" name="courses" value={instructorTable} onChange={handleInstructorChange} className="labelledSelect">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select>
+                    </div>
+                    <div className="inlineDiv">
+                        <label htmlFor="courses">Select Course</label>
+                        <select id="courses" name="courses" value={courseTable} onChange={handleCourseChange} className="labelledSelect">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select>
+                    </div>
+                </div>
                 <CustomTable apistring="api/student/ViewSlot" instructorid={instructorTable} courseid={courseTable} />
             </div>
         </div>
