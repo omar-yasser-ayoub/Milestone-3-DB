@@ -18,6 +18,9 @@ const StudentRequest = (props) => {
         if (alertSuccess) {
             return
         }
+        if (alertWarning) {
+            closeAlertWarning();
+        }
         setAlertSuccess(!alertSuccess);
     };
     const closeAlertSuccess = () => {
@@ -26,6 +29,9 @@ const StudentRequest = (props) => {
     const toggleWarning = () => {
         if (alertWarning) {
             return
+        }
+        if (alertSuccess) {
+            closeAlertSuccess();
         }
         setAlertWarning(!alertWarning);
     };

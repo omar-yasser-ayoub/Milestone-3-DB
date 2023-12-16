@@ -18,6 +18,9 @@ const AdvisorGradPlans = (props) => {
         if (alertSuccess) {
             return
         }
+        if (alertWarning) {
+            closeAlertWarning();
+        }
         setAlertSuccess(!alertSuccess);
     };
     const closeAlertSuccess = () => {
@@ -26,6 +29,9 @@ const AdvisorGradPlans = (props) => {
     const toggleWarning = () => {
         if (alertWarning) {
             return
+        }
+        if (alertSuccess) {
+            closeAlertSuccess();
         }
         setAlertWarning(!alertWarning);
     };

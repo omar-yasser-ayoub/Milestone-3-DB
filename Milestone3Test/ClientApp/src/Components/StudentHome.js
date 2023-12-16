@@ -22,6 +22,9 @@ const [phone, setPhone] = useState("");
         if (alertSuccess) {
             return
         }
+        if (alertWarning) {
+            closeAlertWarning();
+        }
         setAlertSuccess(!alertSuccess);
     };
     const closeAlertSuccess = () => {
@@ -30,6 +33,9 @@ const [phone, setPhone] = useState("");
     const toggleWarning = () => {
         if (alertWarning) {
             return
+        }
+        if (alertSuccess) {
+            closeAlertSuccess();
         }
         setAlertWarning(!alertWarning);
     };

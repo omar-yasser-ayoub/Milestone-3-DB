@@ -29,6 +29,9 @@ const StudentPayment = (props) => {
         if (alertSuccess) {
             return
         }
+        if (alertWarning) {
+            closeAlertWarning();
+        }
         setAlertSuccess(!alertSuccess);
     };
     const closeAlertSuccess = () => {
@@ -37,6 +40,9 @@ const StudentPayment = (props) => {
     const toggleWarning = () => {
         if (alertWarning) {
             return
+        }
+        if (alertSuccess) {
+            closeAlertSuccess();
         }
         setAlertWarning(!alertWarning);
     };
