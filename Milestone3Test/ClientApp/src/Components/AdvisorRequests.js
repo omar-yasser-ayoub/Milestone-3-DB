@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { React, useState, useEffect } from 'react';
 import CustomTable from './CustomTable';
 import CustomButton from './CustomButton';
+import { Alert, UncontrolledAlert, Button } from 'reactstrap';
 
 const AdvisorRequests = (props) => {
     const [major, setMajor] = useState("")
@@ -10,6 +11,28 @@ const AdvisorRequests = (props) => {
     const [title, setTitle] = useState("All")
     const [reqid, setReqid] = useState("")
     const [semester, setSemester] = useState("")
+    const [alertSuccess, setAlertSuccess] = useState(false);
+    const [alertWarning, setAlertWarning] = useState(false);
+
+    const toggleSuccess = () => {
+        if (alertSuccess) {
+            return
+        }
+        setAlertSuccess(!alertSuccess);
+    };
+    const closeAlertSuccess = () => {
+        setAlertSuccess(false);
+    }
+    const toggleWarning = () => {
+        if (alertWarning) {
+            return
+        }
+        setAlertWarning(!alertWarning);
+    };
+    const closeAlertWarning = () => {
+        setAlertWarning(false);
+    }
+
     useEffect(() => {
         if (major != "") {
             setApistring("api/advisor/ViewPendingRequests")
@@ -50,7 +73,16 @@ const AdvisorRequests = (props) => {
                     'current_semester_code': semester
                 },
             })
-        )
+        ).then(response => {
+            if (!response.ok) {
+                toggleWarning();
+            }
+            else {
+                toggleSuccess();
+            }
+        });
+        setReqid("")
+        setSemester("")
     }
 
     return (
@@ -71,6 +103,12 @@ const AdvisorRequests = (props) => {
                     <h6>Current Semester Code</h6>
                     <input value={semester} onChange={handlecommentChange} type="text" class="form-control" placeholder="Type here..." />
                     <CustomButton disabled={!reqid || !semester} type="submit" label="Submit" />
+                    <UncontrolledAlert isOpen={alertSuccess} toggle={closeAlertSuccess}>
+                        Success! Your Request was submitted.
+                    </UncontrolledAlert>
+                    <UncontrolledAlert color="warning" isOpen={alertWarning} toggle={closeAlertWarning}>
+                        Request failed. Please check that all of your data is correct.
+                    </UncontrolledAlert>
                 </form>
             </div>
         </div>

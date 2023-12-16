@@ -19,9 +19,16 @@ namespace Milestone3Test.Controllers
         [Route("AddCourseGP")]
         public IActionResult AddCourseGP([FromHeader] string student_id, [FromHeader] string Semester_code, [FromHeader] string course_name)
         {
-            _dbContext.Procedures_AdvisorAddCourseGP(student_id, Semester_code, course_name);
+            try
+            {
+                _dbContext.Procedures_AdvisorAddCourseGP(student_id, Semester_code, course_name);
 
-            return StatusCode(StatusCodes.Status200OK);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]
@@ -46,18 +53,32 @@ namespace Milestone3Test.Controllers
         [Route("CreateGP")]
         public IActionResult CreateGP([FromHeader] string Semester_code, [FromHeader] string expected_graduation_date, [FromHeader] string sem_credit_hours, [FromHeader] string advisor_id, [FromHeader] string student_id)
         {
-            _dbContext.Procedures_AdvisorCreateGP(Semester_code, expected_graduation_date, sem_credit_hours, advisor_id, student_id);
+            try
+            {
+                _dbContext.Procedures_AdvisorCreateGP(Semester_code, expected_graduation_date, sem_credit_hours, advisor_id, student_id);
 
-            return StatusCode(StatusCodes.Status200OK);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]
         [Route("DeleteFromGP")]
         public IActionResult DeleteFromGP([FromHeader] string studentID, [FromHeader] string Semester_code, [FromHeader] string courseID)
         {
-            _dbContext.Procedures_AdvisorDeleteFromGP(studentID, Semester_code, courseID);
+            try
+            {
+                _dbContext.Procedures_AdvisorDeleteFromGP(studentID, Semester_code, courseID);
 
-            return StatusCode(StatusCodes.Status200OK);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]
@@ -73,9 +94,16 @@ namespace Milestone3Test.Controllers
         [Route("UpdateGP")]
         public IActionResult UpdateGP([FromHeader] string expected_grad_date, [FromHeader] string studentID)
         {
-            _dbContext.Procedures_AdvisorUpdateGP(expected_grad_date, studentID);
+            try
+            {
+                _dbContext.Procedures_AdvisorUpdateGP(expected_grad_date, studentID);
 
-            return StatusCode(StatusCodes.Status200OK);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]

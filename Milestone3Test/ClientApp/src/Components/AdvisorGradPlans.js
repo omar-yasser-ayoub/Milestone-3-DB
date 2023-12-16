@@ -2,7 +2,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import ReactDOM from 'react-dom'
 import React from 'react';
 import { useState, useEffect } from 'react';
-import CustomButton from './CustomButton'
+import CustomButton from './CustomButton';
+import { Alert, UncontrolledAlert, Button } from 'reactstrap';
 const AdvisorGradPlans = (props) => {
     
     const [apistring, setApistring] = useState("api/advisor/CreateGP")
@@ -10,13 +11,35 @@ const AdvisorGradPlans = (props) => {
     const [two, setTwo] = useState("")
     const [three, setThree] = useState("")
     const [four, setFour] = useState("")
+    const [alertSuccess, setAlertSuccess] = useState(false);
+    const [alertWarning, setAlertWarning] = useState(false);
 
+    const toggleSuccess = () => {
+        if (alertSuccess) {
+            return
+        }
+        setAlertSuccess(!alertSuccess);
+    };
+    const closeAlertSuccess = () => {
+        setAlertSuccess(false);
+    }
+    const toggleWarning = () => {
+        if (alertWarning) {
+            return
+        }
+        setAlertWarning(!alertWarning);
+    };
+    const closeAlertWarning = () => {
+        setAlertWarning(false);
+    }
     const handleChange = (event) => {
         setApistring(event.target.value);
         setOne("");
         setTwo("");
         setThree("");
         setFour("");
+        setAlertSuccess(false);
+        setAlertWarning(false);
     };
     const handleCreateGP = (e) => {
         e.preventDefault();
@@ -29,7 +52,14 @@ const AdvisorGradPlans = (props) => {
                 'advisor_id': props.id,
                 'student_id': one,
             },
-        })
+        }).then(response => {
+            if (!response.ok) {
+                toggleWarning();
+            }
+            else {
+                toggleSuccess();
+            }
+        });
         setOne("");
         setTwo("");
         setThree("");
@@ -44,7 +74,14 @@ const AdvisorGradPlans = (props) => {
                 'Semester_code': two,
                 'course_name': three
             },
-        })
+        }).then(response => {
+            if (!response.ok) {
+                toggleWarning();
+            }
+            else {
+                toggleSuccess();
+            }
+        });
         setOne("");
         setTwo("");
         setThree("");
@@ -58,7 +95,14 @@ const AdvisorGradPlans = (props) => {
                 'expected_grad_date': two,
                 'studentID': one
             },
-        })
+        }).then(response => {
+            if (!response.ok) {
+                toggleWarning();
+            }
+            else {
+                toggleSuccess();
+            }
+        });
         setOne("");
         setTwo("");
         setThree("");
@@ -73,7 +117,14 @@ const AdvisorGradPlans = (props) => {
                 'Semester_code': two,
                 'courseID': three
             },
-        })
+        }).then(response => {
+            if (!response.ok) {
+                toggleWarning();
+            }
+            else {
+                toggleSuccess();
+            }
+        });
         setOne("");
         setTwo("");
         setThree("");
@@ -116,7 +167,12 @@ const AdvisorGradPlans = (props) => {
                         <h6>Semester Code</h6>
                         <input value={four} onChange={handleFour} type="text" class="form-control" placeholder="Type here..." />
                         <CustomButton disabled={!one || !two || !three || !four} type="submit" label="Submit" />
-                        
+                        <UncontrolledAlert isOpen={alertSuccess} toggle={closeAlertSuccess}>
+                            Success! Your Request was Processed.
+                        </UncontrolledAlert>
+                        <UncontrolledAlert color="warning" isOpen={alertWarning} toggle={closeAlertWarning}>
+                            Request failed. Please check that all of your data is correct.
+                        </UncontrolledAlert>
                     </form>
                 </div>
             ) : null}
@@ -132,7 +188,12 @@ const AdvisorGradPlans = (props) => {
                         <input value={three} onChange={handleThree} type="text" class="form-control" placeholder="Type here..." />
                         
                         <CustomButton disabled={!one || !two || !three} type="submit" label="Submit" />
-                        
+                        <UncontrolledAlert isOpen={alertSuccess} toggle={closeAlertSuccess}>
+                            Success! Your Request was submitted.
+                        </UncontrolledAlert>
+                        <UncontrolledAlert color="warning" isOpen={alertWarning} toggle={closeAlertWarning}>
+                            Request failed. Please check that all of your data is correct.
+                        </UncontrolledAlert>
                     </form>
                 </div>
             ) : null}
@@ -146,7 +207,12 @@ const AdvisorGradPlans = (props) => {
                         <input value={two} onChange={handleTwo} type="text" class="form-control" placeholder="Type here..." />
                  
                         <CustomButton disabled={!one || !two} type="submit" label="Submit" class="form-control" placeholder="Type here..." />
-                        
+                        <UncontrolledAlert isOpen={alertSuccess} toggle={closeAlertSuccess}>
+                            Success! Your Request was submitted.
+                        </UncontrolledAlert>
+                        <UncontrolledAlert color="warning" isOpen={alertWarning} toggle={closeAlertWarning}>
+                            Request failed. Please check that all of your data is correct.
+                        </UncontrolledAlert>
                     </form>
                 </div>
             ) : null}
@@ -162,6 +228,12 @@ const AdvisorGradPlans = (props) => {
                         <input value={three} onChange={handleThree} type="text" class="form-control" placeholder="Type here..." />
                         
                         <CustomButton disabled={!one || !two || !three} type="submit" label="Submit" /> 
+                        <UncontrolledAlert isOpen={alertSuccess} toggle={closeAlertSuccess}>
+                            Success! Your Request was submitted.
+                        </UncontrolledAlert>
+                        <UncontrolledAlert color="warning" isOpen={alertWarning} toggle={closeAlertWarning}>
+                            Request failed. Please check that all of your data is correct.
+                        </UncontrolledAlert>
                     </form>
                 </div>
             ) : null}
