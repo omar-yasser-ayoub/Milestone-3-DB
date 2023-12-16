@@ -9,8 +9,6 @@ import { Alert, UncontrolledAlert, Button } from 'reactstrap';
 const StudentExam = (props) => {
 const [phone, setPhone] = useState("");
 
-/*const [name, setName] = useState("");*/
-
     const handlePhone = (e) => {
         setPhone(e.target.value)
     }
@@ -63,15 +61,9 @@ const [phone, setPhone] = useState("");
 
         setPhone("");
     }
+
     return (
         <div>
-            {/*<div className="container" style={{
-                background: `linear-gradient(90deg, #4F4381, #8D81C7)`,
-                color: '#fff',
-            }}>
-
-            <h1>Home</h1>
-            </div>*/}
             <h1 className="welcome">Welcome, Student {props.id}</h1>
             <div className="box">
                 <form onSubmit={handleSubmit}>
@@ -79,11 +71,8 @@ const [phone, setPhone] = useState("");
                     <input id="phoneInput" value={phone} onChange={handlePhone} type="text" class="form-control" placeholder="Type here..." />
                     <CustomButton disabled={!phone} type="submit" label="Submit" />
                 </form>
-                <UncontrolledAlert isOpen={alertSuccess} toggle={closeAlertSuccess}>
-                    Success! Your phone was added.
-                </UncontrolledAlert>
                 <UncontrolledAlert color="warning" isOpen={alertWarning} toggle={closeAlertWarning}>
-                    Request failed. Please check that all of your data is correct.
+                    Incorrect username or password.
                 </UncontrolledAlert>
             </div>
             <StudentPayment id={props.id} />

@@ -173,3 +173,17 @@ label {
     position: absolute;
     right: 15px;
 }
+
+.bigTable::-webkit-scrollbar {
+    height: 12px;
+}
+
+.bigTable::-webkit-scrollbar-thumb {
+    background-color: #4F4381;
+    border-radius: 5px;
+}
+
+.bigTable::-webkit-scrollbar-track {
+    background-color: #8D81C7;
+    border-radius: 5px;
+}

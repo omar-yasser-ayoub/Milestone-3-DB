@@ -82,8 +82,15 @@ namespace Milestone3Test.Controllers
         [Route("Registration")]
         public IActionResult Registration([FromHeader] string first_name, [FromHeader] string last_name, [FromHeader] string password, [FromHeader] string faculty, [FromHeader] string email, [FromHeader] string major, [FromHeader] string Semester)
         {
-            int Student_id = _dbContext.Procedures_StudentRegistration(first_name, last_name, password, faculty, email, major, Semester);
-            return StatusCode(StatusCodes.Status200OK, new { StudentId = Student_id });
+            try
+            {
+                int Student_id = _dbContext.Procedures_StudentRegistration(first_name, last_name, password, faculty, email, major, Semester);
+                return StatusCode(StatusCodes.Status200OK, new { StudentId = Student_id });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]
@@ -148,8 +155,15 @@ namespace Milestone3Test.Controllers
         [Route("LoginRequest")]
         public IActionResult LoginRequest([FromHeader] string username, [FromHeader] string password)
         {
-            int Success = _dbContext.StudentLogin(username, password);
-            return StatusCode(StatusCodes.Status200OK, new { success = Success });
+            try
+            {
+                int Success = _dbContext.StudentLogin(username, password);
+                return StatusCode(StatusCodes.Status200OK, new { success = Success });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]
@@ -192,12 +206,28 @@ namespace Milestone3Test.Controllers
             return StatusCode(StatusCodes.Status200OK, table);
         }
 
-        /*[HttpPost]
-        [Route("GetName")]
-        public IActionResult GetName([FromHeader] string StudentID)
+        [HttpPost]
+        [Route("GetSemCodes")]
+        public IActionResult GetSemCodes()
         {
-            string name = _dbContext.GetStudentName(StudentID);
-            return StatusCode(StatusCodes.Status200OK, name);
-        }*/
+            var table = _dbContext.Procedures_GetSemesterCode();
+            return StatusCode(StatusCodes.Status200OK, table);
+        }
+
+        [HttpPost]
+        [Route("GetInstructorIds")]
+        public IActionResult GetInstructorIds()
+        {
+            var table = _dbContext.Procedures_GetInstructorId();
+            return StatusCode(StatusCodes.Status200OK, table);
+        }
+
+        [HttpPost]
+        [Route("GetCourseIds")]
+        public IActionResult GetCourseIds()
+        {
+            var table = _dbContext.Procedures_GetCourseId();
+            return StatusCode(StatusCodes.Status200OK, table);
+        }
     }
 }

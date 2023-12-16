@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import React from 'react';
 import { useState, useEffect } from 'react';
 import CustomButton from "./CustomButton";
+import { Alert, UncontrolledAlert, Button } from 'reactstrap';
 
 const SignUpForm = (props) => {
     const [fName, setFName] = useState("");
@@ -17,6 +18,35 @@ const SignUpForm = (props) => {
     const [test, setTest] = useState("");
     const [isStudent, setStudent] = useState(true);
     const [title, setTitle] = useState("Student");
+
+    const [alertSuccess, setAlertSuccess] = useState(false);
+    const [alertWarning, setAlertWarning] = useState(false);
+    var newId;
+
+    const toggleSuccess = () => {
+        if (alertSuccess) {
+            return
+        }
+        if (alertWarning) {
+            closeAlertWarning();
+        }
+        setAlertSuccess(!alertSuccess);
+    };
+    const closeAlertSuccess = () => {
+        setAlertSuccess(false);
+    }
+    const toggleWarning = () => {
+        if (alertWarning) {
+            return
+        }
+        if (alertSuccess) {
+            closeAlertSuccess();
+        }
+        setAlertWarning(!alertWarning);
+    };
+    const closeAlertWarning = () => {
+        setAlertWarning(false);
+    }
 
     const handleFNameChange = (e) => {
         setFName(e.target.value);
@@ -71,15 +101,27 @@ const SignUpForm = (props) => {
                     'Semester': semester
                 },
             })
-                .then(response => response.json())
-                .then(responseJson => {
+                .then(response => {
+                    if (!response.ok) {
+                        toggleWarning();
+                    }
+                    else {
+                        toggleSuccess();
+                    }
+                })
+                /*.then(responseJson => {
                     console.log(responseJson);
                     props.setId(responseJson.studentId);
-                    setTest("Registered Successfully! Your ID is " + responseJson.studentId);
+                    *//*setTest("Registered Successfully! Your ID is " + responseJson.studentId);
+                    console.log(responseJson);*//*
+                        *//*setTest("Welcome to the System");*//*
+                        *//*toggleSuccess();*//*
+                        props.setId(responseJson.studentId);
+                        newId = responseJson.studentId;
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                });
+                });*/
         }
 
         else {
@@ -93,16 +135,33 @@ const SignUpForm = (props) => {
                     'office': office
 
                 },
+            }).then(response => {
+                if (!response.ok) {
+                    toggleWarning();
+                }
+                else {
+                    toggleSuccess();
+                }
             })
-                .then(response => response.json())
+                /*.then(response => response.json())
                 .then(responseJson => {
                     console.log(responseJson);
-                    props.setId(responseJson.advisorId);
-                    setTest("Registered Successfully! Your ID is " + responseJson.advisorId);
+                    *//*props.setId(responseJson.advisorId);
+                    setTest("Registered Successfully! Your ID is " + responseJson.advisorId);*//*
+                    if (responseJson.success == 1) {
+                        *//*setTest("Welcome to the System");*//*
+                        toggleSuccess();
+                        props.setId(responseJson.advisorId);
+                        newId = responseJson.studentId;
+                    }
+                    else {
+                        *//*setTest("Incorrect Password");*//*
+                        toggleWarning();
+                    }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                });
+                });*/
         }
         setFName("");
         setLName("");
@@ -131,11 +190,11 @@ const SignUpForm = (props) => {
     return (
         <div className="landing">
             <div className="box">
-                <div className="inlineDiv">
+                <div className="inlineDivBtn">
                     <CustomButton label="Student" disabled={isStudent}
                         onClick={handleTypeChange} />
                 </div>
-                <div className="inlineDiv">
+                <div className="inlineDivBtn">
                     <CustomButton label="Advisor" disabled={!isStudent}
                         onClick={handleTypeChange} />
                 </div>
@@ -179,7 +238,13 @@ const SignUpForm = (props) => {
                         disabled={!aName || !password || !email || !office}
                         type="submit" label="Sign Up"/>}
 
-                    <h1>{test}</h1>
+                    {/*<h1>{test}</h1>*/}
+                    <UncontrolledAlert isOpen={alertSuccess} toggle={closeAlertSuccess}>
+                        Registered successfully!
+                    </UncontrolledAlert>
+                    <UncontrolledAlert color="warning" isOpen={alertWarning} toggle={closeAlertWarning}>
+                        Request failed. Please check that all of your data is correct.
+                    </UncontrolledAlert>
 
                 </form>
             </div>
