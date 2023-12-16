@@ -5,7 +5,7 @@ import CustomTable from './CustomTable';
 
 const AdvisorStudents = (props) => {
     const [major, setMajor] = useState("")
-    const [apistring, setApistring] = useState()
+    const [apistring, setApistring] = useState("api/advisor/ViewAllAssignedStudents")
 
 
     const handleChange = (event) => {
@@ -24,17 +24,19 @@ const AdvisorStudents = (props) => {
 
     return (
         <div>
-            <h1>Assigned Students to Advisor {props.id}</h1>
-            <select id="courses" name="courses" value={major} onChange={handleChange}>
-                <option value="">View All Students</option>
-                <option value="CS">CSEN</option>
-                <option value="IET">IET</option>
-                <option value="DMET">DMET</option>
-                <option value="Mechatronics">Mechatronics</option>
-                <option value="Engineering Chemistry">Chemical Engineering</option>
-                {/* Add more options as needed */}
-            </select>
-            <CustomTable apistring = {apistring} advisorid={props.id} major={major} />
+            <h3 className="centeredH3">Assigned Students to Advisor {props.id}</h3>
+            <div className="selection">
+                <select id="courses" name="courses" value={major} onChange={handleChange}>
+                    <option value="">View All Students</option>
+                    <option value="CS">CSEN</option>
+                    <option value="IET">IET</option>
+                    <option value="DMET">DMET</option>
+                    <option value="Mechatronics">Mechatronics</option>
+                    <option value="Engineering Chemistry">Chemical Engineering</option>
+                    {/* Add more options as needed */}
+                </select>
+            </div>
+            <CustomTable apistring={apistring} advisorid={props.id} major={major} />
         </div>
     );
 };

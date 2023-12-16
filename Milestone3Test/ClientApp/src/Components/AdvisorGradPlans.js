@@ -152,7 +152,8 @@ const AdvisorGradPlans = (props) => {
     return (
         <div>
             <div className="selection">
-                <select id="courses" name="courses" value={apistring} onChange={handleChange}>
+                <label htmlFor="courses">Select action</label>
+                <select id="courses" name="courses" value={apistring} onChange={handleChange} className="labelledSelect">
                     <option value="api/advisor/CreateGP">Insert Graduation Plan</option>
                     <option value="api/advisor/AddCourseGP">Insert Courses</option>
                     <option value="api/advisor/UpdateGP">Update Graduation Date</option>

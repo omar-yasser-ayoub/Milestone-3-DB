@@ -44,17 +44,17 @@ const AdminInstructors = (props) => {
     
     return (
         <div>
-            <h1>All Instructors</h1>
+            <h3 className="centeredH3">All Instructors</h3>
             <CustomTable apistring="api/view/InstructorAssignedCourses" />
-            <div>
+            <div className="box">
                 <form onSubmit={handleSubmit}>
-                    <h1>Link Instructor to Course</h1>
-                    <h5>Course ID</h5>
-                    <input value={course} onChange={handleCourse} type="text" />
-                    <h5>Instructor ID</h5>
-                    <input value={instructor} onChange={handleInstructor} type="text" />
-                    <h5>Slot ID</h5>
-                    <input value={slot} onChange={handleSlot} type="text" />
+                    <h3>Link Instructor to Course</h3>
+                    <h6>Course ID</h6>
+                    <input value={course} onChange={handleCourse} type="text" class="form-control" placeholder="Type here..." />
+                    <h6>Instructor ID</h6>
+                    <input value={instructor} onChange={handleInstructor} type="text" class="form-control" placeholder="Type here..." />
+                    <h6>Slot ID</h6>
+                    <input value={slot} onChange={handleSlot} type="text" class="form-control" placeholder="Type here..." />
                     <CustomButton disabled={!course || !instructor || !slot } type="submit" label="Submit" />
                 </form>
             </div>
