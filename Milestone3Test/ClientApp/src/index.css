@@ -12,12 +12,6 @@ body {
     background-image: url('StudentBG.png');
 }
 
-.landing {
-    width: 1920px;
-    height: 924px;
-    background-image: url('LandingBG.png');
-}
-
 nav{
     background: linear-gradient(90deg, #4F4381, #8D81C7);
     color: #ffffff;
@@ -47,7 +41,8 @@ nav{
     border-radius: 15px;
     border: none;
     margin-top: 15px;
-    display: inline-block; 
+    display: inline-block;
+    width: 150px;
 }
 .btnContainer {
     text-align: center;
@@ -125,4 +120,27 @@ label {
     width: 50%;
     float: left;
     padding: 20px;
+}
+
+.inlineDivBtn {
+    width: 50%;
+    float: left;
+    padding: 20px 0 20px 0;
+    text-align: center;
+}
+
+.inlineDivBtn > .btnContainer > .customBtn {
+    width: 215px;
+    margin: 0;
+}
+
+.inlineDivBtn > .btnContainer {
+    width: max-content;
+    display: inline-block;
+    margin: 0;
+}
+
+.logsign {
+    margin-top: 0px;
+    margin-bottom: 30px;
 }
