@@ -10,7 +10,9 @@ const Button = (props) => {
                 type={props.type}
                 disabled={props.disabled}
                 className="customBtn"
-                onClick={props.onClick}>
+                onClick={props.onClick}
+                
+            >
                 {props.label}
             </button>
         </div>

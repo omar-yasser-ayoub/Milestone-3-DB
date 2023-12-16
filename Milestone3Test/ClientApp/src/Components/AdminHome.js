@@ -1,8 +1,6 @@
-
 import 'bootstrap/dist/css/bootstrap.css';
-import ReactDOM from 'react-dom'
 import React, { useState } from 'react';
-import CustomTable from './CustomTable'
+import { Alert, UncontrolledAlert, Button } from 'reactstrap';
 
 const AdminHome = (props) => {
     return (
@@ -13,5 +11,3 @@ const AdminHome = (props) => {
 };
 
 export default AdminHome;
-
-
