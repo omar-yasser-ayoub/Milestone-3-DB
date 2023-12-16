@@ -9,7 +9,6 @@ import StudentGradPlan from "./Components/StudentGradPlan";
 import StudentExam from "./Components/StudentExam";
 import StudentHome from "./Components/StudentHome";
 import StudentInstructor from "./Components/StudentInstructor";
-import AdvisorHome from "./Components/AdvisorHome";
 import AdvisorStudents from "./Components/AdvisorStudents";
 import AdvisorRequests from "./Components/AdvisorRequests";
 import AdvisorGradPlans from "./Components/AdvisorGradPlans";
@@ -20,7 +19,6 @@ import AdminStudents from "./Components/AdminStudents"
 import AdminInstructors from "./Components/AdminInstructors"
 import AdminRequests from "./Components/AdminRequests"
 import AdminAdvisors from "./Components/AdminAdvisors"
-import AdminHome from "./Components/AdminHome"
 import { Routes, Route, Link, NavLink, BrowserRouter } from 'react-router-dom';
 import './index.css';
 
@@ -65,7 +63,6 @@ const App = () => {
                     <BrowserRouter>
                         <div className="App">
                             <nav style={{ display: 'flex', backgroundColor: '#3498db', padding: '10px' }}>
-                                <Link to="" style={navItemStyle}>Home</Link>
                                 <Link to="/admin/advisors" style={navItemStyle}>Advisors</Link>
                                 <Link to="/admin/students" style={navItemStyle}>Students</Link>
                                 <Link to="/admin/requests" style={navItemStyle}>Requests</Link>
@@ -74,7 +71,6 @@ const App = () => {
                                 <Link to="/admin/instructors" style={navItemStyle}>Instructors</Link>
                             </nav>
                             <Routes>
-                                <Route path="" element={<AdminHome id={id} />} />
                                 <Route path="/admin/advisors" element={<AdminAdvisors id={id} />} />
                                 <Route path="/admin/students" element={<AdminStudents id={id} />} />
                                 <Route path="/admin/requests" element={<AdminRequests id={id} />} />

@@ -7,7 +7,7 @@ import CustomTable from './CustomTable'
 const AdminAdvisors = (props) => {
     return (
         <div>
-            <h1>All Advisors</h1>
+            <h3 className="centeredH3">All Advisors</h3>
             <CustomTable apistring="api/admin/ListAdvisors" />
         </div>
     );
