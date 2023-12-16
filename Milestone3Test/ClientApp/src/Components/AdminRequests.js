@@ -7,7 +7,7 @@ import CustomTable from './CustomTable'
 const AdminRequests = (props) => {
     return (
         <div>
-            <h1>All Pending Requests</h1>
+            <h3 className="centeredH3">All Pending Requests</h3>
             <CustomTable apistring="api/view/AllPendingRequest" />
         </div>
     );

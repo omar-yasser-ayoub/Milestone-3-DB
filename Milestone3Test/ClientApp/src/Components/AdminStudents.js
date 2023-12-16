@@ -81,30 +81,40 @@ const AdminStudents = (props) => {
         
     return (
         <div>
-            <h1>All Students</h1>
-            <CustomTable apistring="api/admin/ListStudents" />
-            <div>
-                <form onSubmit={handleSubmit}>
-                    <h1>Link Student to Course</h1>
-                    <h5>Course ID</h5>
-                    <input value={course} onChange={handleCourse} type="text" />
-                    <h5>Instructor ID</h5>
-                    <input value={instructor} onChange={handleInstructor} type="text" />
-                    <h5>Student ID</h5>
-                    <input value={student} onChange={handleStudent} type="text" />
-                    <h5>Semester Code</h5>
-                    <input value={semester} onChange={handleSemester} type="text" />
-                    <CustomButton disabled={!course || !semester || !instructor || !student } type="submit" label="Submit" />
-                </form>
-                <form onSubmit={handleSubmit2}>
-                    <h1>Link Student to Advisor</h1>
-                    <h5>Advisor ID</h5>
-                    <input value={advisorID} onChange={handleAdvisorID} type="text" />
-                    <h5>Student ID</h5>
-                    <input value={studentID} onChange={handleStudentID} type="text" />
+            <h3 className="centeredH3">All Students</h3>
+            <div className="bigTable">
+                <CustomTable apistring="api/admin/ListStudents" />
+            </div>
+            <div className="centreDiv">
+                <div className="inlineDiv">
+                    <div className="box">
+                        <form onSubmit={handleSubmit}>
+                            <h3>Link Student to Course</h3>
+                            <h6>Course ID</h6>
+                            <input value={course} onChange={handleCourse} type="text" class="form-control" placeholder="Type here..." />
+                            <h6>Instructor ID</h6>
+                            <input value={instructor} onChange={handleInstructor} type="text" class="form-control" placeholder="Type here..." />
+                            <h6>Student ID</h6>
+                            <input value={student} onChange={handleStudent} type="text" class="form-control" placeholder="Type here..." />
+                            <h6>Semester Code</h6>
+                            <input value={semester} onChange={handleSemester} type="text" class="form-control" placeholder="Type here..." />
+                            <CustomButton disabled={!course || !semester || !instructor || !student } type="submit" label="Submit" />
+                        </form>
+                    </div>
+                </div>
+                <div className="inlineDiv">
+                    <div className="box">
+                        <form onSubmit={handleSubmit2}>
+                            <h3>Link Student to Advisor</h3>
+                            <h6>Advisor ID</h6>
+                            <input value={advisorID} onChange={handleAdvisorID} type="text" class="form-control" placeholder="Type here..." />
+                            <h6>Student ID</h6>
+                            <input value={studentID} onChange={handleStudentID} type="text" class="form-control" placeholder="Type here..." />
                     
-                    <CustomButton disabled={!studentID || !advisorID} type="submit" label="Submit" />
-                </form>
+                            <CustomButton disabled={!studentID || !advisorID} type="submit" label="Submit" />
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     );
