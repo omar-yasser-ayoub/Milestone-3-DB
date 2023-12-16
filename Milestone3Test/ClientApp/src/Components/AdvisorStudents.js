@@ -5,18 +5,19 @@ import CustomTable from './CustomTable';
 
 const AdvisorStudents = (props) => {
     const [major, setMajor] = useState("")
-    const [apistring, setApistring] = useState("api/advisor/ViewAllAssignedStudents")
+    const [apistring, setApistring] = useState()
 
-    useEffect(() => {
-        if (major != "") {
-            setApistring("api/advisor/ViewAssignedStudents")
-        }
-        else {
-            setApistring("api/advisor/ViewAllAssignedStudents")
-        }
-    }, [major]);
 
     const handleChange = (event) => {
+        
+        if (major !== event.target.value) {
+            if (event.target.value === "") {
+                setApistring("api/advisor/ViewAllAssignedStudents")
+            }
+            else {
+                setApistring("api/advisor/ViewAssignedStudents")
+            }
+        }
         setMajor(event.target.value);
     };
 
@@ -25,7 +26,7 @@ const AdvisorStudents = (props) => {
         <div>
             <h1>Assigned Students to Advisor {props.id}</h1>
             <select id="courses" name="courses" value={major} onChange={handleChange}>
-                <option value="">Select...</option>
+                <option value="">View All Students</option>
                 <option value="CS">CSEN</option>
                 <option value="IET">IET</option>
                 <option value="DMET">DMET</option>
