@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import React from 'react';
 import { useState, useEffect } from 'react';
 import CustomButton from "./CustomButton";
+import { Alert, UncontrolledAlert, Button } from 'reactstrap';
 
 const LoginForm = (props) => {
 	const [id, setId] = useState("");
@@ -11,6 +12,34 @@ const LoginForm = (props) => {
 	const [test, setTest] = useState("");
 	const [isStudent, setStudent] = useState(true);
 	const [title, setTitle] = useState("Student");
+
+	const [alertSuccess, setAlertSuccess] = useState(false);
+	const [alertWarning, setAlertWarning] = useState(false);
+
+	const toggleSuccess = () => {
+		if (alertSuccess) {
+			return
+		}
+		if (alertWarning) {
+			closeAlertWarning();
+		}
+		setAlertSuccess(!alertSuccess);
+	};
+	const closeAlertSuccess = () => {
+		setAlertSuccess(false);
+	}
+	const toggleWarning = () => {
+		if (alertWarning) {
+			return
+		}
+		if (alertSuccess) {
+			closeAlertSuccess();
+		}
+		setAlertWarning(!alertWarning);
+	};
+	const closeAlertWarning = () => {
+		setAlertWarning(false);
+	}
 	
 	const handleIdChange = (e) => {
 		setId(e.target.value);
@@ -44,7 +73,8 @@ const LoginForm = (props) => {
 						props.setId(id);
 					}
 					else {
-						setTest("Incorrect Password");
+						/*setTest("Incorrect Password");*/
+						toggleWarning();
 					}
 				})
 				.catch(error => {
@@ -69,7 +99,8 @@ const LoginForm = (props) => {
 						props.setId(id);
 					}
 					else {
-						setTest("Incorrect Password");
+						/*setTest("Incorrect Password");*/
+						toggleWarning();
 					}	
 				})
 				.catch(error => {
@@ -113,6 +144,9 @@ const LoginForm = (props) => {
 				<CustomButton disabled={!id || !pass} type="submit" label="Log In" />
 				<h5 className="centeredH3">{test}</h5>
 			</form>
+			<UncontrolledAlert color="warning" isOpen={alertWarning} toggle={closeAlertWarning}>
+				Incorrect username or password. Please try again.
+			</UncontrolledAlert>
 		</div>
 	);
 }

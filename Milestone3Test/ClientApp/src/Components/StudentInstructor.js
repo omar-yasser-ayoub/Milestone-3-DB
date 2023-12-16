@@ -15,6 +15,42 @@ const StudentPayment = (props) => {
     const [semester, setSemester] = useState("")
     const [instructorTable, setInstructorTable] = useState("1")
     const [courseTable, setCourseTable] = useState("1")
+    const [instList, setInstList] = useState([]);
+    const [courseList, setCourseList] = useState([]);
+
+    useEffect(() => {
+        fetch("api/student/GetInstructorIds", {
+            method: 'POST',
+            headers: {
+
+            },
+        })
+            .then(response => response.json())
+            .then(responseJson => {
+                console.log(responseJson);
+                setInstList(responseJson);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }, []);
+
+    useEffect(() => {
+        fetch("api/student/GetCourseIds", {
+            method: 'POST',
+            headers: {
+
+            },
+        })
+            .then(response => response.json())
+            .then(responseJson => {
+                console.log(responseJson);
+                setCourseList(responseJson);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }, []);
 
     const handleInstructorChange = (e) => {
         setInstructorTable(e.target.value);
@@ -115,15 +151,25 @@ const StudentPayment = (props) => {
                     <div className="inlineDiv">
                         <label htmlFor="courses">Select Instructor</label>
                         <select id="instructors" name="courses" value={instructorTable} onChange={handleInstructorChange} className="labelledSelect">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
+                            {/*<option value="1">1</option>
+                            <option value="2">2</option>*/}
+                            {instList.length > 0 && instList.map((i) => (
+                                <option key={i} value={i.instructor_id}>
+                                    {i.instructor_id}
+                                </option>
+                            ))}
                         </select>
                     </div>
                     <div className="inlineDiv">
                         <label htmlFor="courses">Select Course</label>
                         <select id="courses" name="courses" value={courseTable} onChange={handleCourseChange} className="labelledSelect">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
+                            {/*<option value="1">1</option>
+                            <option value="2">2</option>*/}
+                            {courseList.length > 0 && courseList.map((c) => (
+                                <option key={c} value={c.courseId}>
+                                    {c.courseId}
+                                </option>
+                            ))}
                         </select>
                     </div>
                 </div>

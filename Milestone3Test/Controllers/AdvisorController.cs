@@ -85,9 +85,16 @@ namespace Milestone3Test.Controllers
         [Route("RegistrationAdvisor")]
         public IActionResult RegistrationAdvisor([FromHeader] string advisor_name, [FromHeader] string password, [FromHeader] string email, [FromHeader] string office)
         {
-            int Advisor_id = _dbContext.Procedures_AdvisorRegistration(advisor_name, password, email, office);
+            try
+            {
+                int Advisor_id = _dbContext.Procedures_AdvisorRegistration(advisor_name, password, email, office);
 
-            return StatusCode(StatusCodes.Status200OK, new { AdvisorId = Advisor_id });
+                return StatusCode(StatusCodes.Status200OK, new { AdvisorId = Advisor_id });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]
@@ -136,8 +143,15 @@ namespace Milestone3Test.Controllers
         [Route("LoginRequest")]
         public IActionResult LoginRequest([FromHeader] string username, [FromHeader] string password)
         {
-            int Success = _dbContext.AdvisorLogin(username, password);
-            return StatusCode(StatusCodes.Status200OK, new { success = Success });
+            try
+            {
+                int Success = _dbContext.AdvisorLogin(username, password);
+                return StatusCode(StatusCodes.Status200OK, new { success = Success });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]
@@ -145,6 +159,15 @@ namespace Milestone3Test.Controllers
         public IActionResult ViewAllRequests([FromHeader] string advisor_id)
         {
             var table = _dbContext.FN_Advisors_Requests(advisor_id);
+
+            return StatusCode(StatusCodes.Status200OK, table);
+        }
+
+        [HttpPost]
+        [Route("GetMajors")]
+        public IActionResult GetMajors()
+        {
+            var table = _dbContext.Procedures_GetStudentMajors();
 
             return StatusCode(StatusCodes.Status200OK, table);
         }

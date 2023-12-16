@@ -1,12 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import ReactDOM from 'react-dom'
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import CustomTable from "./CustomTable"
 
 const StudentCourses = (props) => {
     // State to manage the selected value
     const [selectedValue, setSelectedValue] = useState('api/student/ViewOptionalCourse');
     const [semester, setSemester] = useState('W23');
+    const [semList, setSemList] = useState([]);
 
     // Handler function to update the selected value
     const handleChange = (event) => {
@@ -15,6 +16,24 @@ const StudentCourses = (props) => {
     const handleSemesterChange = (event) => {
         setSemester(event.target.value);
     };
+
+    useEffect(() => {
+        fetch("api/student/GetSemCodes", {
+            method: 'POST',
+            headers: {
+
+            },
+        })
+            .then(response => response.json())
+            .then(responseJson => {
+                console.log(responseJson);
+                setSemList(responseJson);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }, []);
+
     return (
         <div>
             <div>
@@ -31,10 +50,13 @@ const StudentCourses = (props) => {
                         {/* Add more options as needed */}
                     </select>
                     <select id="semester" name="semester" value={semester} onChange={handleSemesterChange}>
-                        {/*<option value="">Select...</option>*/}
-                        <option value="W23">Winter 2023</option>
-                        <option value="W24">Winter 2024</option>
-                        {/* Add more options as needed */}
+                        {/*<option value="W23">Winter 2023</option>
+                        <option value="W24">Winter 2024</option>*/}
+                        {semList.length > 0 && semList.map((semesterOption) => (
+                            <option key={semesterOption} value={semesterOption.semester_code}>
+                                {semesterOption.semester_code}
+                            </option>
+                        ))}
                     </select>
                     {/* Display the selected value */}
                 </div>

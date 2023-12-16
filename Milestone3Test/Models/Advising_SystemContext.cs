@@ -48,7 +48,8 @@ namespace Milestone3Test.Models
         public virtual DbSet<StudentCourseFilters> StudentViewMSs { get; set; } = null!;
         public virtual DbSet<CourseId> CourseIds { get; set; } = null!;
         public virtual DbSet<StudentViewGradPlan> StudentViewGradPlans { get; set; } = null!;
-        public virtual DbSet<Name> Names { get; set; } = null!;
+        public virtual DbSet<SemCode> SemCodes { get; set; } = null!;
+        public virtual DbSet<InstructorId> InstructorIds { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1071,14 +1072,21 @@ namespace Milestone3Test.Models
                     .HasColumnName("name");
             });
 
-            modelBuilder.Entity<Name>(entity =>
+            modelBuilder.Entity<SemCode>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.Property(e => e.name)
-                     .HasMaxLength(40)
-                     .IsUnicode(false)
-                     .HasColumnName("name");
+                entity.Property(e => e.semester_code)
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("semester_code");
+            });
+
+            modelBuilder.Entity<InstructorId>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.instructor_id).HasColumnName("instructor_id");
             });
 
             OnModelCreatingPartial(modelBuilder);
@@ -1269,6 +1277,13 @@ namespace Milestone3Test.Models
             return table;
         }
 
+        public List<Student> Procedures_GetStudentMajors()
+        {
+            var table = Set<Student>().FromSqlRaw("EXEC dbo.Procedures_AdminListStudents").ToList();
+
+            return table;
+        }
+
         /* --------------------------------- [STUDENT] --------------------------------- */
 
         public void Procedures_StudentChooseInstructor(string StudentID, string instructorID, string CourseID, string current_semester_code)
@@ -1363,14 +1378,26 @@ namespace Milestone3Test.Models
             return table;
         }
 
-        /*public string GetStudentName(string studentID)
+        public List<SemCode> Procedures_GetSemesterCode()
         {
-            var result = Set<Name>().FromSqlRaw("SELECT f_name AS name FROM Student WHERE student_id = @StudentID",
-                new SqlParameter("@StudentID", studentID))
-                .FirstOrDefault();
+            var table = Set<SemCode>().FromSqlRaw("EXEC dbo.Procedures_GetSemesterCode").ToList();
 
-            return result+"";
-        }*/
+            return table;
+        }
+
+        public List<InstructorId> Procedures_GetInstructorId()
+        {
+            var table = Set<InstructorId>().FromSqlRaw("EXEC dbo.Procedures_GetInstructorId").ToList();
+
+            return table;
+        }
+
+        public List<StudentCourseFilters> Procedures_GetCourseId()
+        {
+            var table = Set<StudentCourseFilters>().FromSqlRaw("EXEC dbo.Procedures_GetCourseId").ToList();
+
+            return table;
+        }
 
         /* --------------------------------- [VIEWS] --------------------------------- */
 
@@ -1505,7 +1532,14 @@ namespace Milestone3Test.Models
                     new SqlParameter("@student_ID", student_ID),
                     installdeadline);
 
-            return (DateTime)installdeadline.Value;
+            if (installdeadline.Value != DBNull.Value)
+            {
+                return (DateTime)installdeadline.Value;
+            }
+            else
+            {
+                return DateTime.MinValue;
+            }
         }
 
         public List<StudentViewGradPlan> FN_StudentViewGP(string student_ID)

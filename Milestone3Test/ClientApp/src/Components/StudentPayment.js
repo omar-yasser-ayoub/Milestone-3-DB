@@ -29,7 +29,7 @@ const StudentPayment = (props) => {
 
     return (
         <div>
-            <h5 className="centeredH3">Your upcoming installment is due on {upcomingInsallment}</h5>
+            {upcomingInsallment != "0001-01-01T00:00:00" && <h5 className="centeredH3">Your upcoming installment is due on {upcomingInsallment}</h5>}
         </div>
     );
 };
