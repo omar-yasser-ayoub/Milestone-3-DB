@@ -4,30 +4,38 @@ import ReactDOM from 'react-dom'
 import React, { useState, useEffect } from 'react';
 import CustomButton from './CustomButton';
 import StudentPayment from "./StudentPayment";
+import { Alert, UncontrolledAlert, Button } from 'reactstrap';
+
 const StudentExam = (props) => {
 const [phone, setPhone] = useState("");
+
 /*const [name, setName] = useState("");*/
 
     const handlePhone = (e) => {
         setPhone(e.target.value)
     }
 
-    /*useEffect(() => {
-        fetch("api/student/GetName", {
-            method: 'POST',
-            headers: {
-                'StudentID': props.id
-            },
-        })
-            .then(response => response.json())
-            .then(responseJson => {
-                console.log(responseJson);
-                setName(responseJson.name);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }, []);*/
+    const [alertSuccess, setAlertSuccess] = useState(false);
+    const [alertWarning, setAlertWarning] = useState(false);
+
+    const toggleSuccess = () => {
+        if (alertSuccess) {
+            return
+        }
+        setAlertSuccess(!alertSuccess);
+    };
+    const closeAlertSuccess = () => {
+        setAlertSuccess(false);
+    }
+    const toggleWarning = () => {
+        if (alertWarning) {
+            return
+        }
+        setAlertWarning(!alertWarning);
+    };
+    const closeAlertWarning = () => {
+        setAlertWarning(false);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -38,6 +46,13 @@ const [phone, setPhone] = useState("");
                 'StudentID': props.id,
                 'mobile_number': phone
             },
+        }).then(response => {
+            if (!response.ok) {
+                toggleWarning();
+            }
+            else {
+                toggleSuccess();
+            }
         });
 
         setPhone("");
@@ -58,6 +73,12 @@ const [phone, setPhone] = useState("");
                     <input id="phoneInput" value={phone} onChange={handlePhone} type="text" class="form-control" placeholder="Type here..." />
                     <CustomButton disabled={!phone} type="submit" label="Submit" />
                 </form>
+                <UncontrolledAlert isOpen={alertSuccess} toggle={closeAlertSuccess}>
+                    Success! Your phone was added.
+                </UncontrolledAlert>
+                <UncontrolledAlert color="warning" isOpen={alertWarning} toggle={closeAlertWarning}>
+                    Request failed. Please check that all of your data is correct.
+                </UncontrolledAlert>
             </div>
             <StudentPayment id={props.id} />
         </div>

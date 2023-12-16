@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import ReactDOM from 'react-dom'
 import React, { useState } from 'react';
 import CustomButton from "./CustomButton";
+import { Alert, UncontrolledAlert, Button } from 'reactstrap';
 
 const StudentRequest = (props) => {
     const [selectedValue, setValue] = useState("api/student/SendingCourseRequest")
@@ -9,6 +10,29 @@ const StudentRequest = (props) => {
     const [comment, setComment] = useState("")
     const [formTitle, setFormTitle] = useState("Course")
     const [formPart, setFormPart] = useState("Course ID")
+
+    const [alertSuccess, setAlertSuccess] = useState(false);
+    const [alertWarning, setAlertWarning] = useState(false);
+
+    const toggleSuccess = () => {
+        if (alertSuccess) {
+            return
+        }
+        setAlertSuccess(!alertSuccess);
+    };
+    const closeAlertSuccess = () => {
+        setAlertSuccess(false);
+    }
+    const toggleWarning = () => {
+        if (alertWarning) {
+            return
+        }
+        setAlertWarning(!alertWarning);
+    };
+    const closeAlertWarning = () => {
+        setAlertWarning(false);
+    }
+
 
     const handleChange = (e) => {
         setValue(e.target.value);
@@ -35,6 +59,13 @@ const StudentRequest = (props) => {
                 'type': formTitle,
                 'comment': comment
             },
+        }).then(response => {
+            if (!response.ok) {
+                toggleWarning();
+            }
+            else {
+                toggleSuccess();
+            }
         });
 
         setCourseORch("")
@@ -68,6 +99,12 @@ const StudentRequest = (props) => {
                     <input value={comment} onChange={handlecommentChange} type="text" class="form-control" placeholder="Type here.." />
                     <CustomButton disabled={!courseORch || !comment} type="submit" label="Submit" />
                 </form>
+                <UncontrolledAlert isOpen={alertSuccess} toggle={closeAlertSuccess}>
+                    Success! Your Request was submitted.
+                </UncontrolledAlert>
+                <UncontrolledAlert color="warning" isOpen={alertWarning} toggle={closeAlertWarning}>
+                    Request failed. Please check that all of your data is correct.
+                </UncontrolledAlert>
             </div>
         </div>
     );

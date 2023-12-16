@@ -20,33 +20,62 @@ namespace Milestone3Test.Controllers
         [Route("ChooseInstructor")]
         public IActionResult ChooseInstructor([FromHeader] string StudentID, [FromHeader] string instructorID, [FromHeader] string CourseID, [FromHeader] string current_semester_code)
         {
-            _dbContext.Procedures_StudentChooseInstructor(StudentID, instructorID, CourseID, current_semester_code);
+            try
+            {
+                _dbContext.Procedures_StudentChooseInstructor(StudentID, instructorID, CourseID, current_semester_code);
 
-            return StatusCode(StatusCodes.Status200OK);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]
         [Route("AddMobile")]
         public IActionResult AddMobile([FromHeader] string StudentID, [FromHeader] string mobile_number)
         {
-            _dbContext.Procedures_StudentAddMobile(StudentID, mobile_number);
-            return StatusCode(StatusCodes.Status200OK);
+
+            try
+            {
+                _dbContext.Procedures_StudentAddMobile(StudentID, mobile_number);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]
         [Route("RegisterFirstMakeup")]
         public IActionResult RegisterFirstMakeup([FromHeader] string StudentID, [FromHeader] string courseID, [FromHeader] string studentCurr_sem)
         {
-            _dbContext.Procedures_StudentRegisterFirstMakeup(StudentID, courseID, studentCurr_sem);
-            return StatusCode(StatusCodes.Status200OK);
+            try
+            {
+                _dbContext.Procedures_StudentRegisterFirstMakeup(StudentID, courseID, studentCurr_sem);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]
         [Route("RegisterSecondMakeup")]
         public IActionResult RegisterSecondMakeup([FromHeader] string StudentID, [FromHeader] string courseID, [FromHeader] string studentCurr_sem)
         {
-            _dbContext.Procedures_StudentRegisterSecondMakeup(StudentID, courseID, studentCurr_sem);
-            return StatusCode(StatusCodes.Status200OK);
+            try
+            {
+                _dbContext.Procedures_StudentRegisterSecondMakeup(StudentID, courseID, studentCurr_sem);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]
@@ -61,16 +90,30 @@ namespace Milestone3Test.Controllers
         [Route("SendingCHRequest")]
         public IActionResult SendingCHRequest([FromHeader] string StudentID, [FromHeader] string creditCourse, [FromHeader] string type, [FromHeader] string comment)
         {
-            _dbContext.Procedures_StudentSendingCHRequest(StudentID, creditCourse, type, comment);
-            return StatusCode(StatusCodes.Status200OK);
+            try
+            {
+                _dbContext.Procedures_StudentSendingCHRequest(StudentID, creditCourse, type, comment);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]
         [Route("SendingCourseRequest")]
         public IActionResult SendingCourseRequest([FromHeader] string StudentID, [FromHeader] string creditCourse, [FromHeader] string type, [FromHeader] string comment)
         {
-            _dbContext.Procedures_StudentSendingCourseRequest(creditCourse, StudentID, type, comment);
-            return StatusCode(StatusCodes.Status200OK);
+            try
+            {
+                _dbContext.Procedures_StudentSendingCourseRequest(creditCourse, StudentID, type, comment);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
         }
 
         [HttpPost]

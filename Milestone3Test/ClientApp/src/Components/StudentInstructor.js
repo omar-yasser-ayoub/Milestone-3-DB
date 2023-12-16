@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import React, { useState, useEffect } from 'react';
 import CustomTable from './CustomTable';
 import CustomButton from './CustomButton';
+import { Alert, UncontrolledAlert, Button } from 'reactstrap';
 
 const StudentPayment = (props) => {
 
@@ -21,9 +22,30 @@ const StudentPayment = (props) => {
     const handleCourseChange = (e) => {
         setCourseTable(e.target.value);
     }
+    const [alertSuccess, setAlertSuccess] = useState(false);
+    const [alertWarning, setAlertWarning] = useState(false);
 
+    const toggleSuccess = () => {
+        if (alertSuccess) {
+            return
+        }
+        setAlertSuccess(!alertSuccess);
+    };
+    const closeAlertSuccess = () => {
+        setAlertSuccess(false);
+    }
+    const toggleWarning = () => {
+        if (alertWarning) {
+            return
+        }
+        setAlertWarning(!alertWarning);
+    };
+    const closeAlertWarning = () => {
+        setAlertWarning(false);
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
+
 
 
         fetch("api/student/ChooseInstructor", {
@@ -34,6 +56,13 @@ const StudentPayment = (props) => {
                 'CourseID': courseForm,
                 'current_semester_code': semester
             },
+        }).then(response => {
+            if (!response.ok) {
+                toggleWarning();
+            }
+            else {
+                toggleSuccess();
+            }
         });
 
         setInstructorForm("")
@@ -68,6 +97,12 @@ const StudentPayment = (props) => {
                         <input value={semester} onChange={handleSemesterForm} type="text" class="form-control" placeholder="Type here..." />
                         <CustomButton disabled={!instructorForm || !courseForm || !semester} type="submit" label="Submit" />
                     </form>
+                    <UncontrolledAlert isOpen={alertSuccess} toggle={closeAlertSuccess}>
+                        Success! Your Request was submitted.
+                    </UncontrolledAlert>
+                    <UncontrolledAlert color="warning" isOpen={alertWarning} toggle={closeAlertWarning}>
+                        Request failed. Please check that all of your data is correct.
+                    </UncontrolledAlert>
                 </div>
 
                 <div className="selection">
