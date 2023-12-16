@@ -4,12 +4,42 @@ import ReactDOM from 'react-dom'
 import React, { useState } from 'react';
 import CustomTable from './CustomTable'
 import CustomButton from './CustomButton'
+import { Alert, UncontrolledAlert, Button } from 'reactstrap';
+
 const AdminCourses = (props) => {
     const [major, setmajor] = useState("")
     const [semester, setsemester] = useState("")
     const [credithours, setcredithours] = useState("")
     const [name, setname] = useState("")
     const [isoffered, setisoffered] = useState("")
+
+    const [alertSuccess, setAlertSuccess] = useState(false);
+    const [alertWarning, setAlertWarning] = useState(false);
+
+    const toggleSuccess = () => {
+        if (alertSuccess) {
+            return
+        }
+        if (alertWarning) {
+            closeAlertWarning();
+        }
+        setAlertSuccess(!alertSuccess);
+    };
+    const closeAlertSuccess = () => {
+        setAlertSuccess(false);
+    }
+    const toggleWarning = () => {
+        if (alertWarning) {
+            return
+        }
+        if (alertSuccess) {
+            closeAlertSuccess();
+        }
+        setAlertWarning(!alertWarning);
+    };
+    const closeAlertWarning = () => {
+        setAlertWarning(false);
+    }
 
 
     const handleSubmit = (e) => {
@@ -25,6 +55,13 @@ const AdminCourses = (props) => {
                 'name': name,
                 'is_offered': isoffered
             },
+        }).then(response => {
+            if (!response.ok) {
+                toggleWarning();
+            }
+            else {
+                toggleSuccess();
+            }
         });
 
         setmajor("")
@@ -73,6 +110,12 @@ const AdminCourses = (props) => {
                     <input value={isoffered} onChange={handleisoffered} type="text" class="form-control" placeholder="Type here..." />
                     <CustomButton disabled={!major || !semester || !credithours || !name || !isoffered} type="submit" label="Submit" />
                 </form>
+                <UncontrolledAlert isOpen={alertSuccess} toggle={closeAlertSuccess}>
+                    Success! Your Request was submitted.
+                </UncontrolledAlert>
+                <UncontrolledAlert color="warning" isOpen={alertWarning} toggle={closeAlertWarning}>
+                    Request failed. Please check that all of your data is correct.
+                </UncontrolledAlert>
             </div>
         </div>
 

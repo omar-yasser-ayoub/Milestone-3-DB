@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import React, { useState } from 'react';
 import CustomTable from './CustomTable'
 import CustomButton from './CustomButton'
+import { Alert, UncontrolledAlert, Button } from 'reactstrap';
 
 const AdminStudents = (props) => {
     const [course, setCourse] = useState("")
@@ -12,6 +13,60 @@ const AdminStudents = (props) => {
     const [semester, setSemester] = useState("")
     const [studentID, setStudentID] = useState("")
     const [advisorID, setAdvisorID] = useState("")
+    const [alertSuccess, setAlertSuccess] = useState(false);
+    const [alertWarning, setAlertWarning] = useState(false);
+    const [alertSuccess1, setAlertSuccess1] = useState(false);
+    const [alertWarning1, setAlertWarning1] = useState(false);
+
+    const toggleSuccess = () => {
+        if (alertSuccess) {
+            return
+        }
+        if (alertWarning) {
+            closeAlertWarning();
+        }
+        setAlertSuccess(!alertSuccess);
+    };
+    const closeAlertSuccess = () => {
+        setAlertSuccess(false);
+    }
+    const toggleWarning = () => {
+        if (alertWarning) {
+            return
+        }
+        if (alertSuccess) {
+            closeAlertSuccess();
+        }
+        setAlertWarning(!alertWarning);
+    };
+    const closeAlertWarning = () => {
+        setAlertWarning(false);
+    }
+
+    const toggleSuccess1 = () => {
+        if (alertSuccess1) {
+            return
+        }
+        if (alertWarning1) {
+            closeAlertWarning1();
+        }
+        setAlertSuccess1(!alertSuccess1);
+    };
+    const closeAlertSuccess1 = () => {
+        setAlertSuccess1(false);
+    }
+    const toggleWarning1 = () => {
+        if (alertWarning1) {
+            return
+        }
+        if (alertSuccess1) {
+            closeAlertSuccess1();
+        }
+        setAlertWarning1(!alertWarning1);
+    };
+    const closeAlertWarning1 = () => {
+        setAlertWarning1(false);
+    }
 
 
     const handleSubmit = (e) => {
@@ -26,6 +81,13 @@ const AdminStudents = (props) => {
                 'studentID': student,
                 'semester_code': semester
             },
+        }).then(response => {
+            if (!response.ok) {
+                toggleWarning1();
+            }
+            else {
+                toggleSuccess1();
+            }
         });
 
         setCourse("")
@@ -45,6 +107,13 @@ const AdminStudents = (props) => {
                 'studentID': studentID,
                 'advisorID': advisorID,
             },
+        }).then(response => {
+            if (!response.ok) {
+                toggleWarning();
+            }
+            else {
+                toggleSuccess();
+            }
         });
 
         setCourse("")
@@ -100,6 +169,12 @@ const AdminStudents = (props) => {
                             <input value={semester} onChange={handleSemester} type="text" class="form-control" placeholder="Type here..." />
                             <CustomButton disabled={!course || !semester || !instructor || !student } type="submit" label="Submit" />
                         </form>
+                        <UncontrolledAlert isOpen={alertSuccess1} toggle={closeAlertSuccess1}>
+                            Success! Your Request was submitted.
+                        </UncontrolledAlert>
+                        <UncontrolledAlert color="warning" isOpen={alertWarning1} toggle={closeAlertWarning1}>
+                            Request failed. Please check that all of your data is correct.
+                        </UncontrolledAlert>
                     </div>
                 </div>
                 <div className="inlineDiv">
@@ -113,6 +188,12 @@ const AdminStudents = (props) => {
                     
                             <CustomButton disabled={!studentID || !advisorID} type="submit" label="Submit" />
                         </form>
+                        <UncontrolledAlert isOpen={alertSuccess} toggle={closeAlertSuccess}>
+                            Success! Your Request was submitted.
+                        </UncontrolledAlert>
+                        <UncontrolledAlert color="warning" isOpen={alertWarning} toggle={closeAlertWarning}>
+                            Request failed. Please check that all of your data is correct.
+                        </UncontrolledAlert>
                     </div>
                 </div>
             </div>
