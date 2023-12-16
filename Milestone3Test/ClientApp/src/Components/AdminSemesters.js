@@ -43,18 +43,20 @@ const AdminSemesters = (props) => {
     }
     return (
         <div>
-            <h1>All Semesters</h1>
+            <h3 className="centeredH3">All Semesters</h3>
             <CustomTable apistring="api/view/SemesterOfferedCourses" />
-            <form onSubmit={handleSubmit}>
-                <h1> Add A Semester</h1>
-                <h5>Start Date</h5>
-                <input value={startdate} onChange={handleStart} type="text" />
-                <h5>End Date</h5>
-                <input value={enddate} onChange={handleEnd} type="text" />
-                <h5>Semester Code</h5>
-                <input value={semestercode} onChange={handleSemester} type="text" />
-                <CustomButton disabled={!startdate || !enddate || !semestercode} type="submit" label="Submit" />
-            </form>
+            <div className="box">
+                <form onSubmit={handleSubmit}>
+                    <h3> Add A Semester</h3>
+                    <h6>Start Date</h6>
+                    <input value={startdate} onChange={handleStart} type="text" class="form-control" placeholder="Type here..." />
+                    <h6>End Date</h6>
+                    <input value={enddate} onChange={handleEnd} type="text" class="form-control" placeholder="Type here..." />
+                    <h6>Semester Code</h6>
+                    <input value={semestercode} onChange={handleSemester} type="text" class="form-control" placeholder="Type here..." />
+                    <CustomButton disabled={!startdate || !enddate || !semestercode} type="submit" label="Submit" />
+                </form>
+            </div>
         </div>
     );
 };

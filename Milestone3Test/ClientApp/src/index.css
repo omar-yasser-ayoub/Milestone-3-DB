@@ -10,6 +10,7 @@
 body {
     background-color: #DDDDDD;
     background-image: url('StudentBG.png');
+    background-attachment: fixed;
 }
 
 nav{
@@ -120,8 +121,15 @@ label {
 
 .inlineDiv {
     width: 50%;
+    max-width: max-content;
     float: left;
     padding: 20px;
+}
+
+.centreDiv {
+    max-width: max-content;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .inlineDivBtn {
@@ -145,4 +153,12 @@ label {
 .logsign {
     margin-top: 0px;
     margin-bottom: 30px;
+}
+
+.bigTable {
+    overflow-y: auto;
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
 }

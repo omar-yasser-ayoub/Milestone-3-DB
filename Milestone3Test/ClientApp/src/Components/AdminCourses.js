@@ -56,22 +56,24 @@ const AdminCourses = (props) => {
     }
     return (
         <div>
-            <h1>All Courses</h1>
+            <h3 className="centeredH3">All Courses</h3>
             <CustomTable apistring="api/view/CoursesSlotsInstructor" />
-            <form onSubmit={handleSubmit}>
-                <h1> Add A Course</h1>
-                <h5>Major</h5>
-                <input value={major} onChange={handleMajor} type="text" />
-                <h5>Semester</h5>
-                <input value={semester} onChange={handleSemester} type="text" />
-                <h5>Credit Hours</h5>
-                <input value={credithours} onChange={handleCredits} type="text" />
-                <h5>Course Name</h5>
-                <input value={name} onChange={handleName} type="text" />
-                <h5>Is Offered</h5>
-                <input value={isoffered} onChange={handleisoffered} type="text" />
-                <CustomButton disabled={!major || !semester || !credithours || !name || !isoffered} type="submit" label="Submit" />
-            </form>
+            <div className="box">
+                <form onSubmit={handleSubmit}>
+                    <h3> Add A Course</h3>
+                    <h6>Major</h6>
+                    <input value={major} onChange={handleMajor} type="text" class="form-control" placeholder="Type here..." />
+                    <h6>Semester</h6>
+                    <input value={semester} onChange={handleSemester} type="text" class="form-control" placeholder="Type here..." />
+                    <h6>Credit Hours</h6>
+                    <input value={credithours} onChange={handleCredits} type="text" class="form-control" placeholder="Type here..." />
+                    <h6>Course Name</h6>
+                    <input value={name} onChange={handleName} type="text" class="form-control" placeholder="Type here..." />
+                    <h6>Is Offered</h6>
+                    <input value={isoffered} onChange={handleisoffered} type="text" class="form-control" placeholder="Type here..." />
+                    <CustomButton disabled={!major || !semester || !credithours || !name || !isoffered} type="submit" label="Submit" />
+                </form>
+            </div>
         </div>
 
     );

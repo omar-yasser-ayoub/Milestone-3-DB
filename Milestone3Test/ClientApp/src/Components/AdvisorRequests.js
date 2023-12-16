@@ -94,7 +94,8 @@ const AdvisorRequests = (props) => {
     return (
         <div>
             <div className="selection">
-                <select id="courses" name="courses" value={major} onChange={handleChange}>
+                <label htmlFor="courses">Select request type</label>
+                <select id="courses" name="courses" value={major} onChange={handleChange} className="labelledSelect">
                     <option value="">All Requests</option>
                     <option value="CS">Pending</option>
                     {/* Add more options as needed */}
