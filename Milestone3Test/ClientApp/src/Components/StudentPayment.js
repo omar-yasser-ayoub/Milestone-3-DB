@@ -29,7 +29,7 @@ const StudentPayment = (props) => {
 
     return (
         <div>
-            <h5 id="nextInstallment">Your upcoming installment is due on {upcomingInsallment}</h5>
+            <h5 className="centeredH3">Your upcoming installment is due on {upcomingInsallment}</h5>
         </div>
     );
 };

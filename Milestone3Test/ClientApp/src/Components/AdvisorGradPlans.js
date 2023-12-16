@@ -94,41 +94,42 @@ const AdvisorGradPlans = (props) => {
     
     return (
         <div>
-            <select id="courses" name="courses" value={apistring} onChange={handleChange}>
-                <option value="">Select...</option>
-                <option value="api/advisor/CreateGP">Insert Graduation Plan</option>
-                <option value="api/advisor/AddCourseGP">Insert Courses</option>
-                <option value="api/advisor/UpdateGP">Update Graduation Date</option>
-                <option value="api/advisor/DeleteFromGP">Delete Courses</option>
-                {/* Add more options as needed */}
-            </select>
+            <div className="selection">
+                <select id="courses" name="courses" value={apistring} onChange={handleChange}>
+                    <option value="api/advisor/CreateGP">Insert Graduation Plan</option>
+                    <option value="api/advisor/AddCourseGP">Insert Courses</option>
+                    <option value="api/advisor/UpdateGP">Update Graduation Date</option>
+                    <option value="api/advisor/DeleteFromGP">Delete Courses</option>
+                    {/* Add more options as needed */}
+                </select>
+            </div>
             {apistring === "api/advisor/CreateGP" ? (
-                <div>
+                <div className="box">
                     <form onSubmit={handleCreateGP}>
-                        <h1>Create Graduation Plan </h1>
-                        <h5>Student ID</h5>
-                        <input value={one} onChange={handleOne} type="text" />
-                        <h5>Semester Credit Hours</h5>
-                        <input value={two} onChange={handleTwo} type="text" />
-                        <h5>Excpected Graduation Date</h5>
-                        <input value={three} onChange={handleThree} type="text" />
-                        <h5>Semester Code</h5>
-                        <input value={four} onChange={handleFour} type="text" />
+                        <h3>Create Graduation Plan </h3>
+                        <h6>Student ID</h6>
+                        <input value={one} onChange={handleOne} type="text" class="form-control" placeholder="Type here..." />
+                        <h6>Semester Credit Hours</h6>
+                        <input value={two} onChange={handleTwo} type="text" class="form-control" placeholder="Type here..." />
+                        <h6>Excpected Graduation Date</h6>
+                        <input value={three} onChange={handleThree} type="text" class="form-control" placeholder="Type here..." />
+                        <h6>Semester Code</h6>
+                        <input value={four} onChange={handleFour} type="text" class="form-control" placeholder="Type here..." />
                         <CustomButton disabled={!one || !two || !three || !four} type="submit" label="Submit" />
                         
                     </form>
                 </div>
             ) : null}
             {apistring === "api/advisor/AddCourseGP" ? (
-                <div>
+                <div className="box">
                     <form onSubmit={handleAddCourseGP}>
-                        <h1> Add Course To Graduation Plan</h1>
-                        <h5>Student ID</h5>
-                        <input value={one} onChange={handleOne} type="text" />
-                        <h5>Semester Code</h5>
-                        <input value={two} onChange={handleTwo} type="text" />
-                        <h5>Course Name</h5>
-                        <input value={three} onChange={handleThree} type="text" />
+                        <h3> Add Course To Graduation Plan</h3>
+                        <h6>Student ID</h6>
+                        <input value={one} onChange={handleOne} type="text" class="form-control" placeholder="Type here..." />
+                        <h6>Semester Code</h6>
+                        <input value={two} onChange={handleTwo} type="text" class="form-control" placeholder="Type here..." />
+                        <h6>Course Name</h6>
+                        <input value={three} onChange={handleThree} type="text" class="form-control" placeholder="Type here..." />
                         
                         <CustomButton disabled={!one || !two || !three} type="submit" label="Submit" />
                         
@@ -136,29 +137,29 @@ const AdvisorGradPlans = (props) => {
                 </div>
             ) : null}
             {apistring === "api/advisor/UpdateGP" ? (
-                <div>
+                <div className="box">
                     <form onSubmit={handleAddUpdateGP}>
-                        <h1> Update Graduation Plan Date</h1>
-                        <h5>Student ID</h5>
-                        <input value={one} onChange={handleOne} type="text" />
-                        <h5>Excpected Graduation Date</h5>
-                        <input value={two} onChange={handleTwo} type="text" />
+                        <h3> Update Graduation Plan Date</h3>
+                        <h6>Student ID</h6>
+                        <input value={one} onChange={handleOne} type="text" class="form-control" placeholder="Type here..." />
+                        <h6>Excpected Graduation Date</h6>
+                        <input value={two} onChange={handleTwo} type="text" class="form-control" placeholder="Type here..." />
                  
-                        <CustomButton disabled={!one || !two } type="submit" label="Submit" />
+                        <CustomButton disabled={!one || !two} type="submit" label="Submit" class="form-control" placeholder="Type here..." />
                         
                     </form>
                 </div>
             ) : null}
             {apistring === "api/advisor/DeleteFromGP" ? (
-                <div>
+                <div className="box">
                     <form onSubmit={handleDeleteFromGP}>
-                        <h1> Delete Course From Graduation Plan</h1>
-                        <h5>Student ID</h5>
-                        <input value={one} onChange={handleOne} type="text" />
-                        <h5>Semester Code</h5>
-                        <input value={two} onChange={handleTwo} type="text" />
-                        <h5>Course ID</h5>
-                        <input value={three} onChange={handleThree} type="text" />
+                        <h3> Delete Course From Graduation Plan</h3>
+                        <h6>Student ID</h6>
+                        <input value={one} onChange={handleOne} type="text" class="form-control" placeholder="Type here..." />
+                        <h6>Semester Code</h6>
+                        <input value={two} onChange={handleTwo} type="text" class="form-control" placeholder="Type here..." />
+                        <h6>Course ID</h6>
+                        <input value={three} onChange={handleThree} type="text" class="form-control" placeholder="Type here..." />
                         
                         <CustomButton disabled={!one || !two || !three} type="submit" label="Submit" /> 
                     </form>

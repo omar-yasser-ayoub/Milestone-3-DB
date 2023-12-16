@@ -119,13 +119,11 @@ const App = () => {
                     <BrowserRouter>
                         <div className="App">
                             <nav style={{ display: 'flex', backgroundColor: '#3498db', padding: '10px' }}>
-                                <Link to="" style={navItemStyle}>Home</Link>
                                 <Link to="/advisor/students" style={navItemStyle}>Students</Link>
                                 <Link to="/advisor/gradplans" style={navItemStyle}>Graduation Plans</Link>
                                 <Link to="/advisor/request" style={navItemStyle}>Requests</Link>
                             </nav>
                             <Routes>
-                                <Route path="" element={<AdvisorHome id={id} />} />
                                 <Route path="/advisor/students" element={<AdvisorStudents id={id} />} />
                                 <Route path="/advisor/gradplans" element={<AdvisorGradPlans id={id} />} />
                                 <Route path="/advisor/request" element={<AdvisorRequests id={id} />} />
