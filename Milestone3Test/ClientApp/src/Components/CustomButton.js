@@ -6,11 +6,14 @@ import React from 'react';
 const Button = (props) => {
     return (
         <div className="btnContainer">
+        <div className="btnContainer">
             <button
                 type={props.type}
                 disabled={props.disabled}
                 className="customBtn"
-                onClick={props.onClick}>
+                onClick={props.onClick}
+                
+            >
                 {props.label}
             </button>
         </div>
