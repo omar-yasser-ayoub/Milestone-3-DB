@@ -91,6 +91,10 @@ const LoginForm = (props) => {
 		}
 	}
 
+	useEffect(() => {
+		setTest("");
+	}, [id, pass, isStudent]);
+
 	return (
 
 		<div className="box">
@@ -107,7 +111,7 @@ const LoginForm = (props) => {
 				<h6>Password</h6>
 				<input value={pass} onChange={handlePassChange} type="password" class="form-control" placeholder="Type here..." />
 				<CustomButton disabled={!id || !pass} type="submit" label="Log In" />
-				<h1>{test}</h1>
+				<h5 className="centeredH3">{test}</h5>
 			</form>
 		</div>
 	);

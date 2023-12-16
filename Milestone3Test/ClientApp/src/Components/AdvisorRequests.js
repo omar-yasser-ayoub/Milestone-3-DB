@@ -55,21 +55,24 @@ const AdvisorRequests = (props) => {
 
     return (
         <div>
-            <h1>{title} Requests</h1>
-            <select id="courses" name="courses" value={major} onChange={handleChange}>
-                <option value="">All Requests</option>
-                <option value="CS">Pending</option>
-                {/* Add more options as needed */}
-            </select>
+            <div className="selection">
+                <select id="courses" name="courses" value={major} onChange={handleChange}>
+                    <option value="">All Requests</option>
+                    <option value="CS">Pending</option>
+                    {/* Add more options as needed */}
+                </select>
+            </div>
             <CustomTable apistring={apistring} advisorid={props.id} />
-            <form onSubmit={handleSubmit}>
-                <h1> Request Processing</h1>
-                <h5>Request ID</h5>
-                <input value={reqid} onChange={handleReqidChange} type="text" />
-                <h5>Current Semester Code</h5>
-                <input value={semester} onChange={handlecommentChange} type="text" />
-                <CustomButton disabled={!reqid || !semester} type="submit" label="Submit" />
-            </form>
+            <div className="box">
+                <form onSubmit={handleSubmit}>
+                    <h3> Request Processing</h3>
+                    <h6>Request ID</h6>
+                    <input value={reqid} onChange={handleReqidChange} type="text" class="form-control" placeholder="Type here..." />
+                    <h6>Current Semester Code</h6>
+                    <input value={semester} onChange={handlecommentChange} type="text" class="form-control" placeholder="Type here..." />
+                    <CustomButton disabled={!reqid || !semester} type="submit" label="Submit" />
+                </form>
+            </div>
         </div>
         
     );

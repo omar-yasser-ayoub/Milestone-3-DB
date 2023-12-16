@@ -94,8 +94,9 @@ tr {
     padding-top: 30px;
 }
 
-#nextInstallment {
+.centeredH3 {
     text-align: center;
+    padding-top: 20px;
 }
 
 h6 {

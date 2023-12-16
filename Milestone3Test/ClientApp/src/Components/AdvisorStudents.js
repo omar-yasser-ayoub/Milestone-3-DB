@@ -7,32 +7,33 @@ const AdvisorStudents = (props) => {
     const [major, setMajor] = useState("")
     const [apistring, setApistring] = useState("api/advisor/ViewAllAssignedStudents")
 
-    useEffect(() => {
-        if (major != "") {
-            setApistring("api/advisor/ViewAssignedStudents")
-        }
-        else {
-            setApistring("api/advisor/ViewAllAssignedStudents")
-        }
-    }, [major]);
-
     const handleChange = (event) => {
+        if (major !== event.target.value) {
+            if (event.target.value === "") {
+                setApistring("api/advisor/ViewAllAssignedStudents")
+            }
+            else {
+                setApistring("api/advisor/ViewAssignedStudents")
+            }
+        }
         setMajor(event.target.value);
     };
 
 
     return (
         <div>
-            <h1>Assigned Students to Advisor {props.id}</h1>
-            <select id="courses" name="courses" value={major} onChange={handleChange}>
-                <option value="">Select...</option>
-                <option value="CS">CSEN</option>
-                <option value="IET">IET</option>
-                <option value="DMET">DMET</option>
-                <option value="Mechatronics">Mechatronics</option>
-                <option value="Engineering Chemistry">Chemical Engineering</option>
-                {/* Add more options as needed */}
-            </select>
+            <h3 className="centeredH3">Your Assigned Students</h3>
+            <div className="selection">
+                <select id="courses" name="courses" value={major} onChange={handleChange}>
+                    <option value="">Select...</option>
+                    <option value="CS">CSEN</option>
+                    <option value="IET">IET</option>
+                    <option value="DMET">DMET</option>
+                    <option value="Mechatronics">Mechatronics</option>
+                    <option value="Engineering Chemistry">Chemical Engineering</option>
+                    {/* Add more options as needed */}
+                </select>
+            </div>
             <CustomTable apistring = {apistring} advisorid={props.id} major={major} />
         </div>
     );
