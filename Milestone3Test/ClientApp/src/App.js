@@ -44,21 +44,17 @@ const App = () => {
         setLogIn(!logIn);
     }
 
-    const activeNavStyle = {
-        color: '#fff',
-        display: 'flex',
-        padding: '10px',
-        textdecoration: 'underline'
-    };
-
     if (!isLoggedIn) {
         return (
-
             <div className="container">
                 {logIn && <LoginForm setLoggedIn={setLoggedIn} setStudentLoggedIn={setStudentLoggedIn} setAdminLoggedIn={setAdminLoggedIn} setId={setId} />}
-                {logIn && <CustomButton label="Sign Up" onClick={handleLogInChange} />}
+                {logIn && <div className="logsign">
+                    <CustomButton label="Sign Up" onClick={handleLogInChange} />
+                </div>}
                 {!logIn && <SignUpForm setId={setId} />}
-                {!logIn && <CustomButton label="Log In" onClick={handleLogInChange} />}
+                {!logIn && <div className="logsign">
+                    <CustomButton label="Log In" onClick={handleLogInChange} />
+                </div>}
             </div>
         )
     }

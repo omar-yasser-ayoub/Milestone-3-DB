@@ -131,57 +131,57 @@ const SignUpForm = (props) => {
     return (
         <div className="landing">
             <div className="box">
-                <div>
+                <div className="inlineDiv">
                     <CustomButton label="Student" disabled={isStudent}
                         onClick={handleTypeChange} />
-
+                </div>
+                <div className="inlineDiv">
                     <CustomButton label="Advisor" disabled={!isStudent}
                         onClick={handleTypeChange} />
                 </div>
 
                 <form onSubmit={handleSubmit}>
 
-                    <h1> {title} Sign Up Form</h1>
+                    <h3> {title} Sign Up Form</h3>
 
-                    {isStudent && <h5>First Name</h5>}
-                    {isStudent && <input value={fName} onChange={handleFNameChange} type="text" />}
+                    {isStudent && <h6>First Name</h6>}
+                    {isStudent && <input value={fName} onChange={handleFNameChange} type="text" class="form-control" placeholder="Type here..." />}
 
-                    {isStudent && <h5>Last Name</h5>}
-                    {isStudent && <input value={lName} onChange={handleLNameChange} type="text" />}
+                    {isStudent && <h6>Last Name</h6>}
+                    {isStudent && <input value={lName} onChange={handleLNameChange} type="text" class="form-control" placeholder="Type here..." />}
 
-                    {!isStudent && <h5>Name</h5>}
-                    {!isStudent && <input value={aName} onChange={handleANameChange} type="text" />}
+                    {!isStudent && <h6>Name</h6>}
+                    {!isStudent && <input value={aName} onChange={handleANameChange} type="text" class="form-control" placeholder="Type here..." />}
 
-                    <h5> Password </h5>
-                    <input value={password} onChange={handlePasswordChange} type="text" />
+                    <h6> Password </h6>
+                    <input value={password} onChange={handlePasswordChange} type="password" class="form-control" placeholder="Type here..." />
 
-                    {isStudent && <h5> Faculty </h5>}
-                    {isStudent && <input value={faculty} onChange={handleFacultyChange} type="text" />}
+                    {isStudent && <h6> Faculty </h6>}
+                    {isStudent && <input value={faculty} onChange={handleFacultyChange} type="text" class="form-control" placeholder="Type here..." />}
 
-                    <h5> Email </h5>
-                    <input value={email} onChange={handleEmailChange} type="text" />
+                    <h6> Email </h6>
+                    <input value={email} onChange={handleEmailChange} type="text" class="form-control" placeholder="Type here..." />
 
-                    {isStudent && <h5> Major </h5>}
-                    {isStudent && <input value={major} onChange={handleMajorChange} type="text" />}
+                    {isStudent && <h6> Major </h6>}
+                    {isStudent && <input value={major} onChange={handleMajorChange} type="text" class="form-control" placeholder="Type here..." />}
 
-                    {isStudent && <h5> Semester </h5>}
-                    {isStudent && <input value={semester} onChange={handleSemesterChange} type="text" />}
+                    {isStudent && <h6> Semester </h6>}
+                    {isStudent && <input value={semester} onChange={handleSemesterChange} type="text" class="form-control" placeholder="Type here..." />}
 
-                    {!isStudent && <h5> Office </h5>}
-                    {!isStudent && <input value={office} onChange={handleOfficeChange} type="text" />}
+                    {!isStudent && <h6> Office </h6>}
+                    {!isStudent && <input value={office} onChange={handleOfficeChange} type="text" class="form-control" placeholder="Type here..." />}
 
                     {isStudent && <CustomButton
                         disabled={!fName || !lName || !password || !faculty || !email || !major || !semester}
-                        type="submit" label="Submit" />}
+                        type="submit" label="Sign Up"/>}
 
                     {!isStudent && <CustomButton
                         disabled={!aName || !password || !email || !office}
-                        type="submit" label="Submit" />}
+                        type="submit" label="Sign Up"/>}
 
                     <h1>{test}</h1>
 
                 </form>
-
             </div>
         </div>
     );

@@ -94,15 +94,19 @@ const LoginForm = (props) => {
 	return (
 
 		<div className="box">
-			<CustomButton label="Student" disabled={isStudent} onClick={handleTypeChange} />
-			<CustomButton label="Advisor" disabled={!isStudent} onClick={handleTypeChange} />
+			<div className="inlineDivBtn">
+				<CustomButton label="Student" disabled={isStudent} onClick={handleTypeChange} />
+			</div>
+			<div className="inlineDivBtn">
+				<CustomButton label="Advisor" disabled={!isStudent} onClick={handleTypeChange} />
+			</div>
 			<form onSubmit={handleSubmit}>
-				<h1> {title} Login Form</h1>
-				<h5>Username</h5>
-				<input value={id} onChange={handleIdChange} type="text" />
-				<h5>Password</h5>
-				<input value={pass} onChange={handlePassChange} type="text" />
-				<CustomButton disabled={!id || !pass} type="submit" label="Submit" />
+				<h3> {title} Login Form</h3>
+				<h6>Username</h6>
+				<input value={id} onChange={handleIdChange} type="text" class="form-control" placeholder="Type here..." />
+				<h6>Password</h6>
+				<input value={pass} onChange={handlePassChange} type="password" class="form-control" placeholder="Type here..." />
+				<CustomButton disabled={!id || !pass} type="submit" label="Log In" />
 				<h1>{test}</h1>
 			</form>
 		</div>
